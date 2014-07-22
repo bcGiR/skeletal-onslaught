@@ -1,0 +1,13 @@
+require_relative 'equippable'
+require_relative '../modifier'
+
+class IronSword < Equippable
+
+	def initialize
+		super("Iron Sword",
+		      20,
+		      "common",
+		      [ Modifier.new("IronSwordAtt",
+				     "att
+
+end

@@ -1,0 +1,10 @@
+class Item
+
+	attr_accessor :name, :value, :rarity
+
+	def initialize(name, value, rarity)
+		@name = name
+		@value = value
+		@rarity = rarity
+	end
+end

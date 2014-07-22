@@ -1,0 +1,14 @@
+require_relative 'NPC'
+
+class Wizard < NPC
+
+	def initialize
+		inv = []
+		super("Old Wizard", inv)
+	end
+
+	def talk(hero)
+		puts "\n\"Greetings #{hero.name}, you look like a capable adventurer. If you are planning \non delving into the depths of the dungeon, you had better go prepared. I think \nthere might be some things around this inn which could help you. And if you die \ndown there at least I can see if that assassin is still around here...\""
+		Game.pause_short
+	end
+end
