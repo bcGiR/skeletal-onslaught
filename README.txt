@@ -1,4 +1,4 @@
-<h1>SKELETAL ONSLAUGHT</h1>
+SKELETAL ONSLAUGHT
 
 *** Featuers to be implemented by BETA ***
 
