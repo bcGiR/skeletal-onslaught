@@ -19,11 +19,7 @@ class Fighter < Adventurer
 
 		@mp = @mp - 4
 
-		damage = 0
-		(2 * @lvl).times do
-			damage += Game.d4
-		end
-		damage += att
+		damage = ( Game.d2 + Game.d2 + Game.d2 + Game.d2 + 1 ) * ( Math.log2(2 * @lvl) )
 
 		puts "\n*** A flurry of sword strikes assualt the Fighters foe ***"
 		Game.pause_short

@@ -18,7 +18,7 @@ class Skeleton < Enemy
 	end
 
 	def lunge
-		damage = Game.d8 + att + 2
+		damage = ( Game.d8 + 1 ) * ( Math.log2(2 * @lvl) )
 		puts "\n*** Shrieking, the skeleton lunges at you ***"
 		Game.pause_short
 		damage

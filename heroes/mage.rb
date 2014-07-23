@@ -22,7 +22,7 @@ class Mage < Adventurer
 		hit = Game.d100
 		damage = 0
 		if hit >= 20
-			damage = Game.d12 + 6 + 2*@lvl
+			damage =  ( Game.d6 + Game.d6 + 3 ) * ( Math.log2(2 * @lvl) )
 			puts "\n*** A magic missle erupts from the Mages fingertips ***"
 		else
 			puts "\n*** A flash of light erupts from the fizzled spell ***"

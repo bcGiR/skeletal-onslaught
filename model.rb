@@ -1,4 +1,5 @@
 require_relative 'game'
+include Math
 
 class Model
 
@@ -20,7 +21,7 @@ class Model
 	end
 
 	def attack
-		Game.d6 + @att
+		damage = ( Game.d6 + 1 ) * (  Math.log2(2 * @lvl) )
 	end
 
 	def special_attack(action)

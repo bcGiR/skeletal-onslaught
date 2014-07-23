@@ -19,7 +19,7 @@ class Thief < Adventurer
 
 		@mp = @mp - 4
 
-		damage = Game.d20 + (@lvl - 1) * 2
+		damage = ( Game.d10 + 1 ) * ( Math.log2(2 * @lvl) )
 		puts "\n*** The Thief tumbles behind his opponent, gouging his enemy's back ***"
 		Game.pause_short
 		damage

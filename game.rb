@@ -6,6 +6,7 @@ require_relative 'enemies/skelethognos'
 require_relative 'items/item'
 require_relative 'items/consumable'
 require_relative 'items/container'
+include Math
 
 class Game
 
@@ -84,6 +85,9 @@ class Game
 	
 	def move_to(area)
 		@hero_area = area
+		area.spawns.each do |spawn|
+			area.enemies << spawn.call
+		end
 		Game.describe(area)
 		@combat = area.has_enemies?
 		Game.pause_long
@@ -414,30 +418,31 @@ class Game
 		end
 	end
 
-	#Carries out an attack (fight or special) by an attacker against a def
+	#Carries out an attack by an attacker against a target
 	def attack(attacker, target, type)
 
 		target.each do |defender|
 
-			#damage at -1 so we can report a 0 damage hit
-			damage = -1
-			roll = 0
+			damage = 0
+			damage_ratio = ( attacker.att / defender.defn )
 
-			#makes a roll for the attacker
+			if damage_ratio > 1.5
+				damage_ratio = 1.5
+			elsif damage_ratio < 0.5
+				damage_ratio = 0.5
+			end
+
 			if type == "fight"
-				roll = attacker.attack
+				damage = attacker.attack
 			else
-				roll = attacker.special_attack(type)
+				damage = attacker.special_attack(type)
 			end
 
-			#if hit, subtract defender ac and pass in damage value
-			if roll > defender.defn
-				damage = roll - defender.defn - defender.ac
-				damage = 0 if damage < 0
-			end
+			damage = (( damage * damage_ratio ) - ( defender.ac * defender.lvl )).to_i
 
-			#assign 0 or more damage
-			unless damage < 0
+
+			#assign  damage
+			unless damage <= 0
 				defender.hp = defender.hp - damage #assign damage
 				puts "\n#{attacker.name} has wounded #{defender.name} for #{damage}dmg. (#{defender.hp}HP remains)"
 			else
@@ -454,6 +459,11 @@ class Game
 
 	#Creates new enemies at lvl and adds them to the array of enemies
 	def self.spawn_enemy(enemy, lvl)
+		enemy_lvl = @hero.lvl + lvl
+		if enemy_lvl < 1
+			enemy_lvl = 1
+		end
+
 		#spawns a new enemy and adds it to enemies
 		case enemy
 		when "skeleton"
@@ -465,7 +475,7 @@ class Game
 		end
 
 		#levels the enemy up according lvl parameter
-		(lvl-1).times do
+		(enemy_lvl-1).times do
 			until new_enemy.level_up?
 				new_enemy.exp = new_enemy.exp + 1
 			end
