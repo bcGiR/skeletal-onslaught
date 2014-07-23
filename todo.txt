@@ -15,3 +15,9 @@
   -high score based on exp not gold
   -create assassin secret class
   -balance level scaling!
+
+*** NOTES ***
+
+right now damage is a roll between 2-7 * a huge level constant: meaning, at later levels, damage looks something like
+10-1000. in order to make it more even, (something like 300-700 or whatever), make the roll d3 + 4 or something instead
+d6 + 1, or perhaps 2d3 + 1, or 3d2 + 1

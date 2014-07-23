@@ -78,14 +78,13 @@ town_enemies = []
 town_objects = [h1 = HealthPot.new, h2 = HealthPot.new, m1 = ManaPot.new]
 town = Area.new("town", town_description, town_adjacent, town_npcs, town_enemies, town_objects)
 
-dungeon = CaveOfInfiniteSkeletons.new
-
-town.adjacent = [dungeon.areas[0]]
-dungeon.areas[0].adjacent << town
-
 #New Game
 game = Game.new(user_name, role, town)
 
+dungeon = CaveOfInfiniteSkeletons.new(game)
+
+town.adjacent = [dungeon.areas[0]]
+dungeon.areas[0].adjacent << town
 
 puts "................................................................................"
 puts "#{game.hero.name}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.gold} Gold"

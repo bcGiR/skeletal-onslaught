@@ -458,7 +458,7 @@ class Game
 	end
 
 	#Creates new enemies at lvl and adds them to the array of enemies
-	def self.spawn_enemy(enemy, lvl)
+	def spawn_enemy(enemy, lvl)
 		enemy_lvl = @hero.lvl + lvl
 		if enemy_lvl < 1
 			enemy_lvl = 1
