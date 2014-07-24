@@ -26,7 +26,7 @@ class Skeleton < Enemy
 
 	def level_up
 		super
-		@hp = @hp + 2
+		@hp = (10 * Math.log2( 2 * @lvl )).to_i
 		@att = @att + 1
 		@defn = @defn + 1
 	end
