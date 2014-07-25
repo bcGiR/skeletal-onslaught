@@ -4,7 +4,7 @@ require_relative '../game'
 class Fighter < Adventurer
 
 	def initialize(name)
-		super(name, 12, 20, 2, 6, 2, 1)
+		super(name, 18, 12, 2, 6, 2, 1)
 		@special_list = { 'flurry' => 4 }
 	end
 

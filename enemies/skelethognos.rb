@@ -28,7 +28,7 @@ class Skelethognos < Enemy
 
 	def level_up
 		super
-		@hp = @hp + 2
+		@hp = (15.0 + 1485.0 * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
 		@att = @att + 1
 		@defn = @defn + 1
 	end
