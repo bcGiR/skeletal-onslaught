@@ -4,7 +4,7 @@ require_relative '../game'
 class Fighter < Adventurer
 
 	def initialize(name)
-		super(name, 18, 12, 2, 6, 2, 1)
+		super(name, 18, 12, 2, 6, 2, 6, 2, 1)
 		@special_list = { 'flurry' => 4 }
 	end
 
@@ -12,6 +12,13 @@ class Fighter < Adventurer
 		case action
 		when 'flurry'
 			self.flurry
+		end
+	end
+
+	def special_type(action)
+		case action
+		when 'flurry'
+			return "att"
 		end
 	end
 

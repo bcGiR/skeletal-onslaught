@@ -382,6 +382,8 @@ class Game
 			puts "MP: #{@hero.mp}/#{@hero.mpmax}"
 			puts "ATT: #{@hero.att}"
 			puts "DEF: #{@hero.defn}"
+			puts "M.ATT: #{@hero.matt}"
+			puts "M.DEF: #{@hero.mdefn}"
 			puts "INIT: #{@hero.init}"
 			puts "AC: #{@hero.ac}"
 			puts "\n--------------------"
@@ -424,18 +426,24 @@ class Game
 		target.each do |defender|
 
 			damage = 0
-			damage_ratio = ( attacker.att / defender.defn )
+
+			if type == "fight"
+				damage = attacker.attack
+				damage_ratio = ( attacker.att / defender.defn )
+			else
+				damage = attacker.special_attack(type)
+				attack_stat = attacker.sepcial_type(type)
+				if attack_stat == "att"
+					damage_ratio = ( attacker.att / defender.defn )
+				else
+					damage_ratio = ( attacker.matt / defender.mdefn )
+				end
+			end
 
 			if damage_ratio > 1.5
 				damage_ratio = 1.5
 			elsif damage_ratio < 0.5
 				damage_ratio = 0.5
-			end
-
-			if type == "fight"
-				damage = attacker.attack
-			else
-				damage = attacker.special_attack(type)
 			end
 
 			damage = (( damage * damage_ratio ) - ( defender.ac * defender.lvl )).to_i

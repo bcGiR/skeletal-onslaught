@@ -4,7 +4,7 @@ require_relative '../game'
 class Thief < Adventurer
 
 	def initialize(name)
-		super(name, 18, 12, 4, 4, 3, 1)
+		super(name, 18, 12, 4, 4, 4, 4, 3, 1)
 		@special_list = { 'backstab' => 4 }
 	end
 
@@ -12,6 +12,13 @@ class Thief < Adventurer
 		case action
 		when 'backstab'
 			self.backstab
+		end
+	end
+
+	def special_type(action)
+		case action
+		when 'backstab'
+			return "att"
 		end
 	end
 

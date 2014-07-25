@@ -6,7 +6,7 @@ require_relative '../items/manapot'
 class Skeleton < Enemy
 
 	def initialize
-		super("Skeleton", 6, 0, 2, 4, 2, 0)
+		super("Skeleton", 6, 0, 2, 4, 2, 4, 2, 0)
 		@special_list = { 'lunge' => 0 }
 	end
 
@@ -14,6 +14,13 @@ class Skeleton < Enemy
 		case action
 		when 'lunge'
 			self.lunge
+		end
+	end
+
+	def special_type(action)
+		case action
+		when 'lunge'
+			return "att"
 		end
 	end
 

@@ -4,7 +4,7 @@ require_relative '../game'
 class Mage < Adventurer
 
 	def initialize(name)
-		super(name, 18, 12, 4, 6, 1, 0)
+		super(name, 18, 12, 4, 4, 6, 6, 1, 0)
 		@special_list = { 'missile' => 4 }
 	end
 
@@ -12,6 +12,13 @@ class Mage < Adventurer
 		case action
 		when 'missile'
 			self.magic_missile
+		end
+	end
+
+	def special_type(action)
+		case action
+		when 'missile'
+			return "matt"
 		end
 	end
 

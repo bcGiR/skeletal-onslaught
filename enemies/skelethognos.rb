@@ -4,7 +4,7 @@ require_relative 'enemy'
 class Skelethognos < Enemy
 
 	def initialize
-		super("Skelethognos", 24, 0, 6, 6, 3, 1)
+		super("Skelethognos", 24, 0, 6, 6, 6, 6, 3, 1)
 		@special_list = { 'swing' => 0 }
 	end
 
@@ -12,6 +12,13 @@ class Skelethognos < Enemy
 		case action
 		when 'swing'
 			self.swing
+		end
+	end
+
+	def special_type(action)
+		case action
+		when 'swing'
+			return "att"
 		end
 	end
 

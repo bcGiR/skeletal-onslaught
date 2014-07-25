@@ -3,9 +3,9 @@ include Math
 
 class Model
 
-	attr_accessor :name, :hp, :hpmax, :mp, :mpmax, :att, :defn, :init, :ac, :exp, :lvl, :modifiers, :special_list
+	attr_accessor :name, :hp, :hpmax, :mp, :mpmax, :att, :defn, :matt, :mdefn, :init, :ac, :exp, :lvl, :modifiers, :special_list
 
-	def initialize(name, hp, mp, att, defn, init, ac)
+	def initialize(name, hp, mp, att, matt, mdefn, defn, init, ac)
 		@name = name
 		@hp = hp
 		@hpmax = hp
@@ -13,6 +13,8 @@ class Model
 		@mpmax = mp
 		@att = att
 		@defn = defn
+		@matt = matt
+		@mdefn = mdefn
 		@init = init
 		@ac = ac
 		@exp = 0
@@ -27,6 +29,9 @@ class Model
 	def special_attack(action)
 	end
 
+	def special_type(action)
+	end
+
 	def modify(modifier)
 		case modifier.attr
 			when "hp"
@@ -39,6 +44,10 @@ class Model
 				self.att = self.att + modifier.value
 			when "defn"
 				self.defn = self.defn + modifier.value
+			when "matt"
+				self.matt = self.matt + modifier.value
+			when "mdefn"
+				self.mdefn = self.mdefn + modifier.value
 			when "init"
 				self.init = self.init + modifier.value
 			when "ac"
@@ -59,6 +68,10 @@ class Model
 				self.att = self.att - modifier.value
 			when "defn"
 				self.defn = self.defn - modifier.value
+			when "matt"
+				self.matt = self.matt - modifier.value
+			when "mdefn"
+				self.mdefn = self.mdefn - modifier.value
 			when "init"
 				self.init = self.init - modifier.value
 			when "ac"

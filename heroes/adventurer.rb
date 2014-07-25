@@ -5,8 +5,8 @@ class Adventurer < Model
 	
 	attr_accessor :inv, :gold, :special_single_target
 
-	def initialize(name, hp, mp, att, defn, init, ac)
-		super(name, hp, mp, att, defn, init, ac)
+	def initialize(name, hp, mp, att, defn, matt, mdefn, init, ac)
+		super(name, hp, mp, att, defn, matt, mdefn, init, ac)
 		@inv = []
 		@gold = 20
 		@special_single_target = true
