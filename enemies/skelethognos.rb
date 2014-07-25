@@ -4,7 +4,7 @@ require_relative 'enemy'
 class Skelethognos < Enemy
 
 	def initialize
-		super("Skelethognos", 24, 0, 6, 6, 6, 6, 3, 1)
+		super("Skelethognos", 27, 0, 6, 6, 6, 6, 3, 1)
 		@special_list = { 'swing' => 0 }
 	end
 

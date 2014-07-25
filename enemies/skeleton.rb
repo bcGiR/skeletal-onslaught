@@ -6,7 +6,7 @@ require_relative '../items/manapot'
 class Skeleton < Enemy
 
 	def initialize
-		super("Skeleton", 6, 0, 2, 4, 2, 4, 2, 0)
+		super("Skeleton", 10, 0, 2, 4, 2, 4, 2, 0)
 		@special_list = { 'lunge' => 0 }
 	end
 

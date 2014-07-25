@@ -23,7 +23,7 @@ class Model
 	end
 
 	def attack
-		damage = ( Game.d6 + 1 ) * (  Math.log2(2 * @lvl) )
+		damage = ( (Game.d6 + 1.0) + ( (Game.d100 * 5.0) + 92.0 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2)
 	end
 
 	def special_attack(action)
