@@ -432,7 +432,7 @@ class Game
 				damage_ratio = ( attacker.att / defender.defn )
 			else
 				damage = attacker.special_attack(type)
-				attack_stat = attacker.sepcial_type(type)
+				attack_stat = attacker.special_type(type)
 				if attack_stat == "att"
 					damage_ratio = ( attacker.att / defender.defn )
 				else
