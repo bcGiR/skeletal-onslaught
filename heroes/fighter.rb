@@ -4,7 +4,7 @@ require_relative '../game'
 class Fighter < Adventurer
 
 	def initialize(name)
-		super(name, 18, 12, 2, 6, 2, 6, 2, 1)
+		super(name, 18, 12, 2, 2, 1, 2, 2, 1)
 		@special_list = { 'flurry' => 4 }
 	end
 
@@ -36,10 +36,20 @@ class Fighter < Adventurer
 
 	def level_up
 		super
-		@att = @att + 1
-		@defn = @defn + 1
-		puts "ATT +1"
-		puts "DEF +1"
+		new_att = ( 2.0 + 58.0 * ((@lvl-1)/99) ).to_i
+		new_defn = ( 2.0 + 78.0 * ((@lvl-1)/99) ).to_i
+		new_matt = ( 1.0 + 49.0 * ((@lvl-1)/99) ).to_i
+		new_mdefn = ( 2.0 + 58.0 * ((@lvl-1)/99) ).to_i
+
+		att_diff = new_att - @att
+		defn_diff = new_defn - @defn
+		matt_diff = new_matt - @matt
+		mdefn_diff = new_mdefn - @mdefn
+
+		puts "\nATT: +#{att_diff}"
+		puts "\nDEF: +#{def_diff}"
+		puts "\nM.ATT: +#{matt_diff}"
+		puts "\nM.DEF: +#{mdefn_diff}"
 		Game.pause_short
 	end
 
