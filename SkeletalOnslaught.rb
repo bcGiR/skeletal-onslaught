@@ -40,7 +40,7 @@ puts "Welcome, brave #{user_name}. What sort of adventurer are you?"
 Game.pause_short
 puts "\n--------------------------------------------------------------------------------"
 puts "\nFighter: A natural brawler, the fighter is a seasoned combattant, capable of \nengaging almost anyone in melee combat"
-puts "\nHP:18 MP:12 ATT:2 DEF:1 M.ATT:1 M.DEF:2 INIT:2 AC:1"
+puts "\nHP:18 MP:12 ATT:2 DEF:2 M.ATT:1 M.DEF:2 INIT:2 AC:1"
 puts "Special (Blade Flurry) 4MP"
 puts "\n--------------------------------------------------------------------------------"
 Game.pause_short

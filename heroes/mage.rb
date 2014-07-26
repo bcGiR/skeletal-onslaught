@@ -55,10 +55,10 @@ class Mage < Adventurer
 		@matt = new_matt
 		@mdefn = new_mdefn
 
-		puts "\nATT: +#{att_diff}"
-		puts "\nDEF: +#{def_diff}"
-		puts "\nM.ATT: +#{matt_diff}"
-		puts "\nM.DEF: +#{mdefn_diff}"
+		puts "ATT: +#{att_diff}"
+		puts "DEF: +#{defn_diff}"
+		puts "M.ATT: +#{matt_diff}"
+		puts "M.DEF: +#{mdefn_diff}"
 		Game.pause_short
 	end
 
