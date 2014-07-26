@@ -46,6 +46,11 @@ class Fighter < Adventurer
 		matt_diff = new_matt - @matt
 		mdefn_diff = new_mdefn - @mdefn
 
+		@att = new_att
+		@defn = new_defn
+		@matt = new_matt
+		@mdefn = new_mdefn
+
 		puts "\nATT: +#{att_diff}"
 		puts "\nDEF: +#{def_diff}"
 		puts "\nM.ATT: +#{matt_diff}"
