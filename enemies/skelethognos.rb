@@ -23,14 +23,14 @@ class Skelethognos < Enemy
 	end
 
 	def swing
-		damage = ( Game.d10 + 3 ) * ( Math.log2(2 * @lvl) )
+		damage = ( ( Game.d10 + 1 ) + (Game.d100 * 7.0) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i
 		puts "\n*** Skelethognos pickes up a nearby skeleton, swinging it at you violently ***"
 		Game.pause_short
 		damage
 	end
 
 	def attack
-		damage = ( Game.d8 + 1 ) * ( Math.log2(2 * @lvl) ) 
+		damage = ( (Game.d6 + 2.0) + ( (Game.d100 * 5.0) + 184.0 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i 
 	end
 
 	def level_up
