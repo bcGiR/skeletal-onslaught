@@ -6,7 +6,7 @@ require_relative '../items/manapot'
 class Skeleton < Enemy
 
 	def initialize
-		super("Skeleton", 10, 0, 2, 4, 2, 4, 2, 0)
+		super("Skeleton", 10, 0, 1, 2, 1, 1, 2, 0)
 		@special_list = { 'lunge' => 0 }
 	end
 
@@ -34,8 +34,11 @@ class Skeleton < Enemy
 	def level_up
 		super
 		@hp = (6 + 495 * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
-		@att = @att + 1
-		@defn = @defn + 1
+
+		@att = ( 1.0 + 39.0 * ((@lvl-1)/99) ).to_i
+		@defn = ( 2.0 + 48.0 * ((@lvl-1)/99) ).to_i
+		@matt = ( 1.0 + 39.0 * ((@lvl-1)/99) ).to_i
+		@mdefn = ( 1.0 + 39.0 * ((@lvl-1)/99) ).to_i
 	end
 
 	def choose_action

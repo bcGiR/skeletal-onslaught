@@ -4,7 +4,7 @@ require_relative 'enemy'
 class Skelethognos < Enemy
 
 	def initialize
-		super("Skelethognos", 27, 0, 6, 6, 6, 6, 3, 1)
+		super("Skelethognos", 27, 0, 2, 2, 1, 2, 3, 1)
 		@special_list = { 'swing' => 0 }
 	end
 
@@ -36,8 +36,10 @@ class Skelethognos < Enemy
 	def level_up
 		super
 		@hp = (15.0 + 1485.0 * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
-		@att = @att + 1
-		@defn = @defn + 1
+		@att = ( 2.0 + 58.0 * ((@lvl-1)/99) ).to_i
+		@defn = ( 2.0 + 58.0 * ((@lvl-1)/99) ).to_i
+		@matt = ( 1.0 + 39.0 * ((@lvl-1)/99) ).to_i
+		@mdefn = ( 2.0 + 48.0 * ((@lvl-1)/99) ).to_i
 	end
 
 	def choose_action

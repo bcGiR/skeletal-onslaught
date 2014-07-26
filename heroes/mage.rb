@@ -4,7 +4,7 @@ require_relative '../game'
 class Mage < Adventurer
 
 	def initialize(name)
-		super(name, 18, 12, 4, 4, 6, 6, 1, 0)
+		super(name, 18, 12, 1, 2, 2, 2, 1, 0)
 		@special_list = { 'missile' => 4 }
 	end
 
