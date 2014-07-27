@@ -5,18 +5,18 @@ require_relative 'items/healthpot'
 require_relative 'items/manapot'
 
 test = Area.new("test", "This is a test", [], [],
-		[ Game.spawn_enemy("skeleton", 1),
-    		  Game.spawn_enemy("skeleton", 1) ], [])
+		[ Game.spawn_enemy("skeleton", 0),
+    		  Game.spawn_enemy("skeleton", 0) ], [])
 test1 = Area.new("test1", "This is a test", [], [],
-		[ Game.spawn_enemy("skeleton", 2),
-    		  Game.spawn_enemy("skeleton", 1) ], [])
+		[ Game.spawn_enemy("skeleton", 0),
+    		  Game.spawn_enemy("skeleton", 0) ], [])
 test2 = Area.new("test2", "This is a test", [], [],
-		[ Game.spawn_enemy("skeleton", 2),
-    		  Game.spawn_enemy("skeleton", 2) ], [])
+		[ Game.spawn_enemy("skeleton", 0),
+    		  Game.spawn_enemy("skeleton", 0) ], [])
 test3 = Area.new("test3", "This is a test", [], [],
-		[ Game.spawn_enemy("skeleton", 2),
-    		  Game.spawn_enemy("skeleton", 2),
-		  Game.spawn_enemy("skeleton", 2) ], [])
+		[ Game.spawn_enemy("skeleton", -1),
+    		  Game.spawn_enemy("skeleton", -1),
+		  Game.spawn_enemy("skeleton", -1) ], [])
 
 areas = [test, test1, test2, test3]
 areas.each do |area|
@@ -25,7 +25,7 @@ end
 
 role = "fighter"
 game = Game.new("Beldan", role, test)
-game.hero.inv = [ HealthPot.new, HealthPot.new, ManaPot.new ]
+game.hero.inv = [ HealthPot.new, HealthPot.new, HealthPot.new, HealthPot.new, ManaPot.new, ManaPot.new ]
 
 #Main game loop: skeletons and hero do battle until either is defeated
 until game.over?

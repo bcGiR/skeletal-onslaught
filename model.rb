@@ -5,7 +5,7 @@ class Model
 
 	attr_accessor :name, :hp, :hpmax, :mp, :mpmax, :att, :defn, :matt, :mdefn, :init, :ac, :exp, :lvl, :modifiers, :special_list
 
-	def initialize(name, hp, mp, att, matt, mdefn, defn, init, ac)
+	def initialize(name, hp, mp, att, defn, matt, mdefn, init, ac)
 		@name = name
 		@hp = hp
 		@hpmax = hp

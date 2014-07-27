@@ -39,11 +39,18 @@ class Mage < Adventurer
 	end
 
 	def level_up
+		mods = []
+		self.modifiers.each do |mod|
+			new_mod = Modifier.new(mod.name, mod.attr, mod.value)
+			mods << new_mod
+			self.demodify(mod)
+		end
+
 		super
-		new_att = ( 1.0 + 49.0 * ((@lvl-1)/99) ).to_i
-		new_defn = ( 2.0 + 58.0 * ((@lvl-1)/99) ).to_i
-		new_matt = ( 2.0 + 78.0 * ((@lvl-1)/99) ).to_i
-		new_mdefn = ( 2.0 + 78.0 * ((@lvl-1)/99) ).to_i
+		new_att = ( 1.0 + 49.0 * ((@lvl-1.0)/99.0) ).to_i
+		new_defn = ( 2.0 + 58.0 * ((@lvl-1.0)/99.0) ).to_i
+		new_matt = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i
+		new_mdefn = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i
 
 		att_diff = new_att - @att
 		defn_diff = new_defn - @defn
@@ -59,6 +66,10 @@ class Mage < Adventurer
 		puts "DEF: +#{defn_diff}"
 		puts "M.ATT: +#{matt_diff}"
 		puts "M.DEF: +#{mdefn_diff}"
+
+		mods.each do |mod|
+			self.modify(mod)
+		end
 		Game.pause_short
 	end
 

@@ -32,13 +32,24 @@ class Skeleton < Enemy
 	end
 
 	def level_up
+		mods = []
+		self.modifiers.each do |mod|
+			new_mod = Modifier.new(mod.name, mod.attr, mod.value)
+			mods << new_mod
+			self.demodify(mod)
+		end
+
 		super
 		@hp = (6 + 495 * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
 
-		@att = ( 1.0 + 39.0 * ((@lvl-1)/99) ).to_i
-		@defn = ( 2.0 + 48.0 * ((@lvl-1)/99) ).to_i
-		@matt = ( 1.0 + 39.0 * ((@lvl-1)/99) ).to_i
-		@mdefn = ( 1.0 + 39.0 * ((@lvl-1)/99) ).to_i
+		@att = ( 1.0 + 39.0 * ((@lvl-1.0)/99.0) ).to_i
+		@defn = ( 2.0 + 48.0 * ((@lvl-1.0)/99.0) ).to_i
+		@matt = ( 1.0 + 39.0 * ((@lvl-1.0)/99.0) ).to_i
+		@mdefn = ( 1.0 + 39.0 * ((@lvl-1.0)/99.0) ).to_i
+
+		mods.each do |mod|
+			self.modify(mod)
+		end
 	end
 
 	def choose_action
