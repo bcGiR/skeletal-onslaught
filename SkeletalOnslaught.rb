@@ -142,6 +142,15 @@ until game.over?
 
 		game.combat = game.hero_area.has_enemies?
 
+		if game.combat
+			game.update_timers
+		else
+			game.timers.each do |timer|
+				timer.expires
+			end
+			game.timers = []
+		end
+
 	#Non-combat
 	else 
 		hero_action = game.get_user_action

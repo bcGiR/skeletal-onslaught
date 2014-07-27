@@ -8,7 +8,7 @@ class Mage < Adventurer
 		@special_list = { 'missile' => 4 }
 	end
 
-	def special_attack(action)
+	def special_attack(action, game)
 		case action
 		when 'missile'
 			self.magic_missile

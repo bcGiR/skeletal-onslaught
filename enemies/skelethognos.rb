@@ -8,7 +8,7 @@ class Skelethognos < Enemy
 		@special_list = { 'swing' => 0 }
 	end
 
-	def special_attack(action)
+	def special_attack(action, game)
 		case action
 		when 'swing'
 			self.swing

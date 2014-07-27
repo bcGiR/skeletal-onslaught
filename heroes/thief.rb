@@ -8,7 +8,7 @@ class Thief < Adventurer
 		@special_list = { 'backstab' => 4 }
 	end
 
-	def special_attack(action)
+	def special_attack(action, game)
 		case action
 		when 'backstab'
 			self.backstab

@@ -2,6 +2,7 @@ require_relative 'heroes/mage'
 require_relative 'heroes/thief'
 require_relative 'heroes/fighter'
 require_relative 'enemies/skeleton'
+require_relative 'enemies/spider'
 require_relative 'enemies/skelethognos'
 require_relative 'items/item'
 require_relative 'items/consumable'
@@ -10,7 +11,7 @@ include Math
 
 class Game
 
-	attr_accessor :hero, :over, :hero_area, :combat 
+	attr_accessor :hero, :over, :hero_area, :combat, :timers
 
 	#On game start: creates hero,
 	def initialize(name, role, area)
@@ -29,6 +30,7 @@ class Game
 		@over = false
 		@hero_area = area
 		@combat = area.has_enemies?
+		@timers = []
 	end
 
 	### Game pauses ###
@@ -213,14 +215,18 @@ class Game
 		elsif action == "item"
 				puts "\n-- Inventory --\n\n"
 				@hero.inv.each do |i| 
-					if i.equipped?
-						puts "*" + i.name
+					if i.equippable?
+						if i.equipped?
+							puts "*" + i.name
+						else
+							puts i.name
+						end
 					else
 						puts i.name
 					end
 				end
-				puts "\n(equipped: [*])"
-				puts "\n---------------"
+				puts "\n(equipped: [*])"	
+				puts "---------------"
 				Game.pause_short
 				puts "\nType the name of an item to use it:"
 				item = gets.chomp.downcase
@@ -430,17 +436,13 @@ class Game
 			if type == "fight"
 				damage = attacker.attack
 				damage_ratio = ( attacker.att / defender.defn )
-			elsemods = []
-		self.modifiers.each do |mod|
-			new_mod = Modifier.new(mod.name, mod.attr, mod.value)
-			mods << new_mod
-			self.demodify(mod)
-		end
-				damage = attacker.special_attack(type)
+			else
 				attack_stat = attacker.special_type(type)
 				if attack_stat == "att"
+					damage = attacker.special_attack(type, self)
 					damage_ratio = ( attacker.att / defender.defn )
 				else
+					damage = attacker.special_attack(type, self)
 					damage_ratio = ( attacker.matt / defender.mdefn )
 				end
 			end
@@ -470,6 +472,17 @@ class Game
 		end
 	end
 
+	def update_timers
+		timers_temp = []
+		@timers.each do |timer|
+			timer.tick
+			unless timer.rounds_left == 0
+				timers_temp << timer
+			end
+		end
+		@timers = timers_temp
+	end
+
 	#Creates new enemies at lvl and adds them to the array of enemies
 	def spawn_enemy(enemy, lvl)
 		enemy_lvl = @hero.lvl + lvl
@@ -483,8 +496,8 @@ class Game
 			new_enemy = Skeleton.new
 		when "skelethognos"
 			new_enemy = Skelethognos.new
-		else 
-			new_enemy = Skeleton.new #this line is pointless
+		when "spider"
+		        new_enemy = Spider.new
 		end
 
 		#levels the enemy up according lvl parameter

@@ -1,32 +1,42 @@
-require_relative '../game'
-require_relative 'enemy'
 require_relative '../items/healthpot'
 require_relative '../items/manapot'
+require_relative 'enemy'
+require_relative '../modifier'
+require_relative '../combattimer'
+require_relative '../game'
 
-class Skeleton < Enemy
+class Spider < Enemy
 
 	def initialize
-		super("Skeleton", 10, 0, 1, 2, 1, 1, 2, 0)
-		@special_list = { 'lunge' => 0 }
+		super("Giant Spider", 10, 0, 1, 1, 2, 2, 3, 0)
+		@special_list = { 'web' => 0 }
 	end
 
 	def special_attack(action, game)
 		case action
-		when 'lunge'
-			self.lunge
+		when 'web'
+			self.web(game)
 		end
 	end
 
 	def special_type(action)
 		case action
-		when 'lunge'
-			return "att"
+		when 'web'
+			return "matt"
 		end
 	end
 
-	def lunge
-		damage = ( ( Game.d8 + 1 ) + (Game.d100 * 6.0) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i 
-		puts "\n*** Shrieking, the skeleton lunges at you ***"
+	def web(game)
+		damage = ( Game.d4 + (Game.d100*3) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i
+		web = Modifier.new("webdefn", "defn", -1)
+		unless game.hero.modifiers.any? { |mod| mod.name == "webdefn" }
+			game.hero.modify(web)
+			timer = CombatTimer.new("Spider Web", game, game.hero, 3, web, 'mod')
+			game.timers << timer
+			puts "\n*** The spider entangles you with a web (DEF -1) ***"
+		else
+			puts "\n*** You are already entangled in webs ***"
+		end
 		Game.pause_short
 		damage
 	end
@@ -43,9 +53,9 @@ class Skeleton < Enemy
 		@hp = (6 + 495 * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
 
 		@att = ( 1.0 + 39.0 * ((@lvl-1.0)/99.0) ).to_i
-		@defn = ( 2.0 + 48.0 * ((@lvl-1.0)/99.0) ).to_i
-		@matt = ( 1.0 + 39.0 * ((@lvl-1.0)/99.0) ).to_i
-		@mdefn = ( 1.0 + 39.0 * ((@lvl-1.0)/99.0) ).to_i
+		@defn = ( 1.0 + 29.0 * ((@lvl-1.0)/99.0) ).to_i
+		@matt = ( 2.0 + 58.0 * ((@lvl-1.0)/99.0) ).to_i
+		@mdefn = ( 2.0 + 48.0 * ((@lvl-1.0)/99.0) ).to_i
 
 		mods.each do |mod|
 			self.modify(mod)
@@ -53,9 +63,9 @@ class Skeleton < Enemy
 	end
 
 	def choose_action
-		roll = Game.d4
+		roll = Game.d3
 		if roll == 1
-			return "speciallunge"
+			return "specialweb"
 		else
 			return "fight"
 		end
@@ -89,6 +99,6 @@ class Skeleton < Enemy
 	end
 
 	def death_cry
-		puts "\n*** The skeleton collapses, it's bones rattling against the dungeon floor ***"
+		puts "\n*** The spider shivels up in a ball of dead limbs ***"
 	end
 end

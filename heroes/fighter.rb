@@ -9,7 +9,7 @@ class Fighter < Adventurer
 		@special_list = { 'flurry' => 4 }
 	end
 
-	def special_attack(action)
+	def special_attack(action, game)
 		case action
 		when 'flurry'
 			self.flurry

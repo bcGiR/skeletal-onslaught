@@ -1,32 +1,33 @@
-require_relative '../game'
-require_relative 'enemy'
 require_relative '../items/healthpot'
 require_relative '../items/manapot'
+require_relative '../game'
+require_relative 'enemy'
+require_relative '../combattimer'
 
-class Skeleton < Enemy
+class Goblin < Enemy
 
 	def initialize
-		super("Skeleton", 10, 0, 1, 2, 1, 1, 2, 0)
-		@special_list = { 'lunge' => 0 }
+		super("Goblin", 10, 0, 2, 1, 1, 1, 2, 0)
+		@special_list = { 'cry' => 0 }
 	end
 
 	def special_attack(action, game)
 		case action
-		when 'lunge'
-			self.lunge
+		when 'cry'
+			self.cry
 		end
 	end
 
 	def special_type(action)
 		case action
-		when 'lunge'
+		when 'cry'
 			return "att"
 		end
 	end
 
-	def lunge
-		damage = ( ( Game.d8 + 1 ) + (Game.d100 * 6.0) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i 
-		puts "\n*** Shrieking, the skeleton lunges at you ***"
+	def cry
+		damage = ( ( Game.d4 + Game.d4 + 1) + ( (Game.d100 + Game.d100 + Game.d100) * 2 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i 
+		puts "\n*** The goblin attempts a vicious strike ***"
 		Game.pause_short
 		damage
 	end
@@ -42,8 +43,8 @@ class Skeleton < Enemy
 		super
 		@hp = (6 + 495 * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
 
-		@att = ( 1.0 + 39.0 * ((@lvl-1.0)/99.0) ).to_i
-		@defn = ( 2.0 + 48.0 * ((@lvl-1.0)/99.0) ).to_i
+		@att = ( 2.0 + 48.0 * ((@lvl-1.0)/99.0) ).to_i
+		@defn = ( 1.0 + 39.0 * ((@lvl-1.0)/99.0) ).to_i
 		@matt = ( 1.0 + 39.0 * ((@lvl-1.0)/99.0) ).to_i
 		@mdefn = ( 1.0 + 39.0 * ((@lvl-1.0)/99.0) ).to_i
 
@@ -53,9 +54,9 @@ class Skeleton < Enemy
 	end
 
 	def choose_action
-		roll = Game.d4
+		roll = Game.d3
 		if roll == 1
-			return "speciallunge"
+			return "specialcry"
 		else
 			return "fight"
 		end
@@ -89,6 +90,6 @@ class Skeleton < Enemy
 	end
 
 	def death_cry
-		puts "\n*** The skeleton collapses, it's bones rattling against the dungeon floor ***"
+		puts "\n*** The goblin slumps down on the ground, dead ***"
 	end
 end

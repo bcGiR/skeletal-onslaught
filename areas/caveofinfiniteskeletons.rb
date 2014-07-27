@@ -12,27 +12,27 @@ class CaveOfInfiniteSkeletons < Dungeon
 					     "\nYou descend into the dank, web-filled cavern called the Cave of Infinite \nSkeletons. The flickering of your torchlight against the uneven rock walls \ncauses intimidating shadows to dance around in the caverns. You are careful of \nyour step; who knows what pitfalls await in the dark? As you leave the light of \nthe outside world behind you begin to feel the creeping dispair of the \natmosphere of death around you taking over your thoughts. Suddenly, SKELETONS!", #entrance_description
 					     [], #entrance_adjacent
 					     [], #entrance_npcs
-					     [ Proc.new { @game.spawn_enemy("skeleton", -1) } ], #entrance_enemies
+					     [ Proc.new { @game.spawn_enemy("spider", -1) } ], #entrance_enemies
 					     [] ), #entrance_objects
 		      pool = Area.new( "Pool", #pool_name
 				      "\nYou enter a cavernous room, the crossroads of two shafts of the cave. Out of a \nsmall hole in the northwest wall a waterfall drops to the cavern floor and flows \ndown to a small pool in the center of the room. At the other end of the pool, \nabout 20 feet across, the pool empties into another stream which flows into a \nrabithole sized opening in the southeastern wall. A shaft leads out of this room \nto the north and one to the south. To the west, the light of the surface streams \nthrough the entrance.", #pool_description
 				      [], #pool_adjacent
 				      [], #pool_npcs
-				      [ Proc.new { @game.spawn_enemy("skeleton", -1) },
-					Proc.new { @game.spawn_enemy("skeleton", -1) }], #pool_enemies
+				      [ Proc.new { @game.spawn_enemy("spider", -1) },
+					Proc.new { @game.spawn_enemy("spider", -1) }], #pool_enemies
 				      [] ), #pool_objects
 		      a1 = Area.new( "NorthWest Corridor", #a1_name
 				    "\nYou stand one end of a long corridor. There is a natural cave to the south \nleading to the Pool, but beyond that the arched corridor is quite well crafted. \nLarge stone blocks carve out a room forty feet wide and over a hundred feet \nlong. At the western end, the cave leads down to the pool, to the east, a large \nwooden door stands in a heavy stone wall. Looking closer, you now notice that \nthe sconces on the wall are casting an orange glow on the socketed eyes and \ngrinning teeth of skulls decorating the walls, lined in rows that stretch up to \nthe ceiling and meet in the center.", #a1_description
 				    [], #a1_adjacent
 				    [], #a1_npcs
-				    [ Proc.new { @game.spawn_enemy("skeleton", 0) } ], #a1_enemies
+				    [ Proc.new { @game.spawn_enemy("spider", 0) } ], #a1_enemies
 				    [] ), #a1_objects
 		      a2 = Area.new( "North Barrack", #a2_name
 				    "\nYou are standing in a skeletal armory. Bones line the floor of the skeletons \nthat have done combat, perhaps of would-be adventurers or perhaps just bored \nskeletons smashing each other to bits. There are racks of weapons filling the \ncorners and walls of the room; maces, swords, pikes, axes, and unidentifiable \nimpletments of death fill these racks. In the north end of this room, there is a \ngreat, unburning furnace, filled to the point of overflowing with bones and \nskulls. It seems to be a forge of the undead, where skeletal warriors are \nbirthed from the remnants of the defeated.", #a2_description
 				    [], #a2_adjacent
 				    [], #a2_npcs
-				    [ Proc.new { @game.spawn_enemy("skeleton", 0) },
-				      Proc.new { @game.spawn_enemy("skeleton", 0) }], #a2_enemies
+				    [ Proc.new { @game.spawn_enemy("spider", 0) },
+				      Proc.new { @game.spawn_enemy("spider", 0) }], #a2_enemies
 				    [] ), #a2_objects
 		      a_treasure = Area.new( "North Barrack Cache", #a_treasure_name
 					    "\nThe door at the south end of the barrack opens up into a small, dusty room \ncontaining cabinets, chests, barrels, and a table in the center of the room \ncluttered with torture implements, potions (or poisons?), and a scattering of \ngold pieces.", #a_treasure_description

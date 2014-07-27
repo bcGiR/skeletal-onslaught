@@ -27,7 +27,7 @@ class Model
 
 	end
 
-	def special_attack(action)
+	def special_attack(action, game)
 	end
 
 	def special_type(action)
