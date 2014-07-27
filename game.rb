@@ -384,7 +384,7 @@ class Game
 			puts "DEF: #{@hero.defn}"
 			puts "M.ATT: #{@hero.matt}"
 			puts "M.DEF: #{@hero.mdefn}"
-			puts "INIT: #{@hero.init}"
+			puts "INIT: #{@hero.init.to_i}"
 			puts "AC: #{@hero.ac}"
 			puts "\n--------------------"
 			Game.pause_short
@@ -430,7 +430,12 @@ class Game
 			if type == "fight"
 				damage = attacker.attack
 				damage_ratio = ( attacker.att / defender.defn )
-			else
+			elsemods = []
+		self.modifiers.each do |mod|
+			new_mod = Modifier.new(mod.name, mod.attr, mod.value)
+			mods << new_mod
+			self.demodify(mod)
+		end
 				damage = attacker.special_attack(type)
 				attack_stat = attacker.special_type(type)
 				if attack_stat == "att"
