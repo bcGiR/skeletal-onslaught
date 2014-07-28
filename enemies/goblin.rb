@@ -14,7 +14,7 @@ class Goblin < Enemy
 	def special_attack(action, game)
 		case action
 		when 'cry'
-			self.cry
+			self.cry(game)
 		end
 	end
 
@@ -25,8 +25,10 @@ class Goblin < Enemy
 		end
 	end
 
-	def cry
-		damage = ( ( Game.d4 + Game.d4 + 1) + ( (Game.d100 + Game.d100 + Game.d100) * 2 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i 
+	def cry(game)
+		damage = ( ( Game.d3 + Game.d3 + 1) + ( (Game.d100 + Game.d100 + Game.d100 + Game.d100 + Game.d100 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i 
+        timer = CombatTimer.new("Goblin blade wound", game, game.hero, 2, (1 + 50 * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i, 'dmg')
+        game.timers << timer
 		puts "\n*** The goblin attempts a vicious strike ***"
 		Game.pause_short
 		damage
@@ -54,7 +56,7 @@ class Goblin < Enemy
 	end
 
 	def choose_action
-		roll = Game.d3
+		roll = Game.d4
 		if roll == 1
 			return "specialcry"
 		else

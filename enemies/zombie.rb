@@ -1,42 +1,37 @@
 require_relative '../items/healthpot'
 require_relative '../items/manapot'
-require_relative 'enemy'
-require_relative '../modifier'
-require_relative '../combattimer'
 require_relative '../game'
+require_relative 'enemy'
+require_relative '../combattimer'
+require_relative '../modifier'
 
-class Spider < Enemy
+class Zombie < Enemy
 
 	def initialize
-		super("Giant Spider", 10, 0, 1, 1, 2, 2, 3, 0)
-		@special_list = { 'web' => 0 }
+		super("Zombie", 10, 0, 1, 2, 1, 2, 1, 0)
+		@special_list = { 'lurch' => 0 }
 	end
 
 	def special_attack(action, game)
 		case action
-		when 'web'
-			self.web(game)
+		when 'lurch'
+			self.lurch(game)
 		end
 	end
 
 	def special_type(action)
 		case action
-		when 'web'
-			return "matt"
+		when 'lurch'
+			return "att"
 		end
 	end
 
-	def web(game)
-		damage = ( Game.d4 + (Game.d100*3) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i
-		web = Modifier.new("webdefn", "defn", -1)
-		unless game.hero.modifiers.any? { |mod| mod.name == "webdefn" }
-			game.hero.modify(web)
-			timer = CombatTimer.new("Spider Web", game, game.hero, 3, web, 'mod')
-			game.timers << timer
-			puts "\n*** The spider entangles you with a web (DEF -1) ***"
-		else
-			puts "\n*** You are already entangled in webs ***"
-		end
+	def lurch(game)
+		damage = ( ( Game.d3 + 1) + ( Game.d100 + Game.d100 + Game.d100 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i 
+        wound = Modifier.new("zombie", 'att', -1)
+        timer = CombatTimer.new("Zombie wound", game, game.hero, 3, wound, 'mod')
+        game.timers << timer
+		puts "\n*** The zombie lurches forward, clawing and biting ***"
 		Game.pause_short
 		damage
 	end
@@ -50,11 +45,11 @@ class Spider < Enemy
 		end
 
 		super
-		@hp = (6 + 395 * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
+		@hp = (7 + 595 * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
 
 		@att = ( 1.0 + 39.0 * ((@lvl-1.0)/99.0) ).to_i
-		@defn = ( 1.0 + 29.0 * ((@lvl-1.0)/99.0) ).to_i
-		@matt = ( 2.0 + 58.0 * ((@lvl-1.0)/99.0) ).to_i
+		@defn = ( 2.0 + 58.0 * ((@lvl-1.0)/99.0) ).to_i
+		@matt = ( 1.0 + 29.0 * ((@lvl-1.0)/99.0) ).to_i
 		@mdefn = ( 2.0 + 48.0 * ((@lvl-1.0)/99.0) ).to_i
 
 		mods.each do |mod|
@@ -65,7 +60,7 @@ class Spider < Enemy
 	def choose_action
 		roll = Game.d3
 		if roll == 1
-			return "specialweb"
+			return "speciallurch"
 		else
 			return "fight"
 		end
@@ -99,6 +94,6 @@ class Spider < Enemy
 	end
 
 	def death_cry
-		puts "\n*** The spider shivels up in a ball of dead limbs ***"
+		puts "\n*** The zombie falls apart into several, still-moving pieces ***"
 	end
 end

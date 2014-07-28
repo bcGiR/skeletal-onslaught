@@ -498,6 +498,10 @@ class Game
 			new_enemy = Skelethognos.new
 		when "spider"
 		        new_enemy = Spider.new
+        when "goblin"
+            new_enemy = Goblin.new
+        when "zombie"
+            new_enemy = Zombie.new
 		end
 
 		#levels the enemy up according lvl parameter

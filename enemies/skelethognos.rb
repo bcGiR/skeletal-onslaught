@@ -5,13 +5,16 @@ class Skelethognos < Enemy
 
 	def initialize
 		super("Skelethognos", 27, 0, 2, 2, 1, 2, 3, 1)
-		@special_list = { 'swing' => 0 }
+		@special_list = { 'swing' => 0,
+                          'call' => 0 }
 	end
 
 	def special_attack(action, game)
 		case action
 		when 'swing'
 			self.swing
+        when 'call'
+            self.call(game)
 		end
 	end
 
@@ -19,6 +22,8 @@ class Skelethognos < Enemy
 		case action
 		when 'swing'
 			return "att"
+        when 'call'
+            return "matt"
 		end
 	end
 
@@ -28,6 +33,14 @@ class Skelethognos < Enemy
 		Game.pause_short
 		damage
 	end
+
+    def call(game)
+        damage = 0
+        puts "\n*** Skelethognos calls a fallen skeleton to rise and fight again! ***"
+        Game.pause_short
+        game.hero_area.enemies << game.spawn_enemy("skeleton", -2)
+        damage
+    end
 
 	def attack
 		damage = ( (Game.d6 + 2.0) + ( (Game.d100 * 5.0) + 184.0 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i 
@@ -54,9 +67,11 @@ class Skelethognos < Enemy
 	end
 
 	def choose_action
-		roll = Game.d4
-		if roll == 1
+		roll = Game.d6
+		if roll == 1 || roll == 2
 			return "specialswing"
+        elsif roll == 3
+            return "specialcall"
 		else
 			return "fight"
 		end
