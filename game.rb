@@ -297,6 +297,8 @@ class Game
 						choice = gets.chomp.downcase.to_i
 					end
 					return [@hero_area.enemies[choice-1]]
+				else
+					return @hero_area.enemies
 				end
 			end
 		else
@@ -457,7 +459,7 @@ class Game
 
 			damage = (damage * damage_ratio).to_i
             if type == "fight" || attack_stat == "att"
-                damage = damage - defender.ac
+                damage = damage - (damage * (defender.ac/defender.hpmax)).to_i
             end
 
 
