@@ -279,7 +279,7 @@ class Game
 				end
 				return [@hero_area.enemies[choice-1]]
 			when /special/
-				if hero.special_single_target
+				if hero.special_single_target(action[7..-1])
 					puts "\nAttack who?"
 					Game.pause_short
 					count = 1

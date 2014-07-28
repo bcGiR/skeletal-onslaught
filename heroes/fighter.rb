@@ -13,6 +13,8 @@ class Fighter < Adventurer
 		case action
 		when 'flurry'
 			self.flurry
+        when 'cleave'
+            self.cleave
 		end
 	end
 
@@ -20,8 +22,19 @@ class Fighter < Adventurer
 		case action
 		when 'flurry'
 			return "att"
+        when 'cleave'
+            return "att"
 		end
 	end
+
+    def special_single_target(action)
+        case action
+        when 'flurry'
+            return true
+        when 'cleave'
+            return false
+        end
+    end
 
 	def flurry
 
@@ -34,8 +47,23 @@ class Fighter < Adventurer
 		Game.pause_short
 		damage
 	end
+    
+    def cleave
+
+        @mp = @mp - 4
+
+        damage = ( (Game.d2 + Game.d2 + 1) + ( Game.d100 + Game.d100 + 100.0) * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
+        puts "\n*** The Fighter cleaves his sword through his opponents ***"
+        Game.pause_short
+        damage
+    end
 
 	def level_up
+        if @lvl == 3
+            @special_list['cleave'] = 4
+            puts "\n#{@name} has learned Cleave!"
+            Game.pause_medium
+        end
 		mods = []
 		self.modifiers.each do |mod|
 			new_mod = Modifier.new(mod.name, mod.attr, mod.value)

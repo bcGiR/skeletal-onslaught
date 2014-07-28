@@ -12,6 +12,8 @@ class Mage < Adventurer
 		case action
 		when 'missile'
 			self.magic_missile
+        when 'fireball'
+            self.fireball
 		end
 	end
 
@@ -19,6 +21,8 @@ class Mage < Adventurer
 		case action
 		when 'missile'
 			return "matt"
+        when 'fireball'
+            return "matt"
 		end
 	end
 
@@ -38,7 +42,21 @@ class Mage < Adventurer
 		damage
 	end
 
+    def fireball
+
+        @mp = @mp - 4
+        damage = ((Game.d4 + 1) + (Game.d100 + Game.d100 + Game.d100 + 150) * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
+        puts "\n*** The Mages fireball immolates everything in its path ***"
+        Game.pause_short
+        damage
+    end
+
 	def level_up
+        if @lvl == 3
+            @special_list['fireball'] = 4
+            puts "\n#{@name} has learned Fireball!"
+            Game.pause_medium
+        end
 		mods = []
 		self.modifiers.each do |mod|
 			new_mod = Modifier.new(mod.name, mod.attr, mod.value)

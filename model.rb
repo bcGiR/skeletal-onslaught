@@ -33,6 +33,9 @@ class Model
 	def special_type(action)
 	end
 
+    def special_single_target(action)
+    end
+
 	def modify(modifier)
 		case modifier.attr
 			when "hp"
