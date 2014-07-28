@@ -57,11 +57,6 @@ class Thief < Adventurer
     end
 	
 	def level_up
-        if @lvl == 3
-            @special_list['fan'] = 4
-            puts "#{@name} has learned Fan of Knives!"
-            Game.pause_medium
-        end
 		mods = []
 		self.modifiers.each do |mod|
 			new_mod = Modifier.new(mod.name, mod.attr, mod.value)
@@ -70,6 +65,11 @@ class Thief < Adventurer
 		end
 
 		super
+		if @lvl == 3
+			@special_list['fan'] = 4
+         	        puts "#{@name} has learned Fan of Knives!"
+         	        Game.pause_medium
+     	        end
 		new_att = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_defn = ( 1.0 + 49.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_matt = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i

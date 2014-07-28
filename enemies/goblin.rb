@@ -26,7 +26,7 @@ class Goblin < Enemy
 	end
 
 	def cry(game)
-		damage = ( ( Game.d3 + Game.d3 + 1) + ( (Game.d100 + Game.d100 + Game.d100 + Game.d100 + Game.d100 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i 
+		damage = ( ( Game.d3 + Game.d3 + 1) + ( (Game.d100 + Game.d100 + Game.d100 + Game.d100 + Game.d100 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2)).to_i 
         timer = CombatTimer.new("Goblin blade wound", game, game.hero, 2, (1 + 50 * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i, 'dmg')
         game.timers << timer
 		puts "\n*** The goblin attempts a vicious strike ***"

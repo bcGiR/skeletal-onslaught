@@ -59,11 +59,6 @@ class Fighter < Adventurer
     end
 
 	def level_up
-        if @lvl == 3
-            @special_list['cleave'] = 4
-            puts "\n#{@name} has learned Cleave!"
-            Game.pause_medium
-        end
 		mods = []
 		self.modifiers.each do |mod|
 			new_mod = Modifier.new(mod.name, mod.attr, mod.value)
@@ -72,6 +67,11 @@ class Fighter < Adventurer
 		end
 
 		super
+		if @lvl == 3
+			@special_list['cleave'] = 4
+			puts "\n#{@name} has learned Cleave!"
+			Game.pause_medium
+		end
 		new_att = ( 2.0 + 58.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_defn = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_matt = ( 1.0 + 49.0 * ((@lvl-1.0)/99.0) ).to_i
