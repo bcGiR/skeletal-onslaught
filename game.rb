@@ -453,7 +453,10 @@ class Game
 				damage_ratio = 0.5
 			end
 
-			damage = (( damage * damage_ratio ) - ( defender.ac * defender.lvl )).to_i
+			damage = (damage * damage_ratio).to_i
+            if type == "fight" || attack_stat == "att"
+                damage = damage - defender.ac
+            end
 
 
 			#assign  damage

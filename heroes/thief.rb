@@ -45,21 +45,25 @@ class Thief < Adventurer
 		new_defn = ( 1.0 + 49.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_matt = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_mdefn = ( 1.0 + 49.0 * ((@lvl-1.0)/99.0) ).to_i
+        new_ac = ( 1.0 + 54.0 * ((@lvl-1.0)/99.0) ** 2).to_i
 
 		att_diff = new_att - @att
 		defn_diff = new_defn - @defn
 		matt_diff = new_matt - @matt
 		mdefn_diff = new_mdefn - @mdefn
+        ac_diff = new_ac - @ac
 
 		@att = new_att
 		@defn = new_defn
 		@matt = new_matt
 		@mdefn = new_mdefn
+        @ac = new_ac
 
 		puts "ATT: +#{att_diff}"
 		puts "DEF: +#{defn_diff}"
 		puts "M.ATT: +#{matt_diff}"
 		puts "M.DEF: +#{mdefn_diff}"
+        puts "AC: +#{ac_diff}"
 
 		mods.each do |mod|
 			self.modify(mod)
