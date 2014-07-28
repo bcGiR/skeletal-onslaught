@@ -204,11 +204,11 @@ class Game
 			action = action + choice
 			unless @hero.special_list.has_key?(choice)
 				puts "\nYou do not have that ability"
-				action = "error"
+				return "error"
 			end
 			if @hero.mp < @hero.special_list.fetch(choice)
 				puts "\nYou do not have enough MP to do that"
-				action = "error"
+				return "error"
 			end
 		
 		#if item was chosen show inventory and ask which item to use
@@ -235,7 +235,7 @@ class Game
 					action = action + item
 				else
 					puts "\nYou do not have any #{item}"
-					action = "error"		
+					return "error"		
 				end
 		end
 		Game.pause_short
