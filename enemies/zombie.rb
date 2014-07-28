@@ -89,7 +89,7 @@ class Zombie < Enemy
 			puts "\n#{hero.name} picks up a #{potion.name} dropped by the fallen #{self.name}"
 		end
 
-		hero.exp = hero.exp + 5 + (self.lvl - 1)
+		hero.exp = hero.exp + ( 5 + 95 * ((self.lvl-1.0)/99.0) ).to_i
 		Game.pause_short
 	end
 

@@ -42,12 +42,24 @@ class Model
 				self.mp = self.mp + modifier.value
 				self.mpmax = self.mpmax + modifier.value
 			when "att"
+                if self.att - modifier.value < 1
+                    modifier.value = self.att - 1
+                end
 				self.att = self.att + modifier.value
 			when "defn"
+                if self.defn - modifier.value < 1
+                    modifier.value = self.defn - 1
+                end
 				self.defn = self.defn + modifier.value
 			when "matt"
+                if self.matt - modifier.value < 1
+                    modifier.value = self.matt - 1
+                end
 				self.matt = self.matt + modifier.value
 			when "mdefn"
+                if self.matt - modifier.value < 1
+                    modifier.value = self.matt - 1
+                end
 				self.mdefn = self.mdefn + modifier.value
 			when "init"
 				self.init = self.init + modifier.value
@@ -108,7 +120,7 @@ class Model
 	end
 
 	def level_up?
-		if @exp >= ( @lvl*10 + ( (@lvl-1)*10 ) )
+		if @exp >= ( 10 + 9990 * ((@lvl-1.0)/99.0) ** 2).to_i
 			return true
 		end
 		false
