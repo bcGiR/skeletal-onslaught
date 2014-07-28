@@ -3,6 +3,8 @@ require_relative 'heroes/thief'
 require_relative 'heroes/fighter'
 require_relative 'enemies/skeleton'
 require_relative 'enemies/spider'
+require_relative 'enemies/goblin'
+require_relative 'enemies/zombie'
 require_relative 'enemies/skelethognos'
 require_relative 'items/item'
 require_relative 'items/consumable'
@@ -501,10 +503,10 @@ class Game
 			new_enemy = Skelethognos.new
 		when "spider"
 		        new_enemy = Spider.new
-        when "goblin"
-            new_enemy = Goblin.new
-        when "zombie"
-            new_enemy = Zombie.new
+        	when "goblin"
+            		new_enemy = Goblin.new
+        	when "zombie"
+            		new_enemy = Zombie.new
 		end
 
 		#levels the enemy up according lvl parameter
