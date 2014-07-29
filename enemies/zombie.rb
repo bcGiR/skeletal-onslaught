@@ -37,6 +37,8 @@ class Zombie < Enemy
 	else
 		puts "\n*** You have already been bitten by a Zombie ***"
 	end
+		puts "\n#{game.hero.name}level#{game.hero.lvl}att#{game.hero.att}defn#{game.hero.defn}matt#{game.hero.matt}mdefn#{game.hero.mdefn}"
+		
 		Game.pause_short
 		damage
 	end

@@ -60,8 +60,8 @@ class Model
                 end
 				self.matt = self.matt + modifier.value
 			when "mdefn"
-                if self.matt - modifier.value < 1
-                    modifier.value = self.matt - 1
+                if self.mdefn - modifier.value < 1
+                    modifier.value = self.mdefn - 1
                 end
 				self.mdefn = self.mdefn + modifier.value
 			when "init"

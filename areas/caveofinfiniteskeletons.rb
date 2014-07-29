@@ -55,7 +55,7 @@ class CaveOfInfiniteSkeletons < Dungeon
 				    [Proc.new { @game.spawn_enemy("spider", 0) }], #b1_enemies
 				    [HealthPot.new] ), #b1_objects
 		      b2 = Area.new( "South Barrack", #b2_name
-				    "\nYou push past the wooden door and through the stone arch into a room much more \ncluttered than the rest. Filling the room are implements of \ntorture, weapon racks, bones and skulls scattered about, and, at the northern \nend of the room, a forge of bones: the place where the skeletal warriors seem to be birthed. The east and west ends of the room have matching large wooden doors, and in the south, \nalong the arched wall, a smaller door. Four round, stone pillars support the \narched roof in the middle of the room.", #b2_description
+				    "\nYou push past the wooden door and through the stone arch into a room much more \ncluttered than the rest. Filling the room are implements of \ntorture, weapon racks, bones and skulls scattered about, and, at the northern \nend of the room, a forge of bones: the place where the skeletal warriors seem to be birthed. The east and west ends of the room have matching large wooden doors, \nand in the south, along the arched wall, a smaller door. Four round, stone \npillars support the arched roof in the middle of the room.", #b2_description
 				    [], #b2_adjacent
 				    [], #b2_npcs
 				    [Proc.new { @game.spawn_enemy("skeleton", 0) },
