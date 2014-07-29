@@ -37,9 +37,6 @@ class Fighter < Adventurer
     end
 
 	def flurry
-
-		@mp = @mp - 4
-
 		damage = ( (Game.d2 + Game.d2 + Game.d2 + Game.d2 + 1.0) +
 			  ( Game.d100 + Game.d100 + Game.d100 + 200.0 ) * ( (@lvl + 9.0)/(99.0 + 10.0) ) ** 2 ).to_i
 
@@ -49,9 +46,6 @@ class Fighter < Adventurer
 	end
     
     def cleave
-
-        @mp = @mp - 4
-
         damage = ( (Game.d2 + Game.d2 + 1) + ( Game.d100 + Game.d100 + 100.0) * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
         puts "\n*** The Fighter cleaves his sword through his opponents ***"
         Game.pause_short

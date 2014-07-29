@@ -29,9 +29,14 @@ class Zombie < Enemy
 	def lurch(game)
 		damage = ( ( Game.d3 + 1) + ( Game.d100 + Game.d100 + Game.d100 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i 
         wound = Modifier.new("zombie", 'att', -1)
-        timer = CombatTimer.new("Zombie wound", game, game.hero, 3, wound, 'mod')
-        game.timers << timer
-		puts "\n*** The zombie lurches forward, clawing and biting ***"
+	unless game.hero.modifiers.any? { |mod| mod.name == "zombie" }
+		game.hero.modify(wound)
+        	timer = CombatTimer.new("Zombie wound", game, game.hero, 3, wound, 'mod')
+        	game.timers << timer
+		puts "\n*** The zombie lurches forward, clawing and biting (ATT -1) ***"
+	else
+		puts "\n*** You have already been bitten by a Zombie ***"
+	end
 		Game.pause_short
 		damage
 	end

@@ -27,9 +27,6 @@ class Mage < Adventurer
 	end
 
 	def magic_missile
-
-		@mp = @mp - 4
-
 		hit = Game.d100
 		damage = 0
 		if hit >= 20
@@ -43,8 +40,6 @@ class Mage < Adventurer
 	end
 
     def fireball
-
-        @mp = @mp - 4
         damage = ((Game.d4 + 1) + (Game.d100 + Game.d100 + Game.d100 + 150) * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
         puts "\n*** The Mages fireball immolates everything in its path ***"
         Game.pause_short

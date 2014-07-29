@@ -37,9 +37,6 @@ class Thief < Adventurer
 
 
 	def backstab
-
-		@mp = @mp - 4
-
 		damage = ( (Game.d10 + 1.0) + (Game.d100*7.0 + 1.0) * ( (@lvl + 9.0)/(99.0 + 10.0) ) ** 2 ).to_i
 		puts "\n*** The Thief tumbles behind his opponent, gouging his enemy's back ***"
 		Game.pause_short
@@ -47,9 +44,6 @@ class Thief < Adventurer
 	end
 
     def fan
-
-        @mp = @mp - 4
-        
         damage = ( Game.d6 + (Game.d100*3.5 + 1.0) * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
         puts "\n*** A throwing dagger flashes out from the theif, plunging into his enemy ***"
         Game.pause_short

@@ -123,10 +123,26 @@ class Model
 	end
 
 	def level_up?
-		if @exp >= ( 10 + 9990 * ((@lvl-1.0)/99.0) ** 2).to_i
+		if @exp >= self.exp_needed(@lvl).to_i
 			return true
 		end
 		false
+	end
+
+	def exp_needed(level)
+		if level == 1
+			return 10
+		else 
+			self.exp_needed_i(level, 10)
+		end
+	end
+
+	def exp_needed_i(level, total)
+		if level == 1
+			return total
+		else
+			return exp_needed_i(level-1, total*1.1)
+		end
 	end
 
 	def level_up

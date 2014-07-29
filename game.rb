@@ -441,6 +441,7 @@ class Game
 				damage = attacker.attack
 				damage_ratio = ( attacker.att / defender.defn )
 			else
+				attacker.mp = attacker.mp - attacker.special_list[type]
 				attack_stat = attacker.special_type(type)
 				if attack_stat == "att"
 					damage = attacker.special_attack(type, self)
