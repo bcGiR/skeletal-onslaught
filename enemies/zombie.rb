@@ -31,13 +31,12 @@ class Zombie < Enemy
         wound = Modifier.new("zombie", 'att', -1)
 	unless game.hero.modifiers.any? { |mod| mod.name == "zombie" }
 		game.hero.modify(wound)
-        	timer = CombatTimer.new("Zombie wound", game, game.hero, 3, wound, 'mod')
+        	timer = CombatTimer.new("Zombie wound", game, game.hero, 3, wound.name, 'mod')
         	game.timers << timer
 		puts "\n*** The zombie lurches forward, clawing and biting (ATT -1) ***"
 	else
 		puts "\n*** You have already been bitten by a Zombie ***"
 	end
-		puts "\n#{game.hero.name}level#{game.hero.lvl}att#{game.hero.att}defn#{game.hero.defn}matt#{game.hero.matt}mdefn#{game.hero.mdefn}"
 		
 		Game.pause_short
 		damage

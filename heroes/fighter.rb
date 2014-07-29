@@ -53,17 +53,13 @@ class Fighter < Adventurer
     end
 
 	def level_up
-		puts "\n#{name}level#{@lvl}att#{@att}defn#{@defn}matt#{@matt}mdefn#{@mdefn}"
-
 		mods = []
-		self.modifiers.each do |mod|
-			new_mod = Modifier.new(mod.name, mod.attr, mod.value)
+		count = 0
+		until count == self.modifiers.count
+			new_mod = Modifier.new(self.modifiers[count].name, self.modifiers[count].attr, self.modifiers[count].value)
 			mods << new_mod
-			self.demodify(mod)
+			self.demodify(self.modifiers[count])
 		end
-
-		puts "demod"
-		puts "\n#{name}att#{@att}defn#{@defn}matt#{@matt}mdefn#{@mdefn}"
 
 		super
 		if @lvl == 3
@@ -95,14 +91,11 @@ class Fighter < Adventurer
 		puts "M.DEF: +#{mdefn_diff}"
         puts "AC: +#{ac_diff}"
 
-	puts "\n#{name}level#{@lvl}att#{@att}defn#{@defn}matt#{@matt}mdefn#{@mdefn}"
 
 		mods.each do |mod|
 			self.modify(mod)
 		end
 
-		puts "remod"
-		puts "\n#{name}level#{@lvl}att#{@att}defn#{@defn}matt#{@matt}mdefn#{@mdefn}"		
 		Game.pause_short
 	end
 

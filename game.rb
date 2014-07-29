@@ -275,7 +275,7 @@ class Game
 				Game.pause_short
 				choice = gets.chomp.downcase.to_i
 				Game.pause_short
-				until choice > 0 && choice < (count+1)
+				until choice > 0 && choice < (count)
 					puts "\nPlease choose again:"
 					choice = gets.chomp.downcase.to_i
 				end
@@ -410,6 +410,7 @@ class Game
 
 		elsif /special/ === action
 			action = action[7..-1]
+			model.mp = model.mp - model.special_list[action]
 			self.attack(model, target, action)
 		
 		#string action contains "item[nameOfItem]"
@@ -441,7 +442,6 @@ class Game
 				damage = attacker.attack
 				damage_ratio = ( attacker.att / defender.defn )
 			else
-				attacker.mp = attacker.mp - attacker.special_list[type]
 				attack_stat = attacker.special_type(type)
 				if attack_stat == "att"
 					damage = attacker.special_attack(type, self)

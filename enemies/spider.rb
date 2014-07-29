@@ -31,13 +31,12 @@ class Spider < Enemy
 		web = Modifier.new("webdefn", "defn", -1)
 		unless game.hero.modifiers.any? { |mod| mod.name == "webdefn" }
 			game.hero.modify(web)
-			timer = CombatTimer.new("Spider Web", game, game.hero, 3, web, 'mod')
+			timer = CombatTimer.new("Spider Web", game, game.hero, 3, web.name, 'mod')
 			game.timers << timer
 			puts "\n*** The spider entangles you with a web (DEF -1) ***"
 		else
 			puts "\n*** You are already entangled in webs ***"
 		end
-			puts "\n#{game.hero.name}level#{game.hero.lvl}att#{game.hero.att}defn#{game.hero.defn}matt#{game.hero.matt}mdefn#{game.hero.mdefn}"
 		Game.pause_short
 		damage
 	end
