@@ -82,7 +82,7 @@ class Skelethognos < Enemy
 		hero.gold = hero.gold + gold
 		puts "\n#{hero.name} picks up #{gold} gold dropped by the fallen #{self.name}"
 
-		hero.exp = hero.exp + ( 10 + 190 * ((self.lvl-1.0)/99.0) ).to_i
+		hero.exp = hero.exp + 12 
 		Game.pause_short
 	end
 

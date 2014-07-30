@@ -86,15 +86,15 @@ class Spider < Enemy
 		when 91..100
 			sub_roll = Game.d3
 			if sub_roll == 1
-				potion = ManaPot.new
+				potion = MinorManaPot.new
 			else
-				potion = HealthPot.new
+				potion = MinorHealthPot.new
 			end
 			hero.inv << potion
 			puts "\n#{hero.name} picks up a #{potion.name} dropped by the fallen #{self.name}"
 		end
 
-		hero.exp = hero.exp + ( 5 + 95 * ((self.lvl-1.0)/99.0) ).to_i
+		hero.exp = hero.exp + 4
 		Game.pause_short
 	end
 
