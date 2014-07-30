@@ -1,14 +1,14 @@
 require_relative 'equippable'
 require_relative '../modifier'
 
-class IronSword < Equippable
+class SilkRobe < Equippable
 
 	def initialize
-		super("Iron Sword",
-		      10,
+		super("Silk Mage's Robe",
+		      20,
 		      "common",
-		      [ Modifier.new("IronSwordAtt",
-				     "att",
+		      [ Modifier.new("SilkRobeMdefn",
+				     "mdefn",
 				     1 ) ] )
 	end
 

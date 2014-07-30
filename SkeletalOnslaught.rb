@@ -75,7 +75,7 @@ town_description = "\nYou are sitting in the Brittle Bone Inn at a table by your
 town_adjacent = []
 town_npcs = [wiz = Wizard.new, black = Blacksmith.new]
 town_enemies = []
-town_objects = [h1 = HealthPot.new, h2 = HealthPot.new, m1 = ManaPot.new]
+town_objects = [h1 = MinorHealthPot.new, h2 = MinorHealthPot.new, m1 = MinorManaPot.new]
 town = Area.new("town", town_description, town_adjacent, town_npcs, town_enemies, town_objects)
 
 #New Game

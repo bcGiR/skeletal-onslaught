@@ -32,7 +32,6 @@ class CombatTimer
 			mod = game.hero.modifiers.find { |mod| mod.name == @effect }
 			game.hero.demodify(mod)
 		end
-		puts "\n#{game.hero.name}level#{game.hero.lvl}att#{game.hero.att}defn#{game.hero.defn}matt#{game.hero.matt}mdefn#{game.hero.mdefn}"
 		
 		puts "\n#{@name} affecting #{@model.name} has worn off"
 		Game.pause_short

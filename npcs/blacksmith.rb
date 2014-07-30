@@ -1,11 +1,16 @@
 require_relative 'NPC'
 require_relative '../items/healthpot'
+require_relative '../items/manapot'
 require_relative '../items/ironsword'
+require_relative '../items/ironshield'
+require_relative '../items/ironarmor'
+require_relative '../items/ironhelm'
+require_relative '../items/silkrobe'
 
 class Blacksmith < NPC
 
 	def initialize
-		inv = [h1 = HealthPot.new, h2 = HealthPot.new, sword = IronSword.new]
+		inv = [MinorHealthPot.new, MinorManaPot.new, IronSword.new, IronShield.new, IronArmor.new, SilkRobe.new, IronHelm.new]
 		super("Joe, the Blacksmith", inv)
 	end
 	

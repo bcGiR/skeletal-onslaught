@@ -26,6 +26,15 @@ class Mage < Adventurer
 		end
 	end
 
+	def special_single_target(action)
+        case action
+        when 'missile'
+            return true
+        when 'fireball'
+            return false
+        end
+    	end
+
 	def magic_missile
 		hit = Game.d100
 		damage = 0

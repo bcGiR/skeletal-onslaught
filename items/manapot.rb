@@ -1,18 +1,18 @@
 require_relative 'consumable'
 require_relative '../game'
 
-class ManaPot < Consumable
+class MinorManaPot < Consumable
 
 	def initialize
-		super("Mana Potion", 10, "common")
+		super("Minor Mana Potion", 10, "common")
 	end
 
 	def consume(target)
-		target.mp = target.mp + 8
+		target.mp = target.mp + 10
 		if target.mp > target.mpmax
 			target.mp = target.mpmax
 		end
-		puts "\n#{target.name} drinks a #{self.name} and gains 8MP (#{target.mp}MP total)"
+		puts "\n#{target.name} drinks a #{self.name} and gains 10MP (#{target.mp}MP total)"
 		Game.pause_short
 	end
 

@@ -323,7 +323,7 @@ class Game
 			else
 				items_in_room = []
 				@hero_area.objects.each do |object|
-					if object.class == HealthPot || object.class == ManaPot
+					if object.class == MinorHealthPot || object.class == MinorManaPot
 						puts "\nYou have found a discarded #{object.name}"
 						Game.pause_short
 						puts "Would you like to pick it up? (y/n)"
