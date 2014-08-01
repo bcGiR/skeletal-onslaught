@@ -452,8 +452,8 @@ class Game
 				end
 			end
 
-			if damage_ratio > 1.5
-				damage_ratio = 1.5
+			if damage_ratio > 2
+				damage_ratio = 2
 			elsif damage_ratio < 0.5
 				damage_ratio = 0.5
 			end

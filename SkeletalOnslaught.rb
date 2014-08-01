@@ -11,9 +11,9 @@ system("cls")
 Game.pause_short
 #Title screen
 puts "\n\n"
-puts "                ................................"
-puts "                .Welcome to Skeletal Onslaught!."
-puts "                ................................"
+puts "                         ................................"
+puts "                         .Welcome to Skeletal Onslaught!."
+puts "                         ................................"
 puts "\n\n"
 Game.pause_long
 
@@ -87,7 +87,7 @@ town.adjacent = [dungeon.areas[0]]
 dungeon.areas[0].adjacent << town
 
 puts "................................................................................"
-puts "#{game.hero.name}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.gold} Gold"
+puts "#{game.hero.name}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.gold} Gold - #{game.hero.exp} exp"
 puts "................................................................................\n"
 
 Game.describe(town)
@@ -103,7 +103,7 @@ until game.over?
 
 	#Status bar displaying user stats and current situation
 	puts "................................................................................"
-	puts "#{game.hero.name}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.gold} Gold"
+	puts "#{game.hero.name}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.gold} Gold - #{game.hero.exp} exp"
 	puts "................................................................................\n"
 	
 	#Combat

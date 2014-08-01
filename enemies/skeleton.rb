@@ -1,7 +1,14 @@
 require_relative '../game'
 require_relative 'enemy'
-require_relative '../items/healthpot'
 require_relative '../items/manapot'
+require_relative '../items/healthpot'
+require_relative '../items/smallmanapot'
+require_relative '../items/smallhealthpot'
+require_relative '../items/perfectskull'
+require_relative '../items/bonesword'
+require_relative '../items/bonearmor'
+require_relative '../items/bonebuckler'
+require_relative '../items/bonenecklace'
 
 class Skeleton < Enemy
 
@@ -62,29 +69,90 @@ class Skeleton < Enemy
 	end
 
 	def drop(hero)
-		#Rolls d100 and adds +5 to the roll per level after level 1
-		roll = Game.d100 + (self.lvl - 1) * 5
-		if roll > 100
-			roll = 100
-		end
+		roll = Game.d6
 
-		case roll
-		when 1..90
-			gold = Game.d4 + (self.lvl - 1)
-			hero.gold = hero.gold + gold
-			puts "\n#{hero.name} picks up #{gold} gold dropped by the fallen #{self.name}"
-		when 91..100
-			sub_roll = Game.d3
-			if sub_roll == 1
-				potion = MinorManaPot.new
-			else
-				potion = MinorHealthPot.new
+		if self.lvl < 10
+			case roll
+			when 1, 2, 3
+				gold = Game.d6
+				hero.gold = hero.gold + gold
+				puts "\n#{hero.name} picks up #{gold} gold coins from the fallen #{self.name}"
+			when 4, 5
+				sub_roll = Game.d3
+				if sub_roll == 1
+					potion = MinorManaPot.new
+				else
+					potion = MinorHealthPot.new
+				end
+				hero.inv << potion
+				puts "\n#{hero.name} picks up a #{potion.name} dropped by the fallen #{self.name}"
+			when 6
+				item_roll = Game.d4
+				case item_roll
+				when 1
+					sub_roll = Game.d2
+					if sub_roll == 1
+						item = SmallManaPot.new
+					else
+						item = SmallHealthPot.new
+					end
+				when 2
+					item = BoneArmor.new
+				when 3
+					item = BoneBuckler.new
+				when 4
+					item = BoneNecklace.new
+				when 5
+					item = BoneSword.new
+				when 6
+					item = PerfectSkull.new
+				end
+				hero.inv << item
+				puts "\n#{hero.name} picks up a #{item.name} dropped by the fallen #{self.name}"
 			end
-			hero.inv << potion
-			puts "\n#{hero.name} picks up a #{potion.name} dropped by the fallen #{self.name}"
+			hero.exp = hero.exp + 4
+		else
+			case roll
+			when 1, 2, 3
+				gold = Game.d8 + 4
+				hero.gold = hero.gold + gold
+				puts "\n#{hero.name} picks up #{gold} gold coins from the fallen #{self.name}"
+			when 4, 5
+				sub_roll = Game.d3
+				if sub_roll == 1
+					potion = SmallManaPot.new
+				else
+					potion = SmallHealthPot.new
+				end
+				hero.inv << potion
+				puts "\n#{hero.name} picks up a #{potion.name} dropped by the fallen #{self.name}"
+			when 6
+				item_roll = Game.d4
+				case item_roll
+				when 1
+					sub_roll = Game.d2
+					if sub_roll == 1
+						item = SmallManaPot.new
+					else
+						item = SmallHealthPot.new
+					end
+				when 2
+					item = BoneArmor.new
+				when 3
+					item = BoneBuckler.new
+				when 4
+					item = BoneNecklace.new
+				when 5
+					item = BoneSword.new
+				when 6
+					item = PerfectSkull.new
+				end
+				hero.inv << item
+				puts "\n#{hero.name} picks up a #{item.name} dropped by the fallen #{self.name}"
+			end
+			hero.exp = hero.exp + 6
 		end
 
-		hero.exp = hero.exp + 4 
 		Game.pause_short
 	end
 

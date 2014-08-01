@@ -4,7 +4,7 @@ require_relative '../modifier'
 class SilkRobe < Equippable
 
 	def initialize
-		super("Silk Mage's Robe",
+		super("Silk Mage's Robe (M.DEF: +1)",
 		      20,
 		      "common",
 		      [ Modifier.new("SilkRobeMdefn",

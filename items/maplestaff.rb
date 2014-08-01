@@ -4,7 +4,7 @@ require_relative '../modifier'
 class MapleStaff < Equippable
 
 	def initialize
-		super("Maple Staff",
+		super("Maple Staff (M.ATT: +1",
 		      10,
 		      "common",
 		      [ Modifier.new("MapleStaffMatt",

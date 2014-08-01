@@ -123,14 +123,22 @@ class Model
 	end
 
 	def level_up?
-		if @exp >= self.exp_needed(@lvl).to_i
+		level = @lvl
+		required = 0
+		until level == 0
+			required += exp_needed(level)
+			level -= 1
+		end
+		if @exp >= required
 			return true
 		end
 		false
 	end
 
 	def exp_needed(level)
-		if level == 1
+		if level == 0
+			return 0
+		elsif level == 1
 			return 10
 		else 
 			self.exp_needed_i(level, 10)

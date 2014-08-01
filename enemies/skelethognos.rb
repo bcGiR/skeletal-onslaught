@@ -1,4 +1,11 @@
 require_relative '../game'
+require_relative '../items/manapot'
+require_relative '../items/healthpot'
+require_relative '../items/smallmanapot'
+require_relative '../items/smallhealthpot'
+require_relative '../items/skelethognostooth'
+require_relative '../items/skelethognosskull'
+require_relative '../items/skelethognosarm'
 require_relative 'enemy'
 
 class Skelethognos < Enemy
@@ -78,11 +85,24 @@ class Skelethognos < Enemy
 	end
 
 	def drop(hero)
-		gold = Game.d20
-		hero.gold = hero.gold + gold
-		puts "\n#{hero.name} picks up #{gold} gold dropped by the fallen #{self.name}"
+		roll = Game.d3
+		case roll
+		when 1
+			item = SkelethognosArm.new
+		when 2
+			item = SkelethognosSkull.new
+		when 3
+			item = SkelethognosTooth.new
+		end
+		gold = Game.d12 + 6
 
-		hero.exp = hero.exp + 12 
+		hero.inv << item
+		hero.gold = hero.gold + gold
+		hero.exp = hero.exp + 12
+
+		puts "\n#{hero.name} picked up #{item.name} from the vanquished #{self.name}"
+		Game.pause_short
+		puts "\n#{hero.name} found #{gold} gold among the bones of his defeated enemy"
 		Game.pause_short
 	end
 
