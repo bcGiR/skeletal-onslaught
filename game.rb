@@ -159,9 +159,19 @@ class Game
 				@hero.inv.each do |i| 
 					if i.equippable?
 						if i.equipped?
-							puts "*" + i.name
+							item_name = "*" + i.name + " ("
+							i.modifiers.each do |mod|
+								item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
+							end
+							item_name = item_name + ")"
+							puts item_name	
 						else
-							puts i.name
+							item_name = i.name + " ("
+							i.modifiers.each do |mod|
+								item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
+							end
+							item_name = item_name + ")"
+							puts item_name
 						end
 					else
 						puts i.name
@@ -219,9 +229,19 @@ class Game
 				@hero.inv.each do |i| 
 					if i.equippable?
 						if i.equipped?
-							puts "*" + i.name
+							item_name = "*" + i.name + " ("
+							i.modifiers.each do |mod|
+								item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
+							end
+							item_name = item_name + ")"
+							puts item_name	
 						else
-							puts i.name
+							item_name = i.name + " ("
+							i.modifiers.each do |mod|
+								item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
+							end
+							item_name = item_name + ")"
+							puts item_name
 						end
 					else
 						puts i.name
@@ -237,7 +257,7 @@ class Game
 					action = action + item
 				else
 					puts "\nYou do not have any #{item}"
-					return "error"		
+					action = "error"		
 				end
 		end
 		Game.pause_short

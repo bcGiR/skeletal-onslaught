@@ -32,14 +32,25 @@ class Blacksmith < NPC
 		puts "\n\"Let me know if you see anything you like.\""
 		Game.pause_short
 		puts "\n-- Blacksmith --\n\n"
-		self.inv.each { |i| puts i.name + "  - " + i.value.to_s + "gold" }
+		self.inv.each do |i| 
+			item_name = i.name
+		       if i.equippable?
+			       item_name = item_name + "( "
+				i.modifiers.each do |mod|
+			 		item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
+				end
+				item_name = item_name + ")"
+		       end
+    			item_name = item_name + " - " + i.value.to_s + "gold"
+			puts item_name
+		end
 		puts "\n----------------"
 		Game.pause_short
 		puts "\nType the game of an item to buy it:"
-		item_name = gets.chomp.downcase
+		item = gets.chomp.downcase
 		Game.pause_short
-		if self.inv.any? { |i| i.name.downcase == item_name }
-			item = self.inv.find { |i| i.name.downcase == item_name}
+		if self.inv.any? { |i| i.name.downcase == item }
+			item = self.inv.find { |i| i.name.downcase == item}
 			if hero.gold < item.value
 				puts "\n\"You don't have enough gold for that! Get outta here ya bum!\""
 			else

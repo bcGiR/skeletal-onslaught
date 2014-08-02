@@ -4,7 +4,7 @@ require_relative '../modifier'
 class SkelethognosTooth < Equippable
 
 	def initialize
-		super("Skelethognos' Biggest Tooth (HP: +16 | MP: +16 | AC: +4)",
+		super("Skelethognos' Biggest Tooth",
 		      140,
 		      "rare",
 		      [ Modifier.new("SkelToothHP",

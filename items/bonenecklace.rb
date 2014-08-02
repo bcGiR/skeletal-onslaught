@@ -4,7 +4,7 @@ require_relative '../modifier'
 class BoneNecklace < Equippable
 
 	def initialize
-		super("Necklace of Bones (M.ATT: +1 | M.DEF: +3)",
+		super("Necklace of Bones",
 		      80,
 		      "uncommon",
 		      [ Modifier.new("BoneNecklaceMatt",

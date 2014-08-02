@@ -4,7 +4,7 @@ require_relative '../modifier'
 class SkelethognosArm < Equippable
 
 	def initialize
-		super("Skelethognos' Arm (ATT: +6 | M.ATT: +6)",
+		super("Skelethognos' Arm",
 		      120,
 		      "rare",
 		      [ Modifier.new("SkelArmAtt",
