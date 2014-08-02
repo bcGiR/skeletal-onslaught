@@ -454,6 +454,8 @@ class Game
 	#Carries out an attack by an attacker against a target
 	def attack(attacker, target, type)
 
+		marked_for_death = []
+
 		target.each do |defender|
 
 			damage = 0
@@ -495,8 +497,12 @@ class Game
 
 			#after attack check if the defender is dead and kill if they are
 			if defender.dead?
-				self.kill(defender)
+				marked_for_death << defender
 			end
+		end
+
+		marked_for_death.each do |model|
+			self.kill(model)
 		end
 	end
 

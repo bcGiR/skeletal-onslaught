@@ -76,7 +76,7 @@ town_adjacent = []
 town_npcs = [wiz = Wizard.new, black = Blacksmith.new]
 town_enemies = []
 town_objects = [h1 = MinorHealthPot.new, h2 = MinorHealthPot.new, m1 = MinorManaPot.new]
-town = Area.new("town", town_description, town_adjacent, town_npcs, town_enemies, town_objects)
+town = Area.new("Town", town_description, town_adjacent, town_npcs, town_enemies, town_objects)
 
 #New Game
 game = Game.new(user_name, role, town)
