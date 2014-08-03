@@ -135,16 +135,19 @@ class Game
 
 		elsif action == "move"
 			puts "\n-- #{@hero_area.name.capitalize} --\n\n"
-			@hero_area.adjacent.each do |area|
+			@hero_area.adjacent.each do |direction, area|
 				Game.pause_short
-				puts area.name + "\n"
+				puts area.name + " (#{direction})\n"
 			end
 			Game.pause_short
 			puts "\nWhere would you like to go?"
 			to_area = gets.chomp.downcase
-			@hero_area.adjacent.each do |area|
+			@hero_area.adjacent.each do |direction, area|
+				if direction == to_area
+					return action + to_area
+				end
 				if area.name.downcase == to_area
-					action = action + to_area
+					return action + to_area
 				end
 			end
 			#TODO: Clean this up!!
@@ -386,9 +389,24 @@ class Game
 		when /move/
 			#removes "move" from the string to leave just the name
 			action = action[4..-1]
-			#passes area name to the move_to method
-			to_area = @hero_area.adjacent.select { |area| area.name.downcase == action }.first
-			self.move_to(to_area)
+			case action
+			when 'north'
+				self.move_to(@hero_area.adjacent['north'])
+			when 'south'
+				self.move_to(@hero_area.adjacent['south'])
+			when 'east'
+				self.move_to(@hero_area.adjacent['east'])
+			when 'west'
+				self.move_to(@hero_area.adjacent['west'])
+			else
+				to_area = @hero_area
+				@hero_area.adjacent.each do |direction, area|
+					if area.name.downcase == action
+						to_area = area
+					end
+				end
+				self.move_to(to_area)
+			end
 		when /item/
 			#removes "item" from the string to leave just the name
 			action = action[4..-1]

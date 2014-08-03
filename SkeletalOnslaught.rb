@@ -72,7 +72,7 @@ system("cls")
 
 #The town
 town_description = "\nYou are sitting in the Brittle Bone Inn at a table by yourself. The dimly lit, \npungent hall is sparcely occupied; only a handful of dreary looking peasants sit \nand sip their tankards of ale, saying nothing and looking nowhere. After an \nhour, you are approached by an Old Wizardly looking man who tells you of great \nfourtune and fame to be gained by battling the Skeleton King of the Cave of \nInfinite Skeletons. Lacking any personal sovereignty, or freewill, you \nimmediately take up his quest and seek glory battling the undead."
-town_adjacent = []
+town_adjacent = Hash.new
 town_npcs = [wiz = Wizard.new, black = Blacksmith.new]
 town_enemies = []
 town_objects = [h1 = MinorHealthPot.new, h2 = MinorHealthPot.new, m1 = MinorManaPot.new]
@@ -83,8 +83,8 @@ game = Game.new(user_name, role, town)
 
 dungeon = CaveOfInfiniteSkeletons.new(game)
 
-town.adjacent = [dungeon.areas[0]]
-dungeon.areas[0].adjacent << town
+town.adjacent['east'] = dungeon.areas[0]
+dungeon.areas[0].adjacent['west'] = town
 
 puts "................................................................................"
 puts "#{game.hero.name}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.gold} Gold - #{game.hero.exp} exp"
