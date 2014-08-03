@@ -3,8 +3,11 @@ require_relative 'area'
 require_relative '../npcs/blacksmith'
 require_relative '../game'
 require_relative '../items/lockedwoodenchest'
+require_relative '../items/smallhealthpot'
+require_relative '../items/smallmanapot'
 require_relative '../items/healthpot'
 require_relative '../items/manapot'
+require_relative '../npcs/cleric'
 
 class CaveOfInfiniteSkeletons < Dungeon
 
@@ -15,7 +18,7 @@ class CaveOfInfiniteSkeletons < Dungeon
 					     Hash.new, #entrance_adjacent
 					     [], #entrance_npcs
 					     [ Proc.new { @game.spawn_enemy("skeleton", -1) } ], #entrance_enemies
-					     [ MinorHealthPot.new ] ), #entrance_objects
+					     [] ), #entrance_objects
 		      pool = Area.new( "Pool", #pool_name
 				      "\nYou enter a cavernous room, the crossroads of two shafts of the cave. Out of a \nsmall hole in the northwest wall a waterfall drops to the cavern floor and flows \ndown to a small pool in the center of the room. At the other end of the pool, \nabout 20 feet across, the pool empties into another stream which flows into a \nrabithole sized opening in the southeastern wall. A shaft leads out of this room \nto the north and one to the south. To the west, the light of the surface streams \nthrough the entrance.", #pool_description
 				      Hash.new, #pool_adjacent
@@ -28,66 +31,66 @@ class CaveOfInfiniteSkeletons < Dungeon
 				    Hash.new, #a1_adjacent
 				    [], #a1_npcs
 				    [ Proc.new { @game.spawn_enemy("spider", 0) } ], #a1_enemies
-				    [MinorHealthPot.new] ), #a1_objects
+				    [] ), #a1_objects
 		      a2 = Area.new( "North Barrack", #a2_name
 				    "\nYou are standing in a skeletal armory. Bones line the floor of the skeletons \nthat have done combat, perhaps of would-be adventurers or perhaps just bored \nskeletons smashing each other to bits. There are racks of weapons filling the \ncorners and walls of the room; maces, swords, pikes, axes, and unidentifiable \nimpletments of death fill these racks. In the north end of this room, there is a \ngreat, unburning furnace, filled to the point of overflowing with bones and \nskulls. It seems to be a forge of the undead, where skeletal warriors are \nbirthed from the remnants of the defeated.", #a2_description
 				    Hash.new, #a2_adjacent
 				    [], #a2_npcs
 				    [ Proc.new { @game.spawn_enemy("skeleton", 0) },
 				      Proc.new { @game.spawn_enemy("zombie", 0) }], #a2_enemies
-				    [MinorHealthPot.new, MinorManaPot.new] ), #a2_objects
+				    [MinorHealthPot.new] ), #a2_objects
 		      a_treasure = Area.new( "North Barrack Cache", #a_treasure_name
 					    "\nThe door at the south end of the barrack opens up into a small, dusty room \ncontaining cabinets, chests, barrels, and a table in the center of the room \ncluttered with torture implements, potions (or poisons?), and a scattering of \ngold pieces.", #a_treasure_description
 					    Hash.new, #a_treasure_adjacent
 					    [], #a_treasure_npcs
 					    [], #a_treasure_enemies
-					    [] ), #a_treasure_objects
+					    [at_chest = LockedWoodenChest.new, SmallHealthPot.new, SmallManaPot.new] ), #a_treasure_objects
 		      a3 = Area.new( "NorthEast Corridor", #a3_name
 				     "\nYou enter a long room with heavy stone block walls and a high arched ceiling. \nThe room stretches over a hundred feet across: at the east end, the room ends in \nan empty wall, and at the other end, a large wooden door is placed in the middle \nof the stone wall. The arch above this heavy door is lined with skulls and bones \nof various kinds. In the south, at the eastern end of the room, a smaller wooden \ndoor exits the north corridor.", #a3_description
 				     Hash.new, #a3_adjacent
 				     [], #a3_npcs
 				     [ Proc.new { @game.spawn_enemy("goblin", 0) } ], #a3_enemies
-				     [MinorHealthPot.new] ), #a3_objects
+				     [] ), #a3_objects
 		      b1 = Area.new( "SouthWest Corridor", #b1_name
 				    "\nYou stand now in a cavernous, arched, stone corridor. At the eastern end, a \nlarge, wooden door with a heavy iron ring latch. The western end of the room \nends the corridor, with a natural cave opening to the Pool cavern north of here. \nThe sconces lining the walls here reveal the bones built into the architecture \nof the corridor, a grim reminder of the victims of this place. The structure of \nthe skeletal fortress is eerily well-contructed; precision does not come \nnaturally to skeletons.", #b1_description
 				    Hash.new, #b1_adjacent
 				    [], #b1_npcs
 				    [Proc.new { @game.spawn_enemy("spider", 0) }], #b1_enemies
-				    [MinorHealthPot.new] ), #b1_objects
+				    [] ), #b1_objects
 		      b2 = Area.new( "South Barrack", #b2_name
 				    "\nYou push past the wooden door and through the stone arch into a room much more \ncluttered than the rest. Filling the room are implements of torture, weapon \nracks, bones and skulls scattered about, and, at the northern end of the room, a \nforge of bones: the place where the skeletal warriors seem to be birthed. The \neast and west ends of the room have matching large wooden doors, and in the \nsouth, along the arched wall, a smaller door. Four round, stone pillars support \nthe arched roof in the middle of the room.", #b2_description
 				    Hash.new, #b2_adjacent
 				    [], #b2_npcs
 				    [Proc.new { @game.spawn_enemy("skeleton", 0) },
 				      Proc.new { @game.spawn_enemy("zombie", 0) }], #b2_enemies
-				    [MinorHealthPot.new, MinorManaPot.new] ), #b2_objects
+				    [MinorHealthPot.new] ), #b2_objects
 		      b_treasure = Area.new( "South Barrack Cache", #b_treasure_name
 					    "\nThrough the small door in the south of the barrack you find a cluttered room \nfull of chests, cupboards, and drawers. There is a scattering of oils, potions, \ngold coins, and bones littering the surfaces in this room.", #b_treasure_description
 					    Hash.new, #b_treasure_adjacent
 					    [], #b_treasure_npcs
 					    [], #b_treasure_enemies
-					    [] ), #b_treasure_objects
+					    [bt_chest = LockedWoodenChest.new, SmallManaPot.new, SmallHealthPot.new] ), #b_treasure_objects
 		      b3 = Area.new( "SouthEast Corridor", #b3_name
 				    "\nYou enter a long, stone room with an arched, vaulted ceiling. Your stepps echo \nominously in this room; it is hard to locate the origination of any sound in \nthis room. Concentrating more, you notice a gentle trickling, white noise that \nseems to be coming from the northern wall. Torchlight bathes the room in a \nred-orange glow, casting even a dim flickering on the towering ceiling overhead. \nThe corridor seems to continue through a door to the west. To the east, the \ncorridor ends, and at the eastern end of the room there is a small wooden door \nthat leads north.", #b3_description
 				    Hash.new, #b3_adjacent
 				    [], #b3_npcs
 				    [Proc.new { @game.spawn_enemy("goblin", 0) }], #b3_enemies
-				    [MinorHealthPot.new] ), #b3_objects
+				    [] ), #b3_objects
 		      final = Area.new( "Altar Room", #final_name
 				       "\nYou come to a room filled with a grisly sight. The room contains, dead in the \ncenter, a sacraficial altar, bathed in dried blood and scattered with bones. \nAround the altar, aligning with the four corners, stand four spikes, taller than \nthe tallest man, with four, forgotten adventurers impaled on them. All that \nremains of these fallen heroes are their skulls and armor that cling to the \nspikes. You are filled with dread in this place. The north and south ends of the \nroom are similarly fitted with wooden doors, but in the east wall of the room, \nthere is an ornate, iron door, engraved with a depiction of a monstrous \nskeleton, fitted with a crown of bones, wielding a smaller skeleton as a club. \nAtop this door: one word -- 'Skelethognos'.", #final_description
 				       Hash.new, #final_adjacent
-				       [], #final_npcs
+				       [Cleric.new], #final_npcs
 				       [ Proc.new { @game.spawn_enemy("skeleton", -2) },
 					 Proc.new { @game.spawn_enemy("skeleton", -2) },
 					 Proc.new { @game.spawn_enemy("spider", -1) },
 					 Proc.new { @game.spawn_enemy("zombie", -1) }], #final_enemies
-				       [MinorHealthPot.new, MinorHealthPot.new, MinorHealthPot.new] ), #final_objects
+				       [SmallHealthPot.new, MinorManaPot.new] ), #final_objects
 		      lair = Area.new( "Skelethognos' Lair", #lair_name
 					"\nYou enter the lair of the King of Bones. The room is scattered with the remnants \nof lost adventurers: their bones smashed across the room, their skulls craked, \nand equipment strewn on the ground. The Throne of Bones stands tall over the \nLord's defeated foes. Behind the throne, a gilded, gleaming chest.", #lair_description
 					Hash.new, #lair_adjacent
 					[], #lair_npcs
 					[ Proc.new { @game.spawn_enemy( "skelethognos", 1) } ], #lair_enemies
-					[MinorHealthPot.new, MinorHealthPot.new, MinorManaPot.new] ) ], game ) #lair_objects
+					[SmallManaPot.new, SmallHealthPot.new] ) ], game ) #lair_objects
 
 		entrance.adjacent['east'] = pool
 
@@ -124,5 +127,10 @@ class CaveOfInfiniteSkeletons < Dungeon
 		final.adjacent['east'] = lair
 
 		lair.adjacent['west'] = final
+
+
+		at_chest.items = []
+		
+		bt_chest.items = []
 	end
 end

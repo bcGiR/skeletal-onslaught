@@ -17,6 +17,5 @@ SKELETAL ONSLAUGHT
   -high score based on exp not gold
   -create assassin secret class
   -balance level scaling! (*COMPLETE*)
-  -directionals added to area.adjacent (make adjacent a hash with {'direction' => 'area'} )
-  -add equipment slots
-  -new npcs
+  -directionals added to area.adjacent (make adjacent a hash with {'direction' => 'area'} ) (*COMPLETE*)
+  -new npcs (*COMPLETE*)

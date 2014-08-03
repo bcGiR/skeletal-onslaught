@@ -88,7 +88,7 @@ town.adjacent['east'] = dungeon.areas[0]
 dungeon.areas[0].adjacent['west'] = town
 
 puts "................................................................................"
-puts "#{game.hero.name}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.gold} Gold - #{game.hero.exp} exp"
+puts "#{game.hero.name}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.exp} Exp - #{game.hero.gold} Gold - #{game.hero.keys} Keys"
 puts "................................................................................\n"
 
 Game.describe(town)
@@ -104,7 +104,7 @@ until game.over?
 
 	#Status bar displaying user stats and current situation
 	puts "................................................................................"
-	puts "#{game.hero.name}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.gold} Gold - #{game.hero.exp} exp"
+	puts "#{game.hero.name}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.exp} Exp - #{game.hero.gold} Gold - #{game.hero.keys} Keys"
 	puts "................................................................................\n"
 	
 	#Combat

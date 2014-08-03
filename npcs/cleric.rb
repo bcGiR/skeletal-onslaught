@@ -3,7 +3,7 @@ require_relative '../items/smallmanapot'
 require_relative '../items/smallhealthpot'
 require_relative '../game'
 
-class Wizard < NPC
+class Cleric < NPC
 
 	def initialize
 		inv = [SmallManaPot.new, SmallHealthPot.new, SmallHealthPot.new]

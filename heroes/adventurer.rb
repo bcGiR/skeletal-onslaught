@@ -3,12 +3,13 @@ require_relative '../items/healthpot'
 
 class Adventurer < Model
 	
-	attr_accessor :inv, :gold
+	attr_accessor :inv, :gold, :keys
 
 	def initialize(name, hp, mp, att, defn, matt, mdefn, init, ac)
 		super(name, hp, mp, att, defn, matt, mdefn, init, ac)
 		@inv = []
 		@gold = 20
+		@keys = 0
 	end
 
 	def use_consumable(consumable)

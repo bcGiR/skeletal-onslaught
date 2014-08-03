@@ -31,7 +31,7 @@ class Container
 		end
 	end
 
-	def unlock
+	def unlock(model)
 		@locked = false
 	end
 end
