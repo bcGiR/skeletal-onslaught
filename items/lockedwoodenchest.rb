@@ -11,7 +11,7 @@ class LockedWoodenChest < Container
 	end
 
 	def unlock(model)
-		if model.keys < 0
+		if model.keys > 0
 			puts "\nUse a key to open the chest? (y/n)"
 			confirm = ""
 			until confirm == "n" || confirm == "y"

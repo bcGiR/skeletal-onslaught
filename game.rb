@@ -349,7 +349,7 @@ class Game
 			else
 				items_in_room = []
 				@hero_area.objects.each do |object|
-					if object.class == MinorHealthPot || object.class == MinorManaPot
+					if object.class == MinorHealthPot || object.class == MinorManaPot || object.class == SmallHealthPot || object.class == SmallManaPot || object.class == GoldSack
 						puts "\nYou have found a discarded #{object.name}"
 						Game.pause_short
 						puts "Would you like to pick it up? (y/n)"
@@ -362,7 +362,7 @@ class Game
 						else
 							items_in_room << object
 						end
-					elsif object.class == LockedWoodenChest
+					elsif object.class == LockedWoodenChest || object.class == SkelethognosChest
 						puts "\nYou have found a #{object.name}"
 						Game.pause_short
 						if object.locked

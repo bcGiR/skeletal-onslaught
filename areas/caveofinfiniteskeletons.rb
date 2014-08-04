@@ -3,6 +3,7 @@ require_relative 'area'
 require_relative '../npcs/blacksmith'
 require_relative '../game'
 require_relative '../items/lockedwoodenchest'
+require_relative '../items/skelethognoschest'
 require_relative '../items/smallhealthpot'
 require_relative '../items/smallmanapot'
 require_relative '../items/healthpot'
@@ -10,6 +11,7 @@ require_relative '../items/manapot'
 require_relative '../items/goldsack'
 require_relative '../items/goldpendant'
 require_relative '../items/silverpendant'
+require_relative '../items/blackpearl'
 require_relative '../npcs/cleric'
 
 class CaveOfInfiniteSkeletons < Dungeon
@@ -47,7 +49,7 @@ class CaveOfInfiniteSkeletons < Dungeon
 					    Hash.new, #a_treasure_adjacent
 					    [], #a_treasure_npcs
 					    [], #a_treasure_enemies
-					    [at_chest = LockedWoodenChest.new, SmallHealthPot.new, SmallManaPot.new] ), #a_treasure_objects
+					    [at_chest = LockedWoodenChest.new, SmallHealthPot.new, SmallManaPot.new, GoldSack.new] ), #a_treasure_objects
 		      a3 = Area.new( "NorthEast Corridor", #a3_name
 				     "\nYou enter a long room with heavy stone block walls and a high arched ceiling. \nThe room stretches over a hundred feet across: at the east end, the room ends in \nan empty wall, and at the other end, a large wooden door is placed in the middle \nof the stone wall. The arch above this heavy door is lined with skulls and bones \nof various kinds. In the south, at the eastern end of the room, a smaller wooden \ndoor exits the north corridor.", #a3_description
 				     Hash.new, #a3_adjacent
@@ -72,7 +74,7 @@ class CaveOfInfiniteSkeletons < Dungeon
 					    Hash.new, #b_treasure_adjacent
 					    [], #b_treasure_npcs
 					    [], #b_treasure_enemies
-					    [bt_chest = LockedWoodenChest.new, SmallManaPot.new, SmallHealthPot.new] ), #b_treasure_objects
+					    [bt_chest = LockedWoodenChest.new, SmallManaPot.new, SmallHealthPot.new, GoldSack.new] ), #b_treasure_objects
 		      b3 = Area.new( "SouthEast Corridor", #b3_name
 				    "\nYou enter a long, stone room with an arched, vaulted ceiling. Your stepps echo \nominously in this room; it is hard to locate the origination of any sound in \nthis room. Concentrating more, you notice a gentle trickling, white noise that \nseems to be coming from the northern wall. Torchlight bathes the room in a \nred-orange glow, casting even a dim flickering on the towering ceiling overhead. \nThe corridor seems to continue through a door to the west. To the east, the \ncorridor ends, and at the eastern end of the room there is a small wooden door \nthat leads north.", #b3_description
 				    Hash.new, #b3_adjacent
@@ -93,7 +95,7 @@ class CaveOfInfiniteSkeletons < Dungeon
 					Hash.new, #lair_adjacent
 					[], #lair_npcs
 					[ Proc.new { @game.spawn_enemy( "skelethognos", 1) } ], #lair_enemies
-					[SmallManaPot.new, SmallHealthPot.new] ) ], game ) #lair_objects
+					[SmallManaPot.new, SmallHealthPot.new, skel_chest = SkelethognosChest.new] ) ], game ) #lair_objects
 
 		entrance.adjacent['east'] = pool
 
@@ -135,5 +137,7 @@ class CaveOfInfiniteSkeletons < Dungeon
 		at_chest.items = [SilverPendant.new, GoldSack.new]
 		
 		bt_chest.items = [GoldPendant.new, GoldSack.new]
+
+		skel_chest.items = [GoldSack.new, GoldSack.new, BlackPearl.new]
 	end
 end
