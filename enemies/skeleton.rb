@@ -90,12 +90,8 @@ class Skeleton < Enemy
 				item_roll = Game.d4
 				case item_roll
 				when 1
-					sub_roll = Game.d2
-					if sub_roll == 1
-						item = SmallManaPot.new
-					else
-						item = SmallHealthPot.new
-					end
+					hero.keys = hero.keys + 1
+					puts "\n#{hero.name} picks up a key dropped by the fallen #{self.name}"
 				when 2
 					item = BoneArmor.new
 				when 3
@@ -107,8 +103,10 @@ class Skeleton < Enemy
 				when 6
 					item = PerfectSkull.new
 				end
-				hero.inv << item
-				puts "\n#{hero.name} picks up a #{item.name} dropped by the fallen #{self.name}"
+				unless item_roll == 1
+					hero.inv << item
+					puts "\n#{hero.name} picks up a #{item.name} dropped by the fallen #{self.name}"
+				end
 			end
 			hero.exp = hero.exp + 4
 		else
