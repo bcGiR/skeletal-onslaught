@@ -23,6 +23,8 @@ class Mage < Adventurer
 			return "matt"
         when 'fireball'
             return "matt"
+	when 'heal'
+		return 'self'
 		end
 	end
 
@@ -34,6 +36,16 @@ class Mage < Adventurer
             return false
         end
     	end
+
+	def heal
+		heal = ( (Game.d6 + 3.0) + ( (Game.d100 * 5.0) + 300.0 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i
+		if heal + @hp > @hpmax
+			@hp = @hpmax
+		else
+			@hp = @hp + heal
+		end
+		puts "\n***#{@name} has healed for #{heal} HP ***"
+	end
 
 	def magic_missile
 		hit = Game.d100

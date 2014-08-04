@@ -304,6 +304,9 @@ class Game
 				end
 				return [@hero_area.enemies[choice-1]]
 			when /special/
+				if hero.special_type(action[7..-1])
+					return @hero
+				end
 				if hero.special_single_target(action[7..-1])
 					puts "\nAttack who?"
 					Game.pause_short
