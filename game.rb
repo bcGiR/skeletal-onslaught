@@ -1,6 +1,7 @@
 require_relative 'heroes/mage'
 require_relative 'heroes/thief'
 require_relative 'heroes/fighter'
+require_relative 'heroes/assassin'
 require_relative 'enemies/skeleton'
 require_relative 'enemies/spider'
 require_relative 'enemies/goblin'
@@ -24,6 +25,8 @@ class Game
 			@hero = Thief.new(name)
 		when "mage"
 			@hero = Mage.new(name)
+		when "assassin"
+			@hero = Assassin.new(name)
 		else
 			puts "----------------------------------"
 			puts "| ERROR: PLEASE QUIT AND RESTART |"

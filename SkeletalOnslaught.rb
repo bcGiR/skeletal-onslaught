@@ -58,9 +58,9 @@ puts "\n------------------------------------------------------------------------
 Game.pause_short
 puts "\nPick your role: Fighter, Thief, Mage"
 role = "default"
-until role == "fighter" || role == "thief" || role == "mage"
+until role == "fighter" || role == "thief" || role == "mage" || role == "assassin"
 	role = gets.chomp.downcase
-	if  role == "fighter" || role == "thief" || role == "mage"
+	if  role == "fighter" || role == "thief" || role == "mage" || role == "assassin"
 		puts "\nYou have chosen #{role.capitalize}"
 		Game.pause_long
 	else
