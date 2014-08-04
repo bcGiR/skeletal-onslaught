@@ -50,7 +50,7 @@ class Game
 	def self.pause_long
 		sleep(3)
 	end
-	
+
 	### Dice Rolls ###
 	def self.d2
 		Random.rand(1..2)
@@ -89,7 +89,7 @@ class Game
 	end
 
 	### Mechanics ###
-	
+
 	def move_to(area)
 		@hero_area = area
 		area.spawns.each do |spawn|
@@ -158,48 +158,52 @@ class Game
 				puts "You can't go there from here"
 				action = "error"
 			end
-				
-		#if item was chosen show inventory and ask which item to use
+
+			#if item was chosen show inventory and ask which item to use
 		elsif action == "item"
-				puts "\n-- Inventory --\n\n"
-				@hero.inv.each do |i| 
-					if i.equippable?
-						if i.equipped?
-							item_name = "*" + i.name + " ("
-							i.modifiers.each do |mod|
-								item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
-							end
-							item_name = item_name + ")"
-							puts item_name	
-						else
-							item_name = i.name + " ("
-							i.modifiers.each do |mod|
-								item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
-							end
-							item_name = item_name + ")"
-							puts item_name
+			puts "\n-- Inventory --\n\n"
+			consumable = Hash.new
+			@hero.inv.each do |i| 
+				if i.equippable?
+					if i.equipped?
+						item_name = "*" + i.name + " ("
+						i.modifiers.each do |mod|
+							item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
 						end
+						item_name = item_name + ")"
+						puts item_name	
 					else
-						puts i.name
+						item_name = i.name + " ("
+						i.modifiers.each do |mod|
+							item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
+						end
+						item_name = item_name + ")"
+						puts item_name
 					end
-				end
-				puts "\n(equipped: [*])"	
-				puts "---------------"
-				Game.pause_short
-				puts "\nType the name of an item to use it:"
-				item = gets.chomp.downcase
-				#check to make sure the item is in the inv
-				if @hero.inv.any? {|i| i.name.downcase == item}
-					action = action + item
 				else
-					puts "\nYou do not have any #{item}"
-					action = "error"		
+					consumable[i.name] = @hero.inv.select { |item| item.name == i.name }.count
 				end
+			end
+			consumable.each do |i, num|
+				puts num.to_s + " x " + i
+			end
+			puts "\n(equipped: [*])"	
+			puts "---------------"
+			Game.pause_short
+			puts "\nType the name of an item to use it:"
+			item = gets.chomp.downcase
+			#check to make sure the item is in the inv
+			if @hero.inv.any? {|i| i.name.downcase == item}
+				action = action + item
+			else
+				puts "\nYou do not have any #{item}"
+				action = "error"		
+			end
 		end
 		Game.pause_short
 		action
 	end
-	
+
 	#Called when the user needs to pick an action returns an action or error
 	def get_user_combat_action
 		#ask user to type an action
@@ -228,43 +232,47 @@ class Game
 				puts "\nYou do not have enough MP to do that"
 				return "error"
 			end
-		
-		#if item was chosen show inventory and ask which item to use
+
+			#if item was chosen show inventory and ask which item to use
 		elsif action == "item"
-				puts "\n-- Inventory --\n\n"
-				@hero.inv.each do |i| 
-					if i.equippable?
-						if i.equipped?
-							item_name = "*" + i.name + " ("
-							i.modifiers.each do |mod|
-								item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
-							end
-							item_name = item_name + ")"
-							puts item_name	
-						else
-							item_name = i.name + " ("
-							i.modifiers.each do |mod|
-								item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
-							end
-							item_name = item_name + ")"
-							puts item_name
+			puts "\n-- Inventory --\n\n"
+			consumable = Hash.new
+			@hero.inv.each do |i| 
+				if i.equippable?
+					if i.equipped?
+						item_name = "*" + i.name + " ("
+						i.modifiers.each do |mod|
+							item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
 						end
+						item_name = item_name + ")"
+						puts item_name	
 					else
-						puts i.name
+						item_name = i.name + " ("
+						i.modifiers.each do |mod|
+							item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
+						end
+						item_name = item_name + ")"
+						puts item_name
 					end
-				end
-				puts "\n(equipped: [*])"	
-				puts "---------------"
-				Game.pause_short
-				puts "\nType the name of an item to use it:"
-				item = gets.chomp.downcase
-				#check to make sure the item is in the inv
-				if @hero.inv.any? {|i| i.name.downcase == item}
-					action = action + item
 				else
-					puts "\nYou do not have any #{item}"
-					action = "error"		
+					consumable[i.name] = @hero.inv.select { |item| item.name == i.name }.count
 				end
+			end
+			consumable.each do |i, num|
+				puts num.to_s + " x " + i
+			end
+			puts "\n(equipped: [*])"	
+			puts "---------------"
+			Game.pause_short
+			puts "\nType the name of an item to use it:"
+			item = gets.chomp.downcase
+			#check to make sure the item is in the inv
+			if @hero.inv.any? {|i| i.name.downcase == item}
+				action = action + item
+			else
+				puts "\nYou do not have any #{item}"
+				action = "error"		
+			end
 		end
 		Game.pause_short
 		action
@@ -460,8 +468,8 @@ class Game
 			action = action[7..-1]
 			model.mp = model.mp - model.special_list[action]
 			self.attack(model, target, action)
-		
-		#string action contains "item[nameOfItem]"
+
+			#string action contains "item[nameOfItem]"
 		elsif /item/ === action
 			#removes "item" from the string to leave just the name
 			action = action[4..-1]
@@ -494,10 +502,13 @@ class Game
 			else
 				attack_stat = attacker.special_type(type)
 				if attack_stat == "att"
-					damage = attacker.special_attack(type, self, target)
+					damage = attacker.special_attack(type, self, defender)
 					damage_ratio = ( attacker.att / defender.defn )
+				elsif attack_stat == "none"
+					damage = attacker.special_attack(type, self, defender)
+					damage_ratio = 1
 				else
-					damage = attacker.special_attack(type, self, target)
+					damage = attacker.special_attack(type, self, defender)
 					damage_ratio = ( attacker.matt / defender.mdefn )
 				end
 			end
@@ -509,14 +520,17 @@ class Game
 			end
 
 			damage = (damage * damage_ratio).to_i
-            if type == "fight" || attack_stat == "att"
-                damage = damage - (damage * (defender.ac/defender.hpmax)).to_i
-            end
+			if type == "fight" || attack_stat == "att"
+				damage = damage - (damage * (defender.ac/defender.hpmax)).to_i
+			end
 
 
 			#assign  damage
 			unless damage <= 0
 				defender.hp = defender.hp - damage #assign damage
+				if defender.hp < 0
+					defender.hp = 0
+				end
 				puts "\n#{attacker.name} has wounded #{defender.name} for #{damage}dmg. (#{defender.hp}HP remains)"
 			else
 				puts "\n#{attacker.name} has failed to damage #{defender.name}"
@@ -559,11 +573,11 @@ class Game
 		when "skelethognos"
 			new_enemy = Skelethognos.new
 		when "spider"
-		        new_enemy = Spider.new
-        	when "goblin"
-            		new_enemy = Goblin.new
-        	when "zombie"
-            		new_enemy = Zombie.new
+			new_enemy = Spider.new
+		when "goblin"
+			new_enemy = Goblin.new
+		when "zombie"
+			new_enemy = Zombie.new
 		end
 
 		#levels the enemy up according lvl parameter
@@ -584,7 +598,7 @@ class Game
 		if model == hero
 			puts "\nYou have died. Your adventure ends here."
 			Game.pause_long
-		#if an enemy was killed, death_cry, drop loot, give exp
+			#if an enemy was killed, death_cry, drop loot, give exp
 		else
 			model.death_cry
 			Game.pause_short
@@ -599,7 +613,7 @@ class Game
 			@hero_area.enemies.delete_at(index)
 		end
 	end
-	
+
 	#checks if the game is over and returns state
 	def over?
 		if hero.dead? || ((@hero_area.name == "dungeon" || @hero_area.name == "test3") && !combat)

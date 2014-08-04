@@ -25,9 +25,9 @@ class Assassin < Adventurer
 	def special_type(action)
 		case action
 		when 'assassinate'
-			return 'att'
+			return 'none'
 		when 'gambit'
-			return 'matt'
+			return 'none'
 		when 'heal'
 			return 'self'
 		when 'disarm'
@@ -50,7 +50,11 @@ class Assassin < Adventurer
 
 
 	def assassinate(target)
-		damage = target.hp
+		if target.name.downcase == 'skelethognos'
+			damage = target.hp/2
+		else
+			damage = target.hp
+		end
 		puts "\n*** The assassin skillfully dispatches his enemy ***"
 		Game.pause_short
 		damage
@@ -72,7 +76,11 @@ class Assassin < Adventurer
 		puts "\n*** The assassin summons a dangerously unstable amount of magical energy ***"
 		Game.pause_short
 		if roll == 1
-			damage = target.hp
+			if target.name.downcase == 'skelethognos'
+				damage = target.hp/2
+			else
+				damage = target.hp
+			end
 			puts "\n*** The assassin's death magic consumes its victim ***"
 		else
 			puts "\n*** The assassin was unable to control the violent force ***"

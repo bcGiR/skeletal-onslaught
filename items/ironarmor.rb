@@ -9,7 +9,7 @@ class IronArmor < Equippable
 		      "common",
 		      [ Modifier.new("IronArmorAC",
 				     "ac",
-				     1 ) ] )
+				     2 ) ] )
 	end
 
 	def equippable?

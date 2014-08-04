@@ -1,11 +1,12 @@
-make y/n confirms consistant
-make stat names consistant
-add 1 more special per class
+make y/n confirms consistant	*COMPLETE*
+make stat names consistant	*COMPLETE*
+add 1 more special per class	*COMPLETE*
 add save feature
 add instructions
 fix long pause after dialog	*COMPLETE*
 add names array for multiple ways to type a name
 make cleric heal/restore mana on talk	*COMPLETE*
-add assassin class
+add assassin class	*COMPLETE*
 add item slots (i.e. 1 armor, 2 1-handed things, etc.)
 figure out game.over? and dungeon.clear?
+scale mana costs of special with lvl

@@ -12,6 +12,7 @@ class Container
 
 	def open(model)
 		unless @locked
+			items_temp = []
 			items.each do |item|
 				puts "\nThe #{name} contains a #{item.name}. Would you like to take it? (y/n)"
 				confirm = gets.chomp.downcase
