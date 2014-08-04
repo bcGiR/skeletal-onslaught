@@ -372,7 +372,7 @@ class Game
 								confirm = gets.chomp.downcase
 							end
 							if confirm == "y"
-								object.unlock
+								object.unlock(@hero)
 							end
 						end
 						unless object.locked
