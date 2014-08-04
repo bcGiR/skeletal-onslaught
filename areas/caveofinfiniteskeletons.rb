@@ -7,6 +7,9 @@ require_relative '../items/smallhealthpot'
 require_relative '../items/smallmanapot'
 require_relative '../items/healthpot'
 require_relative '../items/manapot'
+require_relative '../items/goldsack'
+require_relative '../items/goldpendant'
+require_relative '../items/silverpendant'
 require_relative '../npcs/cleric'
 
 class CaveOfInfiniteSkeletons < Dungeon
@@ -129,8 +132,8 @@ class CaveOfInfiniteSkeletons < Dungeon
 		lair.adjacent['west'] = final
 
 
-		at_chest.items = []
+		at_chest.items = [SilverPendant.new, GoldSack.new]
 		
-		bt_chest.items = []
+		bt_chest.items = [GoldPendant.new, GoldSack.new]
 	end
 end

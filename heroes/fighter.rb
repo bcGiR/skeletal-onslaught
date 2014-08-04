@@ -16,7 +16,7 @@ class Fighter < Adventurer
         when 'cleave'
             self.cleave
 	when 'heal'
-		self.heal(game)
+		self.heal
 		end
 	end
 
@@ -38,6 +38,8 @@ class Fighter < Adventurer
             return true
         when 'cleave'
             return false
+	when 'heal'
+		return true
         end
     end
 
@@ -78,7 +80,7 @@ class Fighter < Adventurer
 
 		super
 		if @lvl == 3
-			@special_list['cleave'] = 4
+			special_list['cleave'] = 4
 			puts "\n#{@name} has learned Cleave!"
 			Game.pause_medium
 		end

@@ -45,23 +45,23 @@ class Model
 				self.mp = self.mp + modifier.value
 				self.mpmax = self.mpmax + modifier.value
 			when "att"
-                if self.att - modifier.value < 1
-                    modifier.value = self.att - 1
+                if self.att + modifier.value < 1
+                    modifier.value = 1 - self.att
                 end
 				self.att = self.att + modifier.value
 			when "defn"
-                if self.defn - modifier.value < 1
-                    modifier.value = self.defn - 1
+                if self.defn + modifier.value < 1
+                    modifier.value = 1 - self.defn
                 end
 				self.defn = self.defn + modifier.value
 			when "matt"
-                if self.matt - modifier.value < 1
-                    modifier.value = self.matt - 1
+                if self.matt + modifier.value < 1
+                    modifier.value = 1 - self.matt
                 end
 				self.matt = self.matt + modifier.value
 			when "mdefn"
-                if self.mdefn - modifier.value < 1
-                    modifier.value = self.mdefn - 1
+                if self.mdefn + modifier.value < 1
+                    modifier.value = 1 - self.mdefn
                 end
 				self.mdefn = self.mdefn + modifier.value
 			when "init"
