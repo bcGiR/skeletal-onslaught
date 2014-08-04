@@ -1,6 +1,8 @@
 require_relative 'NPC'
 require_relative '../items/smallmanapot'
 require_relative '../items/smallhealthpot'
+require_relative '../items/manapot'
+require_relative '../items/healthpot'
 require_relative '../game'
 
 class Cleric < NPC
@@ -24,6 +26,7 @@ class Cleric < NPC
 			puts "\n\"You have done it! The King of Bones is defeated! Congratulations, brave hero, now I must be off-- oh... what? Oh right! The spell... yes, of course. Right away.\""
 			hero.special_list['heal'] = 6
 			puts "#{hero.name} has learned Heal!"
+			Game.pause_medium
 			@has_skill = false
 		elsif @has_skill
 			puts "\n\"Oh! Well met adventurer! I was starting to think I was never going to make it \nout of this place. Listen, the King of Bones must die, but I am unable to do it \nmyself. If you defeat Skelethognos', I will teach you what you need to know to \nrecover from battle. Make haste hero, the skeletons do not stay dead for long...\""

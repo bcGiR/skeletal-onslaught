@@ -296,6 +296,7 @@ class Game
 					count += 1
 				end
 				Game.pause_short
+				puts "\nEnter the number:"
 				choice = gets.chomp.downcase.to_i
 				Game.pause_short
 				until choice > 0 && choice < (count)
@@ -316,6 +317,7 @@ class Game
 						count += 1
 					end
 					Game.pause_short
+					puts "\nEnter the nubmer:"
 					choice = gets.chomp.downcase.to_i
 					Game.pause_short
 					until choice > 0 && choice < (count+1)
@@ -339,7 +341,6 @@ class Game
 		when /talk/
 			action = action[4..-1]
 			@hero_area.npc.find { |npc| npc.name.downcase == action }.talk(@hero)
-			Game.pause_short
 		when "search"
 			puts "\nYou search the room thoroughly"
 			Game.pause_short
@@ -353,8 +354,9 @@ class Game
 						puts "\nYou have found a discarded #{object.name}"
 						Game.pause_short
 						puts "Would you like to pick it up? (y/n)"
-						confirm = ""
+						confirm = gets.chomp.downcase
 						until confirm == "n" || confirm == "y"
+							puts "\nType 'y' or 'n'"
 							confirm = gets.chomp.downcase
 						end
 						if confirm == "y"
@@ -369,6 +371,7 @@ class Game
 							puts "\nIt appears to be locked. Try to unlock it? (y/n)"
 							confirm = gets.chomp.downcase
 							until confirm == "y" || confirm == "n"
+								puts "\nType 'y' or 'n'"
 								confirm = gets.chomp.downcase
 							end
 							if confirm == "y"
@@ -379,6 +382,7 @@ class Game
 							puts "\nWould you like to open it? (y/n)"
 							confirm = gets.chomp.downcase
 							until confirm == "y" || confirm == "n"
+								puts "\nType 'y' or 'n'"
 								confirm = gets.chomp.downcase
 							end
 							if confirm == "y"
@@ -432,9 +436,9 @@ class Game
 			puts "\nHP: #{@hero.hp}/#{@hero.hpmax}"
 			puts "MP: #{@hero.mp}/#{@hero.mpmax}"
 			puts "ATT: #{@hero.att}"
-			puts "DEF: #{@hero.defn}"
-			puts "M.ATT: #{@hero.matt}"
-			puts "M.DEF: #{@hero.mdefn}"
+			puts "DEFN: #{@hero.defn}"
+			puts "MATT: #{@hero.matt}"
+			puts "MDEFN: #{@hero.mdefn}"
 			puts "INIT: #{@hero.init.to_i}"
 			puts "AC: #{@hero.ac}"
 			puts "\n--------------------"
@@ -487,10 +491,10 @@ class Game
 			else
 				attack_stat = attacker.special_type(type)
 				if attack_stat == "att"
-					damage = attacker.special_attack(type, self)
+					damage = attacker.special_attack(type, self, target)
 					damage_ratio = ( attacker.att / defender.defn )
 				else
-					damage = attacker.special_attack(type, self)
+					damage = attacker.special_attack(type, self, target)
 					damage_ratio = ( attacker.matt / defender.mdefn )
 				end
 			end

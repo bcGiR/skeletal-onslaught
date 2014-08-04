@@ -3,8 +3,9 @@ make stat names consistant
 add 1 more special per class
 add save feature
 add instructions
-fix long pause after dialog
+fix long pause after dialog	*COMPLETE*
 add names array for multiple ways to type a name
-make cleric heal/restore mana on talk
+make cleric heal/restore mana on talk	*COMPLETE*
 add assassin class
 add item slots (i.e. 1 armor, 2 1-handed things, etc.)
+figure out game.over? and dungeon.clear?

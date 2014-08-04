@@ -19,7 +19,7 @@ class Spider < Enemy
 		@special_list = { 'web' => 0 }
 	end
 
-	def special_attack(action, game)
+	def special_attack(action, game, target)
 		case action
 		when 'web'
 			self.web(game)
@@ -40,7 +40,7 @@ class Spider < Enemy
 			game.hero.modify(web)
 			timer = CombatTimer.new("Spider Web", game, game.hero, 3, web.name, 'mod')
 			game.timers << timer
-			puts "\n*** The spider entangles you with a web (DEF -1) ***"
+			puts "\n*** The spider entangles you with a web (DEFN -1) ***"
 		else
 			puts "\n*** You are already entangled in webs ***"
 		end
@@ -97,7 +97,7 @@ class Spider < Enemy
 				hero.inv << potion
 				puts "\n#{hero.name} picks up a #{potion.name} dropped by the fallen #{self.name}"
 			when 6
-				item_roll = Game.d4
+				item_roll = Game.d6
 				case item_roll
 				when 1
 					hero.keys = hero.keys + 1

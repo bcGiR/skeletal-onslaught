@@ -5,11 +5,11 @@ require_relative '../modifier'
 class Thief < Adventurer
 
 	def initialize(name)
-		super(name, 18, 12, 2, 1, 2, 1, 3.1, 1)
+		super(name, 20, 12, 2, 1, 2, 1, 3.1, 1)
 		@special_list = { 'backstab' => 4 }
 	end
 
-	def special_attack(action, game)
+	def special_attack(action, game, target)
 		case action
 		when 'backstab'
 			self.backstab
@@ -17,6 +17,8 @@ class Thief < Adventurer
 			self.fan
 		when 'heal'
 			self.heal
+		when 'shadow'
+			self.shadow(game, target)
 		end
 	end
 
@@ -28,6 +30,8 @@ class Thief < Adventurer
 			return "att"
 		when 'heal'
 			return 'self'
+		when 'shadow'
+			return 'matt'
 		end
 	end
 
@@ -36,6 +40,10 @@ class Thief < Adventurer
 		when 'backstab'
 			return true
 		when 'fan'
+			return false
+		when 'heal'
+			return true
+		when 'shadow'
 			return false
 		end
 	end
@@ -65,6 +73,21 @@ class Thief < Adventurer
 		damage
 	end
 
+	def shadow(game, target)
+		damage = ( (Game.d4 + 1) + (Game.d100*3.0) * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
+		shadow = Modifier.new("shadowdefn", 'defn', -1)
+		unless target.modifiers.any? { |mod| mod.name == shadow.name }
+			target.modify(shadow)
+			timer = CombatTimer.new("shadowtimer", game, target, 4, shadow.name, 'mod')
+			game.timers << timer
+			puts "\n*** The Thief fades into the shadows and emerges behind his opponent \n(DEFN -1) ***"
+		else
+			puts "\n*** #{target.name} is already can't find the thief in the shadows ***"
+		end
+		Game.pause_short
+		damage
+	end
+
 	def level_up
 		mods = []
 		count = 0
@@ -78,6 +101,11 @@ class Thief < Adventurer
 		if @lvl == 3
 			@special_list['fan'] = 4
 			puts "#{@name} has learned Fan of Knives!"
+			Game.pause_medium
+		end
+		if @lvl == 5
+			@special_list['shadow'] = 6
+			puts "#{@name} has learned Shadow Step!"
 			Game.pause_medium
 		end
 		new_att = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i

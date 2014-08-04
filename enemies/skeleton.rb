@@ -17,7 +17,7 @@ class Skeleton < Enemy
 		@special_list = { 'lunge' => 0 }
 	end
 
-	def special_attack(action, game)
+	def special_attack(action, game, target)
 		case action
 		when 'lunge'
 			self.lunge
@@ -87,7 +87,7 @@ class Skeleton < Enemy
 				hero.inv << potion
 				puts "\n#{hero.name} picks up a #{potion.name} dropped by the fallen #{self.name}"
 			when 6
-				item_roll = Game.d4
+				item_roll = Game.d6
 				case item_roll
 				when 1
 					hero.keys = hero.keys + 1

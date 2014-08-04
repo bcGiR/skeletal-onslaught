@@ -5,27 +5,33 @@ require_relative '../modifier'
 class Mage < Adventurer
 
 	def initialize(name)
-		super(name, 18, 12, 1, 2, 2, 2, 1.1, 0)
+		super(name, 20, 12, 1, 2, 2, 2, 1.1, 0)
 		@special_list = { 'missile' => 4 }
 	end
 
-	def special_attack(action, game)
+	def special_attack(action, game, target)
 		case action
 		when 'missile'
 			self.magic_missile
 		when 'fireball'
 			self.fireball
+		when 'heal'
+			self.heal
+		when 'storm'
+			self.storm(game, target)
 		end
 	end
 
 	def special_type(action)
 		case action
 		when 'missile'
-			return "matt"
+			return 'matt'
 		when 'fireball'
-			return "matt"
+			return 'matt'
 		when 'heal'
 			return 'self'
+		when 'storm'
+			return 'matt'
 		end
 	end
 
@@ -34,6 +40,10 @@ class Mage < Adventurer
 		when 'missile'
 			return true
 		when 'fireball'
+			return false
+		when 'heal'
+			return true
+		when 'storm'
 			return false
 		end
 	end
@@ -67,6 +77,21 @@ class Mage < Adventurer
 		Game.pause_short
 		damage
 	end
+	
+	def storm(game, target)
+		damage = ((Game.d3 + 1) + (Game.d100 + Game.d100 + Game.d100 + 100) * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
+		storm = Modifier.new("storminit", 'init', -2)
+		unless target.modifiers.any? { |mod| mod.name == storm.name }
+			target.modify(storm)
+			timer = CombatTimer.new("stormtimer", game, target, 4, storm.name, 'mod')
+			game.timers << timer
+			puts "\n*** A swirling Ice Storm envelops #{target.name} (INIT -2) ***"
+		else
+			puts "\n*** A storm already envelops #{target.name} ***"
+		end
+		Game.pause_short
+		damage
+	end
 
 	def level_up
 		mods = []
@@ -81,6 +106,11 @@ class Mage < Adventurer
 		if @lvl == 3
 			@special_list['fireball'] = 4
 			puts "\n#{@name} has learned Fireball!"
+			Game.pause_medium
+		end
+		if @lvl == 5
+			@special_list['storm'] = 6
+			puts "\n#{@name} has learned Storm!"
 			Game.pause_medium
 		end
 		new_att = ( 1.0 + 49.0 * ((@lvl-1.0)/99.0) ).to_i

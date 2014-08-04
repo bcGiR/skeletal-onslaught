@@ -13,15 +13,15 @@ class Skelethognos < Enemy
 	def initialize
 		super("Skelethognos", 27, 0, 2, 2, 1, 2, 3, 1)
 		@special_list = { 'swing' => 0,
-                          'call' => 0 }
+		    'call' => 0 }
 	end
 
-	def special_attack(action, game)
+	def special_attack(action, game, target)
 		case action
 		when 'swing'
 			self.swing
-        when 'call'
-            self.call(game)
+		when 'call'
+			self.call(game, target)
 		end
 	end
 
@@ -29,8 +29,8 @@ class Skelethognos < Enemy
 		case action
 		when 'swing'
 			return "att"
-        when 'call'
-            return "matt"
+		when 'call'
+			return "matt"
 		end
 	end
 
@@ -41,13 +41,13 @@ class Skelethognos < Enemy
 		damage
 	end
 
-    def call(game)
-        damage = 0
-        puts "\n*** Skelethognos calls a fallen skeleton to rise and fight again! ***"
-        Game.pause_short
-        game.hero_area.enemies << game.spawn_enemy("skeleton", -2)
-        damage
-    end
+	def call(game)
+		damage = 0
+		puts "\n*** Skelethognos calls a fallen skeleton to rise and fight again! ***"
+		Game.pause_short
+		game.hero_area.enemies << game.spawn_enemy("skeleton", -2)
+		damage
+	end
 
 	def attack
 		damage = ( (Game.d6 + 2.0) + ( (Game.d100 * 5.0) + 184.0 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i 
@@ -77,8 +77,8 @@ class Skelethognos < Enemy
 		roll = Game.d6
 		if roll == 1 || roll == 2
 			return "specialswing"
-        elsif roll == 3
-            return "specialcall"
+		elsif roll == 3
+			return "specialcall"
 		else
 			return "fight"
 		end
@@ -98,8 +98,11 @@ class Skelethognos < Enemy
 
 		hero.inv << item
 		hero.gold = hero.gold + gold
+		hero.keys = hero.keys + 1
 		hero.exp = hero.exp + 12
 
+		puts "\n#{hero.name} picks up a key dropped by the shattered #{self.name}"
+		Game.pause_short
 		puts "\n#{hero.name} picked up #{item.name} from the vanquished #{self.name}"
 		Game.pause_short
 		puts "\n#{hero.name} found #{gold} gold among the bones of his defeated enemy"
