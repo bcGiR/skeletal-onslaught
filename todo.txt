@@ -10,3 +10,4 @@ add assassin class	*COMPLETE*
 add item slots (i.e. 1 armor, 2 1-handed things, etc.)
 figure out game.over? and dungeon.clear?
 scale mana costs of special with lvl
+model.display_inv method
