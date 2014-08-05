@@ -5,7 +5,7 @@ class Container
 	attr_accessor :names, :items, :locked
 
 	def initialize(names, items, locked)
-		@name = name
+		@names = names
 		@items = items
 		@locked = locked
 	end

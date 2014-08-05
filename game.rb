@@ -616,7 +616,7 @@ class Game
 
 	#checks if the game is over and returns state
 	def over?
-		if hero.dead? || ((@hero_area.names[0] == "dungeon" || @hero_area.names[0] == "test3") && !combat)
+		if hero.dead?
 			@over = true
 		end
 		@over

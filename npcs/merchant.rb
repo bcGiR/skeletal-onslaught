@@ -42,7 +42,7 @@ class Merchant < NPC
 							item_name = item_name + ")"
 							puts item_name	
 						else
-							item_name = i.name + " ("
+							item_name = i.names[0] + " ("
 							i.modifiers.each do |mod|
 								item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
 							end
