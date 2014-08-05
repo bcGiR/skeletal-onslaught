@@ -1,9 +1,9 @@
 class NPC
 
-	attr_accessor :name, :inv
+	attr_accessor :names, :inv
 
-	def initialize(name, inv)
-		@name = name
+	def initialize(names, inv)
+		@names = names
 		@inv = inv
 	end
 

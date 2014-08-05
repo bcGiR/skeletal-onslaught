@@ -78,7 +78,7 @@ town_adjacent = Hash.new
 town_npcs = [wiz = Wizard.new, black = Blacksmith.new, merch = Merchant.new]
 town_enemies = []
 town_objects = [h1 = MinorHealthPot.new, h2 = MinorHealthPot.new, m1 = MinorManaPot.new]
-town = Area.new("Town", town_description, town_adjacent, town_npcs, town_enemies, town_objects)
+town = Area.new(["Town"], town_description, town_adjacent, town_npcs, town_enemies, town_objects)
 
 #New Game
 game = Game.new(user_name, role, town)
@@ -89,7 +89,7 @@ town.adjacent['east'] = dungeon.areas[0]
 dungeon.areas[0].adjacent['west'] = town
 
 puts "................................................................................"
-puts "#{game.hero.name}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.exp} Exp - #{game.hero.gold} Gold - #{game.hero.keys} Keys"
+puts "#{game.hero.names[0]}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.exp} Exp - #{game.hero.gold} Gold - #{game.hero.keys} Keys"
 puts "................................................................................\n"
 
 Game.describe(town)
@@ -105,7 +105,7 @@ until game.over?
 
 	#Status bar displaying user stats and current situation
 	puts "................................................................................"
-	puts "#{game.hero.name}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.exp} Exp - #{game.hero.gold} Gold - #{game.hero.keys} Keys"
+	puts "#{game.hero.names[0]}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{role.capitalize} - #{game.hero.exp} Exp - #{game.hero.gold} Gold - #{game.hero.keys} Keys"
 	puts "................................................................................\n"
 	
 	#Combat
@@ -113,7 +113,7 @@ until game.over?
 
 		puts "\n\n*********************************** COMBAT ************************************"
 		game.hero_area.enemies.each do |enemy|
-			puts "\nThere is a level #{enemy.lvl} #{enemy.name} attacking you with #{enemy.hp}HP left!"
+			puts "\nThere is a level #{enemy.lvl} #{enemy.names[0]} attacking you with #{enemy.hp}HP left!"
 		end
 		puts "\n*******************************************************************************"
 		if game.hero.hp <= 5

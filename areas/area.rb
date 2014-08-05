@@ -2,10 +2,10 @@ require_relative '../game'
 
 class Area
 
-	attr_accessor :name, :description, :adjacent, :npc, :spawns, :enemies, :objects
+	attr_accessor :names, :description, :adjacent, :npc, :spawns, :enemies, :objects
 
-	def initialize(name, description, adjacent, npc, spawns, objects)
-		@name = name
+	def initialize(names, description, adjacent, npc, spawns, objects)
+		@name = names
 		@description = description
 		@adjacent = adjacent
 		@npc = npc

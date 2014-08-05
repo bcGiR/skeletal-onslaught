@@ -4,13 +4,13 @@ require_relative '../modifier'
 class BoneBuckler < Equippable
 
 	def initialize
-		super("Bone Buckler",
+		super(["Bone Buckler", "Bone Buck", "Buckler"],
 		      80,
 		      "uncommon",
-		      [ Modifier.new("BoneBucklerDefn",
+		      [ Modifier.new(["BoneBucklerDefn"],
 				     "defn",
 				     3 ),
-	       		Modifier.new("BoneBucklerATT",
+	       		Modifier.new(["BoneBucklerATT"],
 				     "att",
 				     1 ) ] )
 	end

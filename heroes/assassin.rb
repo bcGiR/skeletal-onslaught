@@ -4,8 +4,8 @@ require_relative '../modifier'
 
 class Assassin < Adventurer
 
-	def initialize(name)
-		super(name, 20, 12, 2, 2, 2, 2, 3.1, 0)
+	def initialize(names)
+		super(names, 20, 12, 2, 2, 2, 2, 3.1, 0)
 		@special_list = { 'assassinate' => 8 }
 	end
 
@@ -50,7 +50,7 @@ class Assassin < Adventurer
 
 
 	def assassinate(target)
-		if target.name.downcase == 'skelethognos'
+		if target.names[0].downcase == 'skelethognos'
 			damage = target.hp/2
 		else
 			damage = target.hp
@@ -67,7 +67,7 @@ class Assassin < Adventurer
 		else
 			@hp = @hp + heal
 		end
-		puts "\n***#{@name} has healed for #{heal} HP ***"
+		puts "\n***#{@names[0]} has healed for #{heal} HP ***"
 	end
 
 	def gambit(target)
@@ -76,7 +76,7 @@ class Assassin < Adventurer
 		puts "\n*** The assassin summons a dangerously unstable amount of magical energy ***"
 		Game.pause_short
 		if roll == 1
-			if target.name.downcase == 'skelethognos'
+			if target.names[0].downcase == 'skelethognos'
 				damage = target.hp/2
 			else
 				damage = target.hp
@@ -92,13 +92,13 @@ class Assassin < Adventurer
 	def disarm(game, target)
 		damage = ( (Game.d4 + 1) + (Game.d100*3.0) * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
 		disarm = Modifier.new("disarmdefn", 'att', -2)
-		unless target.modifiers.any? { |mod| mod.name == disarm.name }
+		unless target.modifiers.any? { |mod| mod.names[0] == disarm.names[0] }
 			target.modify(disarm)
-			timer = CombatTimer.new("disarmtimer", game, target, 4, disarm.name, 'mod')
+			timer = CombatTimer.new("disarmtimer", game, target, 4, disarm.names[0], 'mod')
 			game.timers << timer
-			puts "\n*** The Assassin's slight-of-hand disarms #{target.name} (ATT -1) ***"
+			puts "\n*** The Assassin's slight-of-hand disarms #{target.names[0]} (ATT -1) ***"
 		else
-			puts "\n*** #{target.name} is already disarmed ***"
+			puts "\n*** #{target.names[0]} is already disarmed ***"
 		end
 		Game.pause_short
 		damage
@@ -108,7 +108,7 @@ class Assassin < Adventurer
 		mods = []
 		count = 0
 		until count == self.modifiers.count
-			new_mod = Modifier.new(self.modifiers[count].name, self.modifiers[count].attr, self.modifiers[count].value)
+			new_mod = Modifier.new(self.modifiers[count].names, self.modifiers[count].attr, self.modifiers[count].value)
 			mods << new_mod
 			self.demodify(self.modifiers[count])
 		end
@@ -116,12 +116,12 @@ class Assassin < Adventurer
 		super
 		if @lvl == 3
 			@special_list['gambit'] = 6
-			puts "#{@name} has learned Magic Gambit!"
+			puts "#{@names[0]} has learned Magic Gambit!"
 			Game.pause_medium
 		end
 		if @lvl == 5
 			@special_list['disarm'] = 4
-			puts "#{@name} has learned Disarm!"
+			puts "#{@names[0]} has learned Disarm!"
 			Game.pause_medium
 		end
 		new_att = ( 2.0 + 73.0 * ((@lvl-1.0)/99.0) ).to_i

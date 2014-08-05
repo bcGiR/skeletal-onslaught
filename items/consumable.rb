@@ -2,8 +2,8 @@ require_relative 'item'
 
 class Consumable < Item
 
-	def initialize(name, value, rarity)
-		super(name, value, rarity)
+	def initialize(names, value, rarity)
+		super(names, value, rarity)
 	end
 
 	def consume(target)

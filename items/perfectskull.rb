@@ -4,13 +4,13 @@ require_relative '../modifier'
 class PerfectSkull < Equippable
 
 	def initialize
-		super("Perfect Whole Skull",
+		super(["Perfect Whole Skull", "Perfect Skull", "PWS"],
 		      60,
 		      "uncommon",
-		      [ Modifier.new("SkullMatt",
+		      [ Modifier.new(["SkullMatt"],
 				     "matt",
 				     4 ),
-	       		Modifier.new("SkullMatt",
+	       		Modifier.new(["SkullMatt"],
 				     "att",
 				     1 ) ] )
 	end

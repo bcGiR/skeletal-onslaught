@@ -4,16 +4,16 @@ require_relative '../modifier'
 class SkelethognosTooth < Equippable
 
 	def initialize
-		super("Skelethognos' Biggest Tooth",
+		super(["Skelethognos' Biggest Tooth", "Skel Tooth", "Tooth"],
 		      140,
 		      "rare",
-		      [ Modifier.new("SkelToothHP",
+		      [ Modifier.new(["SkelToothHP"],
 				     "hp",
 				     16 ),
-	       		Modifier.new("SkelToothMP",
+	       		Modifier.new(["SkelToothMP"],
 				     "mp",
 				     16 ),
-	       		Modifier.new("SkelSkullAC",
+	       		Modifier.new(["SkelSkullAC"],
 				     "ac",
 				     4 ) ] )
 	end

@@ -4,8 +4,8 @@ class Equippable < Item
 
 	attr_accessor :equipped, :modifiers
 
-	def initialize(name, value, rarity, modifiers)
-		super(name, value, rarity)
+	def initialize(names, value, rarity, modifiers)
+		super(names, value, rarity)
 		@equipped = false
 		@modifiers = modifiers
 	end

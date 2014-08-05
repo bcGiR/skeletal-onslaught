@@ -15,7 +15,7 @@ require_relative '../modifier'
 class Zombie < Enemy
 
 	def initialize
-		super("Zombie", 10, 0, 1, 2, 1, 2, 1, 0)
+		super(["Zombie", "Walker"], 10, 0, 1, 2, 1, 2, 1, 0)
 		@special_list = { 'lurch' => 0 }
 	end
 
@@ -35,10 +35,10 @@ class Zombie < Enemy
 
 	def lurch(game)
 		damage = ( ( Game.d3 + 1) + ( Game.d100 + Game.d100 + Game.d100 ) * ( (@lvl+9.0)/(99.0+10.0) ) ** 2).to_i 
-		wound = Modifier.new("zombie", 'att', -1)
-		unless game.hero.modifiers.any? { |mod| mod.name == "zombie" }
+		wound = Modifier.new(["zombie"], 'att', -1)
+		unless game.hero.modifiers.any? { |mod| mod.names[0] == "zombie" }
 			game.hero.modify(wound)
-			timer = CombatTimer.new("Zombie wound", game, game.hero, 3, wound.name, 'mod')
+			timer = CombatTimer.new("Zombie wound", game, game.hero, 3, wound.names[0], 'mod')
 			game.timers << timer
 			puts "\n*** The zombie lurches forward, clawing and biting (ATT -1) ***"
 		else
@@ -52,7 +52,7 @@ class Zombie < Enemy
 	def level_up
 		mods = []
 		self.modifiers.each do |mod|
-			new_mod = Modifier.new(mod.name, mod.attr, mod.value)
+			new_mod = Modifier.new(mod.names, mod.attr, mod.value)
 			mods << new_mod
 			self.demodify(mod)
 		end
@@ -87,7 +87,7 @@ class Zombie < Enemy
 			when 1, 2, 3
 				gold = Game.d6
 				hero.gold = hero.gold + gold
-				puts "\n#{hero.name} picks up #{gold} gold coins from the fallen #{self.name}"
+				puts "\n#{hero.names[0]} picks up #{gold} gold coins from the fallen #{self.names[0]}"
 			when 4, 5
 				sub_roll = Game.d3
 				if sub_roll == 1
@@ -96,13 +96,13 @@ class Zombie < Enemy
 					potion = MinorHealthPot.new
 				end
 				hero.inv << potion
-				puts "\n#{hero.name} picks up a #{potion.name} dropped by the fallen #{self.name}"
+				puts "\n#{hero.names[0]} picks up a #{potion.names[0]} dropped by the fallen #{self.names[0]}"
 			when 6
 				item_roll = Game.d6
 				case item_roll
 				when 1
 					hero.keys = hero.keys + 1
-					puts "\n#{hero.name} picks up a key dropped by the fallen #{self.name}"
+					puts "\n#{hero.names[0]} picks up a key dropped by the fallen #{self.names[0]}"
 				when 2
 					item = BoneArmor.new
 				when 3
@@ -116,7 +116,7 @@ class Zombie < Enemy
 				end
 				unless item_roll == 1
 					hero.inv << item
-					puts "\n#{hero.name} picks up a #{item.name} dropped by the fallen #{self.name}"
+					puts "\n#{hero.names[0]} picks up a #{item.names[0]} dropped by the fallen #{self.names[0]}"
 				end
 			end
 			hero.exp = hero.exp + 4
@@ -125,7 +125,7 @@ class Zombie < Enemy
 			when 1, 2, 3
 				gold = Game.d8 + 4
 				hero.gold = hero.gold + gold
-				puts "\n#{hero.name} picks up #{gold} gold coins from the fallen #{self.name}"
+				puts "\n#{hero.names[0]} picks up #{gold} gold coins from the fallen #{self.names[0]}"
 			when 4, 5
 				sub_roll = Game.d3
 				if sub_roll == 1
@@ -134,7 +134,7 @@ class Zombie < Enemy
 					potion = SmallHealthPot.new
 				end
 				hero.inv << potion
-				puts "\n#{hero.name} picks up a #{potion.name} dropped by the fallen #{self.name}"
+				puts "\n#{hero.names[0]} picks up a #{potion.names[0]} dropped by the fallen #{self.names[0]}"
 			when 6
 				item_roll = Game.d4
 				case item_roll
@@ -157,7 +157,7 @@ class Zombie < Enemy
 					item = PerfectSkull.new
 				end
 				hero.inv << item
-				puts "\n#{hero.name} picks up a #{item.name} dropped by the fallen #{self.name}"
+				puts "\n#{hero.names[0]} picks up a #{item.names[0]} dropped by the fallen #{self.names[0]}"
 			end
 			hero.exp = hero.exp + 6
 		end

@@ -5,7 +5,7 @@ require_relative 'smallmanapot'
 class LockedWoodenChest < Container
 
 	def initialize
-		super("Locked Wooden Chest",
+		super(["Locked Wooden Chest", "Locked Wooden", "LWC"],
 		      [],
 			true)
 	end
@@ -13,8 +13,9 @@ class LockedWoodenChest < Container
 	def unlock(model)
 		if model.keys > 0
 			puts "\nUse a key to open the chest? (y/n)"
-			confirm = ""
+			confirm = gets.chomp.downcase
 			until confirm == "n" || confirm == "y"
+				puts "\nEnter 'y' or 'n'"
 				confirm = gets.chomp.downcase
 			end
 			if confirm == "y"

@@ -4,7 +4,7 @@ require_relative '../modifier'
 class BlackPearl < Equippable
 
 	def initialize
-		super("Mysterious Black Pearl",
+		super(["Mysterious Black Pearl", "Black Pearl", "MBP", "Mysterious"],
 		      100,
 		      "rare",
 		      [] )

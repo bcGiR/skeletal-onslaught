@@ -5,15 +5,15 @@ class Adventurer < Model
 	
 	attr_accessor :inv, :gold, :keys
 
-	def initialize(name, hp, mp, att, defn, matt, mdefn, init, ac)
-		super(name, hp, mp, att, defn, matt, mdefn, init, ac)
+	def initialize(names, hp, mp, att, defn, matt, mdefn, init, ac)
+		super(names, hp, mp, att, defn, matt, mdefn, init, ac)
 		@inv = []
 		@gold = 20
 		@keys = 0
 	end
 
 	def use_consumable(consumable)
-		item_index = @inv.find_index { |i| i.name.downcase == consumable.name.downcase }
+		item_index = @inv.find_index { |i| i.names[0].downcase == consumable.names[0].downcase }
 		consumable.consume(self)
 		@inv.delete_at(item_index)
 		@inv.compact
@@ -29,7 +29,7 @@ class Adventurer < Model
 		@mpmax = new_mp
 		@hp = @hp + hp_diff
 		@mp = @mp + mp_diff
-		puts "\n*** #{name} has reached level #{lvl} ***"
+		puts "\n*** #{@names[0]} has reached level #{lvl} ***"
 		puts "HP +#{hp_diff}"
 		puts "MP +#{mp_diff}"
 	end

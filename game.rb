@@ -20,13 +20,13 @@ class Game
 	def initialize(name, role, area)
 		case role
 		when "fighter"
-			@hero = Fighter.new(name)
+			@hero = Fighter.new([name])
 		when "thief"
-			@hero = Thief.new(name)
+			@hero = Thief.new([name])
 		when "mage"
-			@hero = Mage.new(name)
+			@hero = Mage.new([name])
 		when "assassin"
-			@hero = Assassin.new(name)
+			@hero = Assassin.new([name])
 		else
 			puts "----------------------------------"
 			puts "| ERROR: PLEASE QUIT AND RESTART |"
@@ -105,7 +105,7 @@ class Game
 		puts "\n"
 		Game.pause_long
 		area.enemies.each do |enemy|
-			puts "You see a #{enemy.name} (level #{enemy.lvl}) here, ready to attack!"
+			puts "You see a #{enemy.names[0]} (level #{enemy.lvl}) here, ready to attack!"
 			Game.pause_short
 		end
 	end
@@ -117,16 +117,16 @@ class Game
 			action = gets.chomp.downcase
 		end
 		if action == "talk"
-			puts "\n-- #{@hero_area.name.capitalize} --\n\n"
+			puts "\n-- #{@hero_area.names[0].capitalize} --\n\n"
 			@hero_area.npc.each do |npc|
 				Game.pause_short
-				puts npc.name + "\n"
+				puts npc.names[0] + "\n"
 			end
 			Game.pause_short
 			puts "\nWho would you like to talk to?"
 			talk_to = gets.chomp.downcase
 			@hero_area.npc.each do |npc|
-				if talk_to == npc.name.downcase
+				if npc.names.any? { |name| name.downcase == talk_to }
 					action = action + talk_to
 				end
 			end
@@ -137,10 +137,10 @@ class Game
 			end
 
 		elsif action == "move"
-			puts "\n-- #{@hero_area.name.capitalize} --\n\n"
+			puts "\n-- #{@hero_area.names[0].capitalize} --\n\n"
 			@hero_area.adjacent.each do |direction, area|
 				Game.pause_short
-				puts area.name + " (#{direction})\n"
+				puts area.names[0] + " (#{direction})\n"
 			end
 			Game.pause_short
 			puts "\nWhere would you like to go?"
@@ -149,7 +149,7 @@ class Game
 				if direction == to_area
 					return action + to_area
 				end
-				if area.name.downcase == to_area
+				if area.names.any? { |name| name.downcase == to_area }
 					return action + to_area
 				end
 			end
@@ -166,14 +166,14 @@ class Game
 			@hero.inv.each do |i| 
 				if i.equippable?
 					if i.equipped?
-						item_name = "*" + i.name + " ("
+						item_name = "*" + i.names[0] + " ("
 						i.modifiers.each do |mod|
 							item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
 						end
 						item_name = item_name + ")"
 						puts item_name	
 					else
-						item_name = i.name + " ("
+						item_name = i.names[0] + " ("
 						i.modifiers.each do |mod|
 							item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
 						end
@@ -181,7 +181,7 @@ class Game
 						puts item_name
 					end
 				else
-					consumable[i.name] = @hero.inv.select { |item| item.name == i.name }.count
+					consumable[i.names[0]] = @hero.inv.select { |item| item.names[0] == i.names[0] }.count
 				end
 			end
 			consumable.each do |i, num|
@@ -193,7 +193,7 @@ class Game
 			puts "\nType the name of an item to use it:"
 			item = gets.chomp.downcase
 			#check to make sure the item is in the inv
-			if @hero.inv.any? {|i| i.name.downcase == item}
+			if @hero.inv.any? {|i| i.names.any? { |name| name.downcase == item } }
 				action = action + item
 			else
 				puts "\nYou do not have any #{item}"
@@ -216,7 +216,7 @@ class Game
 		if action == "special"
 			puts "\nWhich ability?"
 			Game.pause_short
-			puts "\n-- #{@hero.name} --"
+			puts "\n-- #{@hero.names[0]} --"
 			@hero.special_list.each do |spec, cost|
 				puts "\n#{spec.capitalize} (#{cost}MP)"
 			end
@@ -240,7 +240,7 @@ class Game
 			@hero.inv.each do |i| 
 				if i.equippable?
 					if i.equipped?
-						item_name = "*" + i.name + " ("
+						item_name = "*" + i.names[0] + " ("
 						i.modifiers.each do |mod|
 							item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
 						end
@@ -255,7 +255,7 @@ class Game
 						puts item_name
 					end
 				else
-					consumable[i.name] = @hero.inv.select { |item| item.name == i.name }.count
+					consumable[i.names[0]] = @hero.inv.select { |item| item.names[0] == i.names[0] }.count
 				end
 			end
 			consumable.each do |i, num|
@@ -267,7 +267,7 @@ class Game
 			puts "\nType the name of an item to use it:"
 			item = gets.chomp.downcase
 			#check to make sure the item is in the inv
-			if @hero.inv.any? {|i| i.name.downcase == item}
+			if @hero.inv.any? {|i| i.names.any? { |name| name.downcase == item } }
 				action = action + item
 			else
 				puts "\nYou do not have any #{item}"
@@ -303,7 +303,7 @@ class Game
 				Game.pause_short
 				count = 1
 				@hero_area.enemies.each do |enemy|
-					puts "\n#{count}) #{enemy.name.capitalize} level #{enemy.lvl} (#{enemy.hp}HP)"
+					puts "\n#{count}) #{enemy.names[0].capitalize} level #{enemy.lvl} (#{enemy.hp}HP)"
 					count += 1
 				end
 				Game.pause_short
@@ -324,7 +324,7 @@ class Game
 					Game.pause_short
 					count = 1
 					@hero_area.enemies.each do |enemy|
-						puts "\n#{count}) #{enemy.name.capitalize} level #{enemy.lvl} (#{enemy.hp}HP)"
+						puts "\n#{count}) #{enemy.names[0].capitalize} level #{enemy.lvl} (#{enemy.hp}HP)"
 						count += 1
 					end
 					Game.pause_short
@@ -351,7 +351,7 @@ class Game
 			Game.describe(@hero_area)
 		when /talk/
 			action = action[4..-1]
-			@hero_area.npc.find { |npc| npc.name.downcase == action }.talk(@hero)
+			@hero_area.npc.find { |npc| npc.names.any? { |name| name.downcase == action } }.talk(@hero)
 		when "search"
 			puts "\nYou search the room thoroughly"
 			Game.pause_short
@@ -362,7 +362,7 @@ class Game
 				items_in_room = []
 				@hero_area.objects.each do |object|
 					if object.class == MinorHealthPot || object.class == MinorManaPot || object.class == SmallHealthPot || object.class == SmallManaPot || object.class == GoldSack
-						puts "\nYou have found a discarded #{object.name}"
+						puts "\nYou have found a discarded #{object.names[0]}"
 						Game.pause_short
 						puts "Would you like to pick it up? (y/n)"
 						confirm = gets.chomp.downcase
@@ -376,7 +376,7 @@ class Game
 							items_in_room << object
 						end
 					elsif object.class == LockedWoodenChest || object.class == SkelethognosChest
-						puts "\nYou have found a #{object.name}"
+						puts "\nYou have found a #{object.names[0]}"
 						Game.pause_short
 						if object.locked
 							puts "\nIt appears to be locked. Try to unlock it? (y/n)"
@@ -419,7 +419,7 @@ class Game
 			else
 				to_area = @hero_area
 				@hero_area.adjacent.each do |direction, area|
-					if area.name.downcase == action
+					if area.names.any? { |name| name.downcase == action }
 						to_area = area
 					end
 				end
@@ -428,7 +428,7 @@ class Game
 		when /item/
 			#removes "item" from the string to leave just the name
 			action = action[4..-1]
-			item = @hero.inv.find { |i| i.name.downcase == action }
+			item = @hero.inv.find { |i| i.names.any? { |name| name.downcase == action } }
 
 			if item.equippable?
 				if item.equipped?
@@ -442,7 +442,7 @@ class Game
 		when "status"
 			puts "\n-- Status Details --"
 			puts ""
-			puts @hero.name
+			puts @hero.names[0]
 			puts "Level #{@hero.lvl}"
 			puts "\nHP: #{@hero.hp}/#{@hero.hpmax}"
 			puts "MP: #{@hero.mp}/#{@hero.mpmax}"
@@ -473,7 +473,7 @@ class Game
 		elsif /item/ === action
 			#removes "item" from the string to leave just the name
 			action = action[4..-1]
-			item = @hero.inv.find { |i| i.name.downcase == action }
+			item = @hero.inv.find { |i| i.names.any? { |name| name.downcase == action } }
 
 			if item.equippable?
 				if item.equipped?
@@ -531,9 +531,9 @@ class Game
 				if defender.hp < 0
 					defender.hp = 0
 				end
-				puts "\n#{attacker.name} has wounded #{defender.name} for #{damage}dmg. (#{defender.hp}HP remains)"
+				puts "\n#{attacker.names[0]} has wounded #{defender.names[0]} for #{damage}dmg. (#{defender.hp}HP remains)"
 			else
-				puts "\n#{attacker.name} has failed to damage #{defender.name}"
+				puts "\n#{attacker.names[0]} has failed to damage #{defender.names[0]}"
 			end
 			Game.pause_short
 
@@ -616,7 +616,7 @@ class Game
 
 	#checks if the game is over and returns state
 	def over?
-		if hero.dead? || ((@hero_area.name == "dungeon" || @hero_area.name == "test3") && !combat)
+		if hero.dead? || ((@hero_area.names[0] == "dungeon" || @hero_area.names[0] == "test3") && !combat)
 			@over = true
 		end
 		@over

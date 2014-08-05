@@ -1,9 +1,9 @@
 class Item
 
-	attr_accessor :name, :value, :rarity
+	attr_accessor :names, :value, :rarity
 
-	def initialize(name, value, rarity)
-		@name = name
+	def initialize(names, value, rarity)
+		@names = names
 		@value = value
 		@rarity = rarity
 	end

@@ -7,12 +7,12 @@ class GoldSack < Consumable
 
 	def initialize
 		@gold = Game.d10 + 9
-		super("Small Sack of Gold", @gold, "common")
+		super(["Small Sack of Gold", "Small Sack", "SSG", "Small Gold"], @gold, "common")
 	end
 
 	def consume(target)
 		target.gold = target.gold + @gold
-		puts "\n#{target.name} opens the #{self.name} and finds #{@gold} gold coins!"
+		puts "\n#{target.names[0]} opens the #{self.names[0]} and finds #{@gold} gold coins!"
 		Game.pause_short
 	end
 

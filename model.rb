@@ -3,10 +3,10 @@ include Math
 
 class Model
 
-	attr_accessor :name, :hp, :hpmax, :mp, :mpmax, :att, :defn, :matt, :mdefn, :init, :ac, :exp, :lvl, :modifiers, :special_list
+	attr_accessor :names, :hp, :hpmax, :mp, :mpmax, :att, :defn, :matt, :mdefn, :init, :ac, :exp, :lvl, :modifiers, :special_list
 
-	def initialize(name, hp, mp, att, defn, matt, mdefn, init, ac)
-		@name = name
+	def initialize(names, hp, mp, att, defn, matt, mdefn, init, ac)
+		@names = names
 		@hp = hp
 		@hpmax = hp
 		@mp = mp
@@ -104,7 +104,7 @@ class Model
 				self.modify(modifier)
 			end
 
-			puts "\n#{@name} has equipped #{item.name}"
+			puts "\n#{@names[0]} has equipped #{item.names[0]}"
 			Game.pause_short
 		end
 	end
@@ -117,7 +117,7 @@ class Model
 				self.demodify(modifier)
 			end
 
-			puts "\n#{@name} has unequipped #{item.name}"
+			puts "\n#{@names[0]} has unequipped #{item.names[0]}"
 			Game.pause_short
 		end
 	end

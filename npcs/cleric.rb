@@ -11,7 +11,7 @@ class Cleric < NPC
 
 	def initialize
 		inv = [SmallManaPot.new, SmallHealthPot.new, SmallHealthPot.new, MinorHealthPot.new, MinorHealthPot.new, MinorManaPot.new, MinorManaPot.new]
-		super("Cleric", inv)
+		super(["Cleric"], inv)
 		@has_skill = true
 	end
 
@@ -22,10 +22,10 @@ class Cleric < NPC
 			hero.mp = hero.mpmax
 			Game.pause_short
 		end
-		if hero.inv.any? { |item| item.name[0..4] == "skel" } && @has_skill
+		if hero.inv.any? { |item| item.names[0][0..4] == "skel" } && @has_skill
 			puts "\n\"You have done it! The King of Bones is defeated! Congratulations, brave hero, now I must be off-- oh... what? Oh right! The spell... yes, of course. Right away.\""
 			hero.special_list['heal'] = 6
-			puts "#{hero.name} has learned Heal!"
+			puts "#{hero.names[0]} has learned Heal!"
 			Game.pause_medium
 			@has_skill = false
 		elsif @has_skill
@@ -52,7 +52,7 @@ class Cleric < NPC
 		Game.pause_short
 		puts "\n---- Cleric ----\n\n"
 		self.inv.each do |i| 
-			item_name = i.name
+			item_name = i.names[0]
 		       if i.equippable?
 			       item_name = item_name + "( "
 				i.modifiers.each do |mod|
@@ -68,12 +68,12 @@ class Cleric < NPC
 		puts "\nType the game of an item to buy it:"
 		item = gets.chomp.downcase
 		Game.pause_short
-		if self.inv.any? { |i| i.name.downcase == item }
-			item = self.inv.find { |i| i.name.downcase == item}
+		if self.inv.any? { |i| i.names.any? { |name| name.downcase == item } }
+			item = self.inv.find { |i| i.names.any? { |name| name.downcase == item } }
 			if hero.gold < item.value
 				puts "\n\"I'm afraid I can't just give that away.\""
 			else
-				puts "\n#{item.name} purchased for #{item.value}gold"
+				puts "\n#{item.names[0]} purchased for #{item.value}gold"
 				hero.gold = hero.gold - item.value
 				hero.inv << item
 				index = self.inv.index(item)

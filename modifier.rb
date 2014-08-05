@@ -1,9 +1,9 @@
 class Modifier
 
-	attr_accessor :name, :attr, :value
+	attr_accessor :names, :attr, :value
 
-	def initialize(name, attr, value)
-		@name = name
+	def initialize(names, attr, value)
+		@names = names
 		@attr = attr
 		@value = value
 	end

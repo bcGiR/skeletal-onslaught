@@ -11,7 +11,7 @@ class Merchant < NPC
 
 	def initialize
 		inv = []
-		super("Travelling Merchant", inv)
+		super(["Travelling Merchant", "Travelling", "Merchant", "Merch"], inv)
 	end
 	
 	def talk(hero)
@@ -35,7 +35,7 @@ class Merchant < NPC
 				hero.inv.each do |i| 
 					if i.equippable?
 						if i.equipped?
-							item_name = "*" + i.name + " ("
+							item_name = "*" + i.names[0] + " ("
 							i.modifiers.each do |mod|
 								item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
 							end
@@ -50,7 +50,7 @@ class Merchant < NPC
 							puts item_name
 						end
 					else
-						puts i.name
+						puts i.names[0]
 					end
 				end
 				puts "\n(equipped: [*])"	
@@ -59,9 +59,9 @@ class Merchant < NPC
 		puts "\nType the game of an item to sell it:"
 		item = gets.chomp.downcase
 		Game.pause_short
-		if hero.inv.any? { |i| i.name.downcase == item }
-			item = hero.inv.find { |i| i.name.downcase == item}
-			puts "\n\"I will give you #{item.value/2} gold for your #{item.name}\""
+		if hero.inv.any? { |i| i.names.any? { |name| name.downcase == item } }
+			item = hero.inv.find { |i| i.names.any? { |name| name.downcase == item } }
+			puts "\n\"I will give you #{item.value/2} gold for your #{item.names[0]}\""
 			puts "Sell? (y/n)"
 			answer = gets.chomp.downcase
 			until answer == "y" || answer == "n"
@@ -72,7 +72,7 @@ class Merchant < NPC
 				hero.gold = hero.gold + item.value/2
 				index = hero.inv.index(item)
 				hero.inv.delete_at(index)
-				puts "\n#{item.name} sold for #{item.value/2} gold"
+				puts "\n#{item.names[0]} sold for #{item.value/2} gold"
 			end
 		else
 			puts "\n\"You don't have any of those.\""

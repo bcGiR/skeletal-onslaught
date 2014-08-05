@@ -12,7 +12,7 @@ class Blacksmith < NPC
 
 	def initialize
 		inv = [MinorHealthPot.new, MinorManaPot.new, IronSword.new, IronShield.new, IronArmor.new, SilkRobe.new, IronHelm.new, MapleStaff.new]
-		super("Joe, the Blacksmith", inv)
+		super(["Joe, the Blacksmith", "Joe", "Blacksmith"], inv)
 	end
 	
 	def talk(hero)
@@ -34,7 +34,7 @@ class Blacksmith < NPC
 		Game.pause_short
 		puts "\n-- Blacksmith --\n\n"
 		self.inv.each do |i| 
-			item_name = i.name
+			item_name = i.names[0]
 		       if i.equippable?
 			       item_name = item_name + "( "
 				i.modifiers.each do |mod|
@@ -50,12 +50,12 @@ class Blacksmith < NPC
 		puts "\nType the game of an item to buy it:"
 		item = gets.chomp.downcase
 		Game.pause_short
-		if self.inv.any? { |i| i.name.downcase == item }
-			item = self.inv.find { |i| i.name.downcase == item}
+		if self.inv.any? { |i| i.names.any? { |name| name.downcase == item } }
+			item = self.inv.find { |i| i.names.any? { |name| name.downcase == item } }
 			if hero.gold < item.value
 				puts "\n\"You don't have enough gold for that! Get outta here ya bum!\""
 			else
-				puts "\n#{item.name} purchased for #{item.value}gold"
+				puts "\n#{item.names[0]} purchased for #{item.value}gold"
 				hero.gold = hero.gold - item.value
 				hero.inv << item
 				index = self.inv.index(item)

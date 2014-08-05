@@ -4,13 +4,13 @@ require_relative '../modifier'
 class SilverPendant < Equippable
 
 	def initialize
-		super("Silver Pendant",
+		super(["Silver Pendant", "Silver Pend", "Silver P"],
 		      80,
 		      "uncommon",
-		      [ Modifier.new("SilverPendantMP",
+		      [ Modifier.new(["SilverPendantMP"],
 				     "mp",
 				     6 ),
-	       		Modifier.new("SilverPendantMdefn",
+	       		Modifier.new(["SilverPendantMdefn"],
 				     "mdefn",
 				     2 )] )
 	end

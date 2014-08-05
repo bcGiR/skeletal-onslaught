@@ -11,7 +11,7 @@ require_relative 'enemy'
 class Skelethognos < Enemy
 
 	def initialize
-		super("Skelethognos", 27, 0, 2, 2, 1, 2, 3, 1)
+		super(["Skelethognos"], 27, 0, 2, 2, 1, 2, 3, 1)
 		@special_list = { 'swing' => 0,
 		    'call' => 0 }
 	end
@@ -56,7 +56,7 @@ class Skelethognos < Enemy
 	def level_up
 		mods = []
 		self.modifiers.each do |mod|
-			new_mod = Modifier.new(mod.name, mod.attr, mod.value)
+			new_mod = Modifier.new(mod.names, mod.attr, mod.value)
 			mods << new_mod
 			self.demodify(mod)
 		end
@@ -77,7 +77,7 @@ class Skelethognos < Enemy
 		roll = Game.d6
 		if roll == 1 || roll == 2
 			return "specialswing"
-		elsif roll == 3
+		elsif roll == 3 || roll == 4
 			return "specialcall"
 		else
 			return "fight"
@@ -101,11 +101,11 @@ class Skelethognos < Enemy
 		hero.keys = hero.keys + 1
 		hero.exp = hero.exp + 12
 
-		puts "\n#{hero.name} picks up a key dropped by the shattered #{self.name}"
+		puts "\n#{hero.names[0]} picks up a key dropped by the shattered #{self.names[0]}"
 		Game.pause_short
-		puts "\n#{hero.name} picked up #{item.name} from the vanquished #{self.name}"
+		puts "\n#{hero.names[0]} picked up #{item.names[0]} from the vanquished #{self.names[0]}"
 		Game.pause_short
-		puts "\n#{hero.name} found #{gold} gold among the bones of his defeated enemy"
+		puts "\n#{hero.names[0]} found #{gold} gold among the bones of his defeated enemy"
 		Game.pause_short
 	end
 

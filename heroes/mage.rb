@@ -4,8 +4,8 @@ require_relative '../modifier'
 
 class Mage < Adventurer
 
-	def initialize(name)
-		super(name, 20, 12, 1, 2, 2, 2, 1.1, 0)
+	def initialize(names)
+		super(names, 20, 12, 1, 2, 2, 2, 1.1, 0)
 		@special_list = { 'missile' => 4 }
 	end
 
@@ -55,7 +55,7 @@ class Mage < Adventurer
 		else
 			@hp = @hp + heal
 		end
-		puts "\n***#{@name} has healed for #{heal} HP ***"
+		puts "\n***#{@names[0]} has healed for #{heal} HP ***"
 	end
 
 	def magic_missile
@@ -80,14 +80,14 @@ class Mage < Adventurer
 	
 	def storm(game, target)
 		damage = ((Game.d3 + 1) + (Game.d100 + Game.d100 + Game.d100 + 100) * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
-		storm = Modifier.new("storminit", 'init', -2)
-		unless target.modifiers.any? { |mod| mod.name == storm.name }
+		storm = Modifier.new(["storminit"], 'init', -2)
+		unless target.modifiers.any? { |mod| mod.names[0] == storm.names[0] }
 			target.modify(storm)
-			timer = CombatTimer.new("stormtimer", game, target, 4, storm.name, 'mod')
+			timer = CombatTimer.new("stormtimer", game, target, 4, storm.names[0], 'mod')
 			game.timers << timer
-			puts "\n*** A swirling Ice Storm envelops #{target.name} (INIT -2) ***"
+			puts "\n*** A swirling Ice Storm envelops #{target.names[0]} (INIT -2) ***"
 		else
-			puts "\n*** A storm already envelops #{target.name} ***"
+			puts "\n*** A storm already envelops #{target.names[0]} ***"
 		end
 		Game.pause_short
 		damage
@@ -97,7 +97,7 @@ class Mage < Adventurer
 		mods = []
 		count = 0
 		until count == self.modifiers.count
-			new_mod = Modifier.new(self.modifiers[count].name, self.modifiers[count].attr, self.modifiers[count].value)
+			new_mod = Modifier.new(self.modifiers[count].names, self.modifiers[count].attr, self.modifiers[count].value)
 			mods << new_mod
 			self.demodify(self.modifiers[count])
 		end
@@ -105,12 +105,12 @@ class Mage < Adventurer
 		super
 		if @lvl == 3
 			@special_list['fireball'] = 4
-			puts "\n#{@name} has learned Fireball!"
+			puts "\n#{@names[0]} has learned Fireball!"
 			Game.pause_medium
 		end
 		if @lvl == 5
 			@special_list['storm'] = 6
-			puts "\n#{@name} has learned Storm!"
+			puts "\n#{@names[0]} has learned Storm!"
 			Game.pause_medium
 		end
 		new_att = ( 1.0 + 49.0 * ((@lvl-1.0)/99.0) ).to_i

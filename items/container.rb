@@ -2,9 +2,9 @@ require_relative '../game'
 
 class Container
 
-	attr_accessor :name, :items, :locked
+	attr_accessor :names, :items, :locked
 
-	def initialize(name, items, locked)
+	def initialize(names, items, locked)
 		@name = name
 		@items = items
 		@locked = locked
@@ -14,7 +14,7 @@ class Container
 		unless @locked
 			items_temp = []
 			items.each do |item|
-				puts "\nThe #{name} contains a #{item.name}. Would you like to take it? (y/n)"
+				puts "\nThe #{names[0]} contains a #{item.names[0]}. Would you like to take it? (y/n)"
 				confirm = gets.chomp.downcase
 				until confirm == "y" || confirm == "n"
 					Game.pause_short

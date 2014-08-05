@@ -1,9 +1,9 @@
 class Dungeon
 
-	attr_accessor :name, :areas, :game, :clear
+	attr_accessor :names, :areas, :game, :clear
 
-	def initialize(name, areas, game)
-		@name = name
+	def initialize(names, areas, game)
+		@name = names
 		@areas = areas
 		@game = game
 		@clear = false

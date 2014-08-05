@@ -14,7 +14,7 @@ class CombatTimer
 	def tick
 		if @effect_type == 'dmg'
 			@model.hp = @model.hp - effect
-			puts "\n#{@model.name} has suffered #{@effect} damage from #{@name}"
+			puts "\n#{@model.names[0]} has suffered #{@effect} damage from #{@name}"
 			Game.pause_short
 			if @model.dead?
 				game.kill(@model)
@@ -29,11 +29,11 @@ class CombatTimer
 	def expires
 		case @effect_type
 		when 'mod'
-			mod = game.hero.modifiers.find { |mod| mod.name == @effect }
+			mod = game.hero.modifiers.find { |mod| mod.names[0] == @effect }
 			game.hero.demodify(mod)
 		end
 		
-		puts "\n#{@name} affecting #{@model.name} has worn off"
+		puts "\n#{@name} affecting #{@model.names[0]} has worn off"
 		Game.pause_short
 	end
 

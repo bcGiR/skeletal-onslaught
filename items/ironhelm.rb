@@ -4,10 +4,10 @@ require_relative '../modifier'
 class IronHelm < Equippable
 
 	def initialize
-		super("Iron Helm",
+		super(["Iron Helm"],
 		      10,
 		      "common",
-		      [ Modifier.new("IronHelmHP",
+		      [ Modifier.new(["IronHelmHP"],
 				     "hp",
 				     3 ) ] )
 	end

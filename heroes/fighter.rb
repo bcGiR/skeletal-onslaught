@@ -4,8 +4,8 @@ require_relative '../modifier'
 
 class Fighter < Adventurer
 
-	def initialize(name)
-		super(name, 20, 12, 2, 2, 1, 2, 2.1, 2)
+	def initialize(names)
+		super(names, 20, 12, 2, 2, 1, 2, 2.1, 2)
 		@special_list = { 'flurry' => 4 }
 	end
 
@@ -72,23 +72,23 @@ class Fighter < Adventurer
 		else
 			@hp = @hp + heal
 		end
-		puts "\n***#{@name} has healed for #{heal} HP ***"
+		puts "\n***#{@names[0]} has healed for #{heal} HP ***"
 	end
 
 	def shout(game, target)
 		damage = ( (Game.d3 + 1) + ( Game.d100 + Game.d100 + 80.0 ) * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
-		shout1 = Modifier.new("shoutatt", 'att', -1)
-		shout2 = Modifier.new("shoutdefn", 'defn', -1)
-		unless target.modifiers.any? { |mod| mod.name == "shoutatt" }
+		shout1 = Modifier.new(["shoutatt"], 'att', -1)
+		shout2 = Modifier.new(["shoutdefn"], 'defn', -1)
+		unless target.modifiers.any? { |mod| mod.names[0] == shout1.names[0] }
 			target.modify(shout1)
 			target.modify(shout2)
-			timer1 = CombatTimer.new("shout1timer", game, target, 4, shout1.name, 'mod')
-			timer2 = CombatTimer.new("shout2timer", game, target, 4, shout2.name, 'mod')
+			timer1 = CombatTimer.new("shout1timer", game, target, 4, shout1.names[0], 'mod')
+			timer2 = CombatTimer.new("shout2timer", game, target, 4, shout2.names[0], 'mod')
 			game.timers << timer1
 			game.timers << timer2
-			puts "\n*** The Fighter lets out a deafening war cry, demoralizing the #{target.name} \n(ATT: -1 DEFN: -1) ***"
+			puts "\n*** The Fighter lets out a deafening war cry, demoralizing the #{target.names[0]} \n(ATT: -1 DEFN: -1) ***"
 		else
-			puts "\n*** #{target.name} is already demoralized ***"
+			puts "\n*** #{target.names[0]} is already demoralized ***"
 		end
 		Game.pause_short
 		damage
@@ -98,7 +98,7 @@ class Fighter < Adventurer
 		mods = []
 		count = 0
 		until count == self.modifiers.count
-			new_mod = Modifier.new(self.modifiers[count].name, self.modifiers[count].attr, self.modifiers[count].value)
+			new_mod = Modifier.new(self.modifiers[count].names, self.modifiers[count].attr, self.modifiers[count].value)
 			mods << new_mod
 			self.demodify(self.modifiers[count])
 		end
@@ -106,12 +106,12 @@ class Fighter < Adventurer
 		super
 		if @lvl == 3
 			special_list['cleave'] = 4
-			puts "\n#{@name} has learned Cleave!"
+			puts "\n#{@names[0]} has learned Cleave!"
 			Game.pause_medium
 		end
 		if @lvl == 5
 			special_list['shout'] = 6
-			puts "\n#{@name} has learned Shout!"
+			puts "\n#{@names[0]} has learned Shout!"
 			Game.pause_medium
 		end
 		new_att = ( 2.0 + 58.0 * ((@lvl-1.0)/99.0) ).to_i

@@ -4,8 +4,8 @@ require_relative '../modifier'
 
 class Thief < Adventurer
 
-	def initialize(name)
-		super(name, 20, 12, 2, 1, 2, 1, 3.1, 1)
+	def initialize(names)
+		super(names, 20, 12, 2, 1, 2, 1, 3.1, 1)
 		@special_list = { 'backstab' => 4 }
 	end
 
@@ -63,7 +63,7 @@ class Thief < Adventurer
 		else
 			@hp = @hp + heal
 		end
-		puts "\n***#{@name} has healed for #{heal} HP ***"
+		puts "\n***#{@names[0]} has healed for #{heal} HP ***"
 	end
 
 	def fan
@@ -75,14 +75,14 @@ class Thief < Adventurer
 
 	def shadow(game, target)
 		damage = ( (Game.d4 + 1) + (Game.d100*3.0) * ((@lvl+9.0)/(99.0+10.0)) ** 2).to_i
-		shadow = Modifier.new("shadowdefn", 'defn', -1)
-		unless target.modifiers.any? { |mod| mod.name == shadow.name }
+		shadow = Modifier.new(["shadowdefn"], 'defn', -1)
+		unless target.modifiers.any? { |mod| mod.names[0] == shadow.names[0] }
 			target.modify(shadow)
-			timer = CombatTimer.new("shadowtimer", game, target, 4, shadow.name, 'mod')
+			timer = CombatTimer.new("shadowtimer", game, target, 4, shadow.names[0], 'mod')
 			game.timers << timer
 			puts "\n*** The Thief fades into the shadows and emerges behind his opponent \n(DEFN -1) ***"
 		else
-			puts "\n*** #{target.name} is already can't find the thief in the shadows ***"
+			puts "\n*** #{target.names[0]} is already can't find the thief in the shadows ***"
 		end
 		Game.pause_short
 		damage
@@ -92,7 +92,7 @@ class Thief < Adventurer
 		mods = []
 		count = 0
 		until count == self.modifiers.count
-			new_mod = Modifier.new(self.modifiers[count].name, self.modifiers[count].attr, self.modifiers[count].value)
+			new_mod = Modifier.new(self.modifiers[count].names, self.modifiers[count].attr, self.modifiers[count].value)
 			mods << new_mod
 			self.demodify(self.modifiers[count])
 		end
@@ -100,12 +100,12 @@ class Thief < Adventurer
 		super
 		if @lvl == 3
 			@special_list['fan'] = 4
-			puts "#{@name} has learned Fan of Knives!"
+			puts "#{@names[0]} has learned Fan of Knives!"
 			Game.pause_medium
 		end
 		if @lvl == 5
 			@special_list['shadow'] = 6
-			puts "#{@name} has learned Shadow Step!"
+			puts "#{@names[0]} has learned Shadow Step!"
 			Game.pause_medium
 		end
 		new_att = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i
