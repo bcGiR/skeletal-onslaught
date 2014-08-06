@@ -328,7 +328,7 @@ class Game
 						count += 1
 					end
 					Game.pause_short
-					puts "\nEnter the nubmer:"
+					puts "\nEnter the number:"
 					choice = gets.chomp.downcase.to_i
 					Game.pause_short
 					until choice > 0 && choice < (count+1)

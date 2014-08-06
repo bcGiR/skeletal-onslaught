@@ -21,7 +21,7 @@ class Skelethognos < Enemy
 		when 'swing'
 			self.swing
 		when 'call'
-			self.call(game, target)
+			self.call(game)
 		end
 	end
 
