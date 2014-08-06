@@ -3,12 +3,13 @@ require_relative '../items/healthpot'
 
 class Adventurer < Model
 	
-	attr_accessor :inv, :gold, :keys
+	attr_accessor :role, :inv, :gold, :keys
 
-	def initialize(names, hp, mp, att, defn, matt, mdefn, init, ac)
+	def initialize(names, role, hp, mp, att, defn, matt, mdefn, init, ac)
 		super(names, hp, mp, att, defn, matt, mdefn, init, ac)
+		@role = role
 		@inv = []
-		@gold = 20
+		@gold = 30
 		@keys = 0
 	end
 

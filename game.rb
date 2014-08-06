@@ -619,6 +619,11 @@ class Game
 		if hero.dead?
 			@over = true
 		end
+		if @hero_area.names[0] == "Town"
+			if @hero_area.npc[0].quit
+				@over = true
+			end
+		end
 		@over
 	end
 end

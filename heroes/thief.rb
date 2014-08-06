@@ -5,7 +5,7 @@ require_relative '../modifier'
 class Thief < Adventurer
 
 	def initialize(names)
-		super(names, 20, 12, 2, 1, 2, 1, 3.1, 1)
+		super(names, "Thief", 20, 12, 2, 1, 2, 1, 3.1, 1)
 		@special_list = { 'backstab' => 4 }
 	end
 

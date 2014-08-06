@@ -1,8 +1,8 @@
 make y/n confirms consistant	*COMPLETE*
 make stat names consistant	*COMPLETE*
 add 1 more special per class	*COMPLETE*
-add save feature
-add instructions
+add save feature	*COMPLETE*
+add instructions	*COMPLETE*
 fix long pause after dialog	*COMPLETE*
 add names array for multiple ways to type a name	*COMPLETE*
 make cleric heal/restore mana on talk	*COMPLETE*

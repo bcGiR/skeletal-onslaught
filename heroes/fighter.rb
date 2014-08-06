@@ -5,7 +5,7 @@ require_relative '../modifier'
 class Fighter < Adventurer
 
 	def initialize(names)
-		super(names, 20, 12, 2, 2, 1, 2, 2.1, 2)
+		super(names, "Fighter", 20, 12, 2, 2, 1, 2, 2.1, 2)
 		@special_list = { 'flurry' => 4 }
 	end
 

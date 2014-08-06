@@ -73,6 +73,8 @@ class Blacksmith < NPC
 		end
 		if answer == 'y'
 			self.sell(hero)
+		else
+			puts "\n\"Don't forget to equip your items!\""
 		end
 		Game.pause_short
 	end
