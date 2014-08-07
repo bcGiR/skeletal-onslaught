@@ -37,35 +37,35 @@ puts "                         ................................"
 puts "\n\n"
 Game.pause_long
 puts "\n\n"
-puts "               ---      Instructions        ---"
+puts "                         ---      Instructions        ---"
 Game.pause_medium
 puts ""
-puts "          WELCOME TO THE SKELETAL ONSLAUGHT BETA TEST!"
+puts "                    WELCOME TO THE SKELETAL ONSLAUGHT BETA TEST!"
 puts ""
 Game.pause_medium
-puts "  This is a text adventure, role playing game. Everything will be"
-puts "described to you via text and you will enter commands by typing"
-puts "them and pressing ENTER. The game will tell you what you can do."
+puts "            This is a text adventure, role playing game. Everything will be"
+puts "          described to you via text and you will enter commands by typing"
+puts "          them and pressing ENTER. The game will tell you what you can do."
 puts ""
 Game.pause_medium
-puts "  Fair warning: Enemies respawn, and you cannot flee from battle."
+puts "            Fair warning: Enemies respawn, and you cannot flee from battle."
 Game.pause_medium
-puts "\n  TIP: When interacting with objects in the world (items, npcs,"
-puts "etc) You will not always have to type the full name. (I.E. Joe,"
-puts "the Blacksmith can be talked to by simply typing 'joe'. Another"
-puts "very useful one is 'mhp' instead of typing 'Minor Health"
-puts "Potion', 'mmp' for 'Minor Mana Potion' etc."
+puts "\n            TIP: When interacting with objects in the world (items, npcs,"
+puts "          etc) You will not always have to type the full name. (I.E. Joe,"
+puts "          the Blacksmith can be talked to by simply typing 'joe'. Another"
+puts "          very useful one is 'mhp' instead of typing 'Minor Health"
+puts "          Potion', 'mmp' for 'Minor Mana Potion' etc."
 Game.pause_medium
-puts "\n  TIP: You can use the 'up' and 'down' directional keys on your"
-puts "keyboard to cycle through previously entered commands. For"
-puts "instance, if you bought an Iron Sword and an Iron Shield, you"
-puts "can press up to cycle back to 'Iron Sword' and press ENTER to"
-puts "equip it."
+puts "\n            TIP: You can use the 'up' and 'down' directional keys on your"
+puts "          keyboard to cycle through previously entered commands. For"
+puts "          instance, if you bought an Iron Sword and an Iron Shield, you"
+puts "          can press up to cycle back to 'Iron Sword' and press ENTER to"
+puts "          equip it."
 Game.pause_medium
-puts "\n  SAVING: The Old Wizard in town will save your game for you."
-puts "There is NO saving in a dungeon"
+puts "\n            SAVING: The Old Wizard in town will save your game for you."
+puts "          There is NO saving in a dungeon"
 Game.pause_medium
-puts "\n Good Luck, Have Fun!"
+puts "\n           Good Luck, Have Fun!"
 puts "\n\n"
 Game.pause_short
 
@@ -146,21 +146,21 @@ system("cls")
 if new_game
 
 	#User picks class
-	puts "Welcome, brave #{user_name}. What sort of adventurer are you?"
+	puts "\nWelcome, brave #{user_name}. What sort of adventurer are you?"
 	Game.pause_short
 	puts "\n--------------------------------------------------------------------------------"
 	puts "\nFighter: A natural brawler, the fighter is a seasoned combattant, capable of \nengaging almost anyone in melee combat"
-	puts "\nHP:20 MP:12 ATT:2 DEFN:2 MATT:1 MDEFN:2 INIT:2 AC:1"
+	puts "\nHP:20 MP:12 ATT:2 DEFN:2 MATT:1 MDEFN:2 INIT:2 AC:6"
 	puts "Special (Blade Flurry) 4MP"
 	puts "\n--------------------------------------------------------------------------------"
 	Game.pause_short
 	puts "\nThief: As sneaky as he is cunning, the thief leverages his natural dexterity to \nsurprise his enemies with sneak attacks."
-	puts "\nHP:20 MP:12 ATT:2 DEFN:1 MATT:2 MDEFN:1 INIT:3 AC:1"
+	puts "\nHP:20 MP:12 ATT:2 DEFN:1 MATT:2 MDEFN:1 INIT:3 AC:3"
 	puts "Special: (Backstab) 4MP"
 	puts "\n--------------------------------------------------------------------------------"
 	Game.pause_short
 	puts "\n\nMage: A wielder of powerful sorcery, the mage calls upon arcane forces to \nprotect herself and decimate her foes"
-	puts "\nHP:20 MP:12 ATT:1 DEFN:2 MATT:2 MDEFN:2 INIT:1 AC:0"
+	puts "\nHP:20 MP:16 ATT:1 DEFN:2 MATT:2 MDEFN:2 INIT:1 AC:2"
 	puts "Special: (Magic Missile) 4MP"
 	puts "\n--------------------------------------------------------------------------------"
 	Game.pause_short

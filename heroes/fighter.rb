@@ -82,8 +82,8 @@ class Fighter < Adventurer
 		unless target.modifiers.any? { |mod| mod.names[0] == shout1.names[0] }
 			target.modify(shout1)
 			target.modify(shout2)
-			timer1 = CombatTimer.new("shout1timer", game, target, 4, shout1.names[0], 'mod')
-			timer2 = CombatTimer.new("shout2timer", game, target, 4, shout2.names[0], 'mod')
+			timer1 = CombatTimer.new("Shout (ATT: -1)", game, target, 4, shout1.names[0], 'mod')
+			timer2 = CombatTimer.new("Shout (DEFN: -1)", game, target, 4, shout2.names[0], 'mod')
 			game.timers << timer1
 			game.timers << timer2
 			puts "\n*** The Fighter lets out a deafening war cry, demoralizing the #{target.names[0]} \n(ATT: -1 DEFN: -1) ***"
@@ -104,6 +104,8 @@ class Fighter < Adventurer
 		end
 
 		super
+		puts "\n*** #{@names[0]} has reached level #{lvl} ***"
+		Game.pause_short
 		if @lvl == 3
 			special_list['cleave'] = 4
 			puts "\n#{@names[0]} has learned Cleave!"
@@ -114,24 +116,34 @@ class Fighter < Adventurer
 			puts "\n#{@names[0]} has learned Shout!"
 			Game.pause_medium
 		end
+		new_hp = (12.0 + 998.0 * ((@lvl + 9.0)/(99.0 + 10.0)) ** 2).to_i
+		new_mp = (6.0 + 694.0 * ((@lvl + 9.0)/(99.0 + 10.0)) ** 2).to_i
 		new_att = ( 2.0 + 58.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_defn = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_matt = ( 1.0 + 49.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_mdefn = ( 2.0 + 58.0 * ((@lvl-1.0)/99.0) ).to_i
-		new_ac = ( 2.0 + 108 * ((@lvl-1.0)/(99.0)) ** 2).to_i
+		new_ac = ( 6.0 + 246 * ((@lvl-1.0)/(99.0)) ** 2).to_i
 
+		hp_diff = new_hp - @hpmax
+		mp_diff = new_mp - @mpmax
 		att_diff = new_att - @att
 		defn_diff = new_defn - @defn
 		matt_diff = new_matt - @matt
 		mdefn_diff = new_mdefn - @mdefn
 		ac_diff = new_ac - @ac
 
+		@hpmax = new_hp
+		@mpmax = new_mp
+		@hp = @hp + hp_diff
+		@mp = @mp + mp_diff
 		@att = new_att
 		@defn = new_defn
 		@matt = new_matt
 		@mdefn = new_mdefn
 		@ac = new_ac
 
+		puts "HP +#{hp_diff}"
+		puts "MP +#{mp_diff}"
 		puts "ATT: +#{att_diff}"
 		puts "DEF: +#{defn_diff}"
 		puts "M.ATT: +#{matt_diff}"

@@ -247,7 +247,7 @@ class Game
 						item_name = item_name + ")"
 						puts item_name	
 					else
-						item_name = i.name + " ("
+						item_name = i.names[0] + " ("
 						i.modifiers.each do |mod|
 							item_name = item_name + "#{mod.attr.upcase}: +#{mod.value} "
 						end
@@ -317,7 +317,7 @@ class Game
 				return [@hero_area.enemies[choice-1]]
 			when /special/
 				if hero.special_type(action[7..-1]) == 'self'
-					return @hero
+					return [@hero]
 				end
 				if hero.special_single_target(action[7..-1])
 					puts "\nAttack who?"
@@ -532,8 +532,6 @@ class Game
 					defender.hp = 0
 				end
 				puts "\n#{attacker.names[0]} has wounded #{defender.names[0]} for #{damage}dmg. (#{defender.hp}HP remains)"
-			else
-				puts "\n#{attacker.names[0]} has failed to damage #{defender.names[0]}"
 			end
 			Game.pause_short
 

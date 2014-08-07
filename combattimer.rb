@@ -29,8 +29,8 @@ class CombatTimer
 	def expires
 		case @effect_type
 		when 'mod'
-			mod = game.hero.modifiers.find { |mod| mod.names[0] == @effect }
-			game.hero.demodify(mod)
+			mod = @model.modifiers.find { |mod| mod.names[0] == @effect }
+			@model.demodify(mod)
 		end
 		
 		puts "\n#{@name} affecting #{@model.names[0]} has worn off"

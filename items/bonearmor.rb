@@ -9,7 +9,7 @@ class BoneArmor < Equippable
 		      "uncommon",
 		      [ Modifier.new(["BoneArmorAC"],
 				     "ac",
-				     2 ),
+				     4 ),
 	       		Modifier.new(["BoneArmorHP"],
 				     "hp",
 				     8 ) ] )

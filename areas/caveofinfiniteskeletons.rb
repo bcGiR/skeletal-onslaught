@@ -24,6 +24,13 @@ class CaveOfInfiniteSkeletons < Dungeon
 					     [], #entrance_npcs
 					     [ Proc.new { @game.spawn_enemy("skeleton", -1) } ], #entrance_enemies
 					     [] ), #entrance_objects
+		      walkway = Area.new( ["Cave Shaft", "Shaft"], #walkway_name
+					 "\nYou walk down a narrow shaft leading from the entrance deeper into the cave. The \nlight of the surface fades from the western end of the walkway, and grows pitch \nblack in the east, where the sound of running water can be heard. The \nstalagtites and stalagmites that fill the shaft further to the east almost make \nthe pathway impassable. Here you get whiffs of fresh air from the surface, and \nmusty dank breezes from the east.", #walkway_description
+					 Hash.new, #walkway_adjacent
+					 [], #walkway_npcs
+					 [ Proc.new { @game.spawn_enemy("skeleton", -1) },
+					   Proc.new { @game.spawn_enemy("skeleton", 0) } ], #walkway_enemies
+					 [MinorManaPot.new] ), #walkway_objects
 		      pool = Area.new( ["Pool"], #pool_name
 				      "\nYou enter a cavernous room, the crossroads of two shafts of the cave. Out of a \nsmall hole in the northwest wall a waterfall drops to the cavern floor and flows \ndown to a small pool in the center of the room. At the other end of the pool, \nabout 20 feet across, the pool empties into another stream which flows into a \nrabithole sized opening in the southeastern wall. A shaft leads out of this room \nto the north and one to the south. To the west, the light of the surface streams \nthrough the entrance.", #pool_description
 				      Hash.new, #pool_adjacent

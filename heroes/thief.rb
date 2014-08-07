@@ -78,7 +78,7 @@ class Thief < Adventurer
 		shadow = Modifier.new(["shadowdefn"], 'defn', -1)
 		unless target.modifiers.any? { |mod| mod.names[0] == shadow.names[0] }
 			target.modify(shadow)
-			timer = CombatTimer.new("shadowtimer", game, target, 4, shadow.names[0], 'mod')
+			timer = CombatTimer.new("Fear of the Shadows", game, target, 4, shadow.names[0], 'mod')
 			game.timers << timer
 			puts "\n*** The Thief fades into the shadows and emerges behind his opponent \n(DEFN -1) ***"
 		else
@@ -98,6 +98,8 @@ class Thief < Adventurer
 		end
 
 		super
+		puts "\n*** #{@names[0]} has reached level #{lvl} ***"
+		Game.pause_short
 		if @lvl == 3
 			@special_list['fan'] = 4
 			puts "#{@names[0]} has learned Fan of Knives!"
@@ -108,24 +110,34 @@ class Thief < Adventurer
 			puts "#{@names[0]} has learned Shadow Step!"
 			Game.pause_medium
 		end
+		new_hp = (12.0 + 998.0 * ((@lvl + 9.0)/(99.0 + 10.0)) ** 2).to_i
+		new_mp = (6.0 + 694.0 * ((@lvl + 9.0)/(99.0 + 10.0)) ** 2).to_i
 		new_att = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_defn = ( 1.0 + 49.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_matt = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_mdefn = ( 1.0 + 49.0 * ((@lvl-1.0)/99.0) ).to_i
-		new_ac = ( 1.0 + 54.0 * ((@lvl-1.0)/99.0) ** 2).to_i
+		new_ac = ( 3.0 + 123.0 * ((@lvl-1.0)/99.0) ** 2).to_i
 
+		hp_diff = new_hp - @hpmax
+		mp_diff = new_mp - @mpmax
 		att_diff = new_att - @att
 		defn_diff = new_defn - @defn
 		matt_diff = new_matt - @matt
 		mdefn_diff = new_mdefn - @mdefn
 		ac_diff = new_ac - @ac
 
+		@hpmax = new_hp
+		@mpmax = new_mp
+		@hp = @hp + hp_diff
+		@mp = @mp + mp_diff
 		@att = new_att
 		@defn = new_defn
 		@matt = new_matt
 		@mdefn = new_mdefn
 		@ac = new_ac
 
+		puts "HP +#{hp_diff}"
+		puts "MP +#{mp_diff}"
 		puts "ATT: +#{att_diff}"
 		puts "DEF: +#{defn_diff}"
 		puts "M.ATT: +#{matt_diff}"

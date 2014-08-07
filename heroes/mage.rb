@@ -5,7 +5,7 @@ require_relative '../modifier'
 class Mage < Adventurer
 
 	def initialize(names)
-		super(names, "Mage", 20, 12, 1, 2, 2, 2, 1.1, 0)
+		super(names, "Mage", 20, 16, 1, 2, 2, 2, 1.1, 0)
 		@special_list = { 'missile' => 4 }
 	end
 
@@ -61,7 +61,7 @@ class Mage < Adventurer
 	def magic_missile
 		hit = Game.d100
 		damage = 0
-		if hit >= 20
+		if hit >= 10
 			damage = ( ( Game.d4 + Game.d4 + 3 ) + ( (Game.d100 + Game.d100 + Game.d100)*2 + 300 ) * ( (@lvl + 9.0)/(99.0 + 10.0) ) ** 2 ).to_i
 			puts "\n*** A magic missle erupts from the Mages fingertips ***"
 		else
@@ -83,7 +83,7 @@ class Mage < Adventurer
 		storm = Modifier.new(["storminit"], 'init', -2)
 		unless target.modifiers.any? { |mod| mod.names[0] == storm.names[0] }
 			target.modify(storm)
-			timer = CombatTimer.new("stormtimer", game, target, 4, storm.names[0], 'mod')
+			timer = CombatTimer.new("Ice Storm", game, target, 4, storm.names[0], 'mod')
 			game.timers << timer
 			puts "\n*** A swirling Ice Storm envelops #{target.names[0]} (INIT -2) ***"
 		else
@@ -103,6 +103,8 @@ class Mage < Adventurer
 		end
 
 		super
+		puts "\n*** #{@names[0]} has reached level #{lvl} ***"
+		Game.pause_short
 		if @lvl == 3
 			@special_list['fireball'] = 4
 			puts "\n#{@names[0]} has learned Fireball!"
@@ -113,24 +115,34 @@ class Mage < Adventurer
 			puts "\n#{@names[0]} has learned Storm!"
 			Game.pause_medium
 		end
+		new_hp = (12.0 + 998.0 * ((@lvl + 9.0)/(99.0 + 10.0)) ** 2).to_i
+		new_mp = (9.0 + 892.0 * ((@lvl + 9.0)/(99.0 + 10.0)) ** 2).to_i
 		new_att = ( 1.0 + 49.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_defn = ( 2.0 + 58.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_matt = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_mdefn = ( 2.0 + 78.0 * ((@lvl-1.0)/99.0) ).to_i
-		new_ac = ( 0 + 20 * ((@lvl-1.0)/99.0) ** 2).to_i
+		new_ac = ( 2.0 + 40.0 * ((@lvl-1.0)/99.0) ** 2).to_i
 
+		hp_diff = new_hp - @hpmax
+		mp_diff = new_mp - @mpmax
 		att_diff = new_att - @att
 		defn_diff = new_defn - @defn
 		matt_diff = new_matt - @matt
 		mdefn_diff = new_mdefn - @mdefn
 		ac_diff = new_ac - @ac
 
+		@hpmax = new_hp
+		@mpmax = new_mp
+		@hp = @hp + hp_diff
+		@mp = @mp + mp_diff
 		@att = new_att
 		@defn = new_defn
 		@matt = new_matt
 		@mdefn = new_mdefn
 		@ac = new_ac
 
+		puts "HP +#{hp_diff}"
+		puts "MP +#{mp_diff}"
 		puts "ATT: +#{att_diff}"
 		puts "DEF: +#{defn_diff}"
 		puts "M.ATT: +#{matt_diff}"

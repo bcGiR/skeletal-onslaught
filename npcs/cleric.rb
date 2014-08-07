@@ -22,11 +22,12 @@ class Cleric < NPC
 			hero.mp = hero.mpmax
 			Game.pause_short
 		end
-		if hero.inv.any? { |item| item.names[0][0..4] == "skel" } && @has_skill
-			puts "\n\"You have done it! The King of Bones is defeated! Congratulations, brave hero, now I must be off-- oh... what? Oh right! The spell... yes, of course. Right away.\""
+		if hero.inv.any? { |item| item.names[0] == "Mysterious Black Pearl" } && @has_skill
+			puts "\n\"You have done it! The King of Bones is defeated! Congratulations, brave hero, \nnow I must be off-- oh... what? Oh right! The spell... yes, of course. Right \naway.\""
+			Game.pause_short
 			hero.special_list['heal'] = 6
-			puts "#{hero.names[0]} has learned Heal!"
-			Game.pause_medium
+			puts "\n#{hero.names[0]} has learned Heal!"
+			Game.pause_long
 			@has_skill = false
 		elsif @has_skill
 			puts "\n\"Oh! Well met adventurer! I was starting to think I was never going to make it \nout of this place. Listen, the King of Bones must die, but I am unable to do it \nmyself. If you defeat Skelethognos', I will teach you what you need to know to \nrecover from battle. Make haste hero, the skeletons do not stay dead for long...\""

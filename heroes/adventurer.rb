@@ -22,16 +22,5 @@ class Adventurer < Model
 
 	def level_up
 		super
-		new_hp = (12.0 + 998.0 * ((@lvl + 9.0)/(99.0 + 10.0)) ** 2).to_i
-		new_mp = (6.0 + 694.0 * ((@lvl + 9.0)/(99.0 + 10.0)) ** 2).to_i
-		hp_diff = new_hp - @hpmax
-		mp_diff = new_mp - @mpmax
-		@hpmax = new_hp
-		@mpmax = new_mp
-		@hp = @hp + hp_diff
-		@mp = @mp + mp_diff
-		puts "\n*** #{@names[0]} has reached level #{lvl} ***"
-		puts "HP +#{hp_diff}"
-		puts "MP +#{mp_diff}"
 	end
 end

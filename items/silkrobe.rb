@@ -9,7 +9,10 @@ class SilkRobe < Equippable
 		      "common",
 		      [ Modifier.new(["SilkRobeMdefn"],
 				     "mdefn",
-				     1 ) ] )
+				     1 ),
+	       		Modifier.new(["SilkRobeAC"],
+				     "ac",
+				     2 ) ] )
 	end
 
 	def equippable?

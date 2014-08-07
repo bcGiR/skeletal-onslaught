@@ -94,7 +94,7 @@ class Assassin < Adventurer
 		disarm = Modifier.new("disarmdefn", 'att', -2)
 		unless target.modifiers.any? { |mod| mod.names[0] == disarm.names[0] }
 			target.modify(disarm)
-			timer = CombatTimer.new("disarmtimer", game, target, 4, disarm.names[0], 'mod')
+			timer = CombatTimer.new("Disarm", game, target, 4, disarm.names[0], 'mod')
 			game.timers << timer
 			puts "\n*** The Assassin's slight-of-hand disarms #{target.names[0]} (ATT -1) ***"
 		else
@@ -114,6 +114,8 @@ class Assassin < Adventurer
 		end
 
 		super
+		puts "\n*** #{@names[0]} has reached level #{lvl} ***"
+		Game.pause_short
 		if @lvl == 3
 			@special_list['gambit'] = 6
 			puts "#{@names[0]} has learned Magic Gambit!"
@@ -124,24 +126,34 @@ class Assassin < Adventurer
 			puts "#{@names[0]} has learned Disarm!"
 			Game.pause_medium
 		end
+		new_hp = (12.0 + 998.0 * ((@lvl + 9.0)/(99.0 + 10.0)) ** 2).to_i
+		new_mp = (6.0 + 694.0 * ((@lvl + 9.0)/(99.0 + 10.0)) ** 2).to_i
 		new_att = ( 2.0 + 73.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_defn = ( 2.0 + 63.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_matt = ( 2.0 + 73.0 * ((@lvl-1.0)/99.0) ).to_i
 		new_mdefn = ( 2.0 + 63.0 * ((@lvl-1.0)/99.0) ).to_i
-		new_ac = ( 0 + 20.0 * ((@lvl-1.0)/99.0) ** 2).to_i
+		new_ac = ( 2.0 + 40.0 * ((@lvl-1.0)/99.0) ** 2).to_i
 
+		hp_diff = new_hp - @hpmax
+		mp_diff = new_mp - @mpmax
 		att_diff = new_att - @att
 		defn_diff = new_defn - @defn
 		matt_diff = new_matt - @matt
 		mdefn_diff = new_mdefn - @mdefn
 		ac_diff = new_ac - @ac
 
+		@hpmax = new_hp
+		@mpmax = new_mp
+		@hp = @hp + hp_diff
+		@mp = @mp + mp_diff
 		@att = new_att
 		@defn = new_defn
 		@matt = new_matt
 		@mdefn = new_mdefn
 		@ac = new_ac
 
+		puts "HP +#{hp_diff}"
+		puts "MP +#{mp_diff}"
 		puts "ATT: +#{att_diff}"
 		puts "DEF: +#{defn_diff}"
 		puts "M.ATT: +#{matt_diff}"

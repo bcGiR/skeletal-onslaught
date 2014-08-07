@@ -56,8 +56,18 @@ class Wizard < NPC
 
 			save = [hero.name, hero.lvl, hero.role, hero.gold, hero.exp, hero.keys, heal, pearl, mhp, mmp, shp, smp, skull, arm, tooth, barmor, bbuckler, bnecklace, bsword, pskull, isword, ishield, iarmor, silk, helm, staff, gpend, spend]
 
-			CSV.open('C:\Users\Brendan\source\ruby\game\highscore.csv', 'ab') do |csv|
-				csv << save
+			new = true
+
+			CSV.foreach('C:\Users\Brendan\source\ruby\game\highscore.csv') do |row|
+				if hero.name == row[0]
+					row = save
+					new = false
+				end
+				if new
+					CSV.open('C:\Users\Brendan\source\ruby\game\highscore.csv', 'ab') do |csv|
+					csv << save
+					end
+				end
 			end
 			puts "#{hero.name} saved the game!"
 			Game.pause_medium
