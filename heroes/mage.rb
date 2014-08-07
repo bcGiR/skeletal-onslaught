@@ -5,7 +5,7 @@ require_relative '../modifier'
 class Mage < Adventurer
 
 	def initialize(names)
-		super(names, "Mage", 20, 16, 1, 2, 2, 2, 1.1, 0)
+		super(names, "Mage", 20, 16, 1, 2, 2, 2, 1.1, 2)
 		@special_list = { 'missile' => 4 }
 	end
 
@@ -56,6 +56,7 @@ class Mage < Adventurer
 			@hp = @hp + heal
 		end
 		puts "\n***#{@names[0]} has healed for #{heal} HP ***"
+		damage = 0
 	end
 
 	def magic_missile

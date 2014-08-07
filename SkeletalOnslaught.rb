@@ -76,7 +76,7 @@ town_description = "\nYou are sitting in the Brittle Bone Inn at a table by your
 town_adjacent = Hash.new
 town_npcs = [wiz = Wizard.new, black = Blacksmith.new, merch = Merchant.new]
 town_enemies = []
-town_objects = [h1 = MinorHealthPot.new, h2 = MinorHealthPot.new, m1 = MinorManaPot.new]
+town_objects = [ MinorHealthPot.new, MinorManaPot.new]
 town = Area.new(["Town"], town_description, town_adjacent, town_npcs, town_enemies, town_objects)
 
 #User enters name
@@ -180,6 +180,7 @@ if new_game
 
 	#New Game
 	game = Game.new(user_name, role, town)
+	game.hero.inv << MinorHealthPot.new
 
 end
 
@@ -187,6 +188,7 @@ dungeon = CaveOfInfiniteSkeletons.new(game)
 
 town.adjacent['east'] = dungeon.areas[0]
 dungeon.areas[0].adjacent['west'] = town
+
 
 puts "................................................................................"
 puts "#{game.hero.names[0]}: #{game.hero.hp}/#{game.hero.hpmax}HP #{game.hero.mp}/#{game.hero.mpmax}MP - Level #{game.hero.lvl} #{game.hero.role.capitalize} - #{game.hero.exp} Exp - #{game.hero.gold} Gold - #{game.hero.keys} Keys"
@@ -279,13 +281,6 @@ else
 	#Victory
 	puts "Victorious, you stand over a pile of your defeated foes. You cannot tell which \nof the bones belonged to which enemy at this point, but it does not matter. The \nskeletons don't care. They live out they're days in perfect bliss, living \nalongside their kin for eternity. You will join them now. Their calls are \ngrowing more audible in your ear. \"Come, adventurer, sleep with us. Sleep with \nus for eternity.\"\n\n"
 	puts "                           THE END\n"
-end
-
-#Add current score to the csv file if the hero was victorious
-unless game.hero.dead?
-	CSV.open('C:\Users\Brendan\source\ruby\game\highscore.csv', 'ab') do |csv|
-		csv << [user_name, game.hero.lvl, role.capitalize, game.hero.gold]
-	end
 end
 
 Game.pause_long

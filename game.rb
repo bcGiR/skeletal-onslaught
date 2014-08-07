@@ -137,7 +137,7 @@ class Game
 			end
 
 		elsif action == "move"
-			puts "\n-- #{@hero_area.names[0].capitalize} --\n\n"
+			puts "\n-- #{@hero_area.names[0]} --\n\n"
 			@hero_area.adjacent.each do |direction, area|
 				Game.pause_short
 				puts area.names[0] + " (#{direction})\n"

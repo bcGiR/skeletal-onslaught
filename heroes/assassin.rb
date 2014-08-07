@@ -5,7 +5,7 @@ require_relative '../modifier'
 class Assassin < Adventurer
 
 	def initialize(names)
-		super(names, "Assassin", 20, 12, 2, 2, 2, 2, 3.1, 0)
+		super(names, "Assassin", 20, 12, 2, 2, 2, 2, 3.1, 2)
 		@special_list = { 'assassinate' => 8 }
 	end
 
@@ -68,6 +68,7 @@ class Assassin < Adventurer
 			@hp = @hp + heal
 		end
 		puts "\n***#{@names[0]} has healed for #{heal} HP ***"
+		damage = 0
 	end
 
 	def gambit(target)

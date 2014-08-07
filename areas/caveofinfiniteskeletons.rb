@@ -23,7 +23,7 @@ class CaveOfInfiniteSkeletons < Dungeon
 					     Hash.new, #entrance_adjacent
 					     [], #entrance_npcs
 					     [ Proc.new { @game.spawn_enemy("skeleton", -1) } ], #entrance_enemies
-					     [] ), #entrance_objects
+					     [MinorHealthPot.new] ), #entrance_objects
 		      walkway = Area.new( ["Cave Shaft", "Shaft"], #walkway_name
 					 "\nYou walk down a narrow shaft leading from the entrance deeper into the cave. The \nlight of the surface fades from the western end of the walkway, and grows pitch \nblack in the east, where the sound of running water can be heard. The \nstalagtites and stalagmites that fill the shaft further to the east almost make \nthe pathway impassable. Here you get whiffs of fresh air from the surface, and \nmusty dank breezes from the east.", #walkway_description
 					 Hash.new, #walkway_adjacent
@@ -104,9 +104,12 @@ class CaveOfInfiniteSkeletons < Dungeon
 					[ Proc.new { @game.spawn_enemy( "skelethognos", 1) } ], #lair_enemies
 					[SmallManaPot.new, SmallHealthPot.new, skel_chest = SkelethognosChest.new] ) ], game ) #lair_objects
 
-		entrance.adjacent['east'] = pool
+		entrance.adjacent['east'] = walkway
 
-		pool.adjacent['west'] = entrance
+		walkway.adjacent['west'] = entrance
+		walkway.adjacent['east'] = pool
+
+		pool.adjacent['west'] = walkway
 		pool.adjacent['south'] = b1
 		pool.adjacent['north'] = a1
 

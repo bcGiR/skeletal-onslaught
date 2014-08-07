@@ -5,7 +5,7 @@ require_relative '../modifier'
 class Fighter < Adventurer
 
 	def initialize(names)
-		super(names, "Fighter", 20, 12, 2, 2, 1, 2, 2.1, 2)
+		super(names, "Fighter", 20, 12, 2, 2, 1, 2, 2.1, 6)
 		@special_list = { 'flurry' => 4 }
 	end
 
@@ -73,6 +73,7 @@ class Fighter < Adventurer
 			@hp = @hp + heal
 		end
 		puts "\n***#{@names[0]} has healed for #{heal} HP ***"
+		damage = 0
 	end
 
 	def shout(game, target)

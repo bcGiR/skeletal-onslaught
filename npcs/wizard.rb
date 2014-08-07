@@ -33,43 +33,43 @@ class Wizard < NPC
 			if hero.inv.any? { |i| i.names[0] == "Mysterious Black Pearl" }
 				pearl = 1
 			end
-			mhp == hero.inv.select { |i| i.names[0] == "Minor Health Potion" }.count
-			mmp == hero.inv.select { |i| i.names[0] == "Minor Mana Potion" }.count
-			shp == hero.inv.select { |i| i.names[0] == "Small Health Potion" }.count
-			smp == hero.inv.select { |i| i.names[0] == "Small Mana Potion" }.count
-			skull == hero.inv.select { |i| i.names[0] == "Skelethognos' Skull" }.count
-			arm == hero.inv.select { |i| i.names[0] == "Skelethognos' Arm" }.count
-			tooth == hero.inv.select { |i| i.names[0] == "Skelethognos' Biggest Tooth" }.count
-			barmor == hero.inv.select { |i| i.names[0] == "Bone Armor" }.count
-			bbuckler == hero.inv.select { |i| i.names[0] == "Bone Buckler" }.count
-			bnecklace == hero.inv.select { |i| i.names[0] == "Necklace of Bones" }.count
-			bsword == hero.inv.select { |i| i.names[0] == "Bone Sword" }.count
-			pskull == hero.inv.select { |i| i.names[0] == "Perfect Whole Skull" }.count
-			isword == hero.inv.select { |i| i.names[0] == "Iron Sword" }.count
-			ishield == hero.inv.select { |i| i.names[0] == "Iron Shield" }.count
-			iarmor == hero.inv.select { |i| i.names[0] == "Iron Armor" }.count
-			silk == hero.inv.select { |i| i.names[0] == "Silk Mage's Robe" }.count
-			helm == hero.inv.select { |i| i.names[0] == "Iron Helm" }.count
-			staff == hero.inv.select { |i| i.names[0] == "Maple Staff" }.count
-			gpend == hero.inv.select { |i| i.names[0] == "Gold Pendant" }.count
-			spend == hero.inv.select { |i| i.names[0] == "Silver Pendant" }.count
+			mhp = hero.inv.select { |i| i.names[0] == "Minor Health Potion" }.count
+			mmp = hero.inv.select { |i| i.names[0] == "Minor Mana Potion" }.count
+			shp = hero.inv.select { |i| i.names[0] == "Small Health Potion" }.count
+			smp = hero.inv.select { |i| i.names[0] == "Small Mana Potion" }.count
+			skull = hero.inv.select { |i| i.names[0] == "Skelethognos' Skull" }.count
+			arm = hero.inv.select { |i| i.names[0] == "Skelethognos' Arm" }.count
+			tooth = hero.inv.select { |i| i.names[0] == "Skelethognos' Biggest Tooth" }.count
+			barmor = hero.inv.select { |i| i.names[0] == "Bone Armor" }.count
+			bbuckler = hero.inv.select { |i| i.names[0] == "Bone Buckler" }.count
+			bnecklace = hero.inv.select { |i| i.names[0] == "Necklace of Bones" }.count
+			bsword = hero.inv.select { |i| i.names[0] == "Bone Sword" }.count
+			pskull = hero.inv.select { |i| i.names[0] == "Perfect Whole Skull" }.count
+			isword = hero.inv.select { |i| i.names[0] == "Iron Sword" }.count
+			ishield = hero.inv.select { |i| i.names[0] == "Iron Shield" }.count
+			iarmor = hero.inv.select { |i| i.names[0] == "Iron Armor" }.count
+			silk = hero.inv.select { |i| i.names[0] == "Silk Mage's Robe" }.count
+			helm = hero.inv.select { |i| i.names[0] == "Iron Helm" }.count
+			staff = hero.inv.select { |i| i.names[0] == "Maple Staff" }.count
+			gpend = hero.inv.select { |i| i.names[0] == "Gold Pendant" }.count
+			spend = hero.inv.select { |i| i.names[0] == "Silver Pendant" }.count
 
-			save = [hero.name, hero.lvl, hero.role, hero.gold, hero.exp, hero.keys, heal, pearl, mhp, mmp, shp, smp, skull, arm, tooth, barmor, bbuckler, bnecklace, bsword, pskull, isword, ishield, iarmor, silk, helm, staff, gpend, spend]
+			save = [hero.names[0], hero.lvl, hero.role, hero.gold, hero.exp, hero.keys, heal, pearl, mhp, mmp, shp, smp, skull, arm, tooth, barmor, bbuckler, bnecklace, bsword, pskull, isword, ishield, iarmor, silk, helm, staff, gpend, spend]
 
 			new = true
 
 			CSV.foreach('C:\Users\Brendan\source\ruby\game\highscore.csv') do |row|
-				if hero.name == row[0]
+				if hero.names[0] == row[0]
 					row = save
 					new = false
 				end
-				if new
-					CSV.open('C:\Users\Brendan\source\ruby\game\highscore.csv', 'ab') do |csv|
+			end
+			if new
+				CSV.open('C:\Users\Brendan\source\ruby\game\highscore.csv', 'ab') do |csv|
 					csv << save
-					end
 				end
 			end
-			puts "#{hero.name} saved the game!"
+			puts "\n#{hero.names[0]} saved the game!"
 			Game.pause_medium
 			puts "Quit? (y/n)"
 			confirm = gets.chomp.downcase

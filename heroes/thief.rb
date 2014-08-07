@@ -5,7 +5,7 @@ require_relative '../modifier'
 class Thief < Adventurer
 
 	def initialize(names)
-		super(names, "Thief", 20, 12, 2, 1, 2, 1, 3.1, 1)
+		super(names, "Thief", 20, 12, 2, 1, 2, 1, 3.1, 3)
 		@special_list = { 'backstab' => 4 }
 	end
 
@@ -64,6 +64,7 @@ class Thief < Adventurer
 			@hp = @hp + heal
 		end
 		puts "\n***#{@names[0]} has healed for #{heal} HP ***"
+		damage = 0
 	end
 
 	def fan
