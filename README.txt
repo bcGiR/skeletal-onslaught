@@ -1,21 +1,9 @@
 SKELETAL ONSLAUGHT
 
-*** Featuers to be implemented by BETA ***
+This is a text adventure, role playing game written in Ruby as a chance for me to play around with a new language,
+mess around with game design, learn and practice using git, and experiment with windows as a development environment.
 
-  -modatt and moddefn attrs in model (*COMPLETE* note:created modifier class, modifiers array in model holds modifiers)
-  -equippable class < item; sword < equippable, shield < equippable, etc. (*COMPLETE*)
-  -special abilities (more than one, special opens up menu, pick special ability, different MP costs, etc.)
-						(*COMPLETE* note: add special ability to special_list on level up)
+So far, it has been a great learning experience in many ways and even though I am not very happy with it as a game,
+as a project it has been very fun, educational, and rewarding.
 
-  *BETA FEATURES COMPLETE!*
-
-*** Content to be implemented by BETA ***
-
-  -complete dungeon.rb file: contains all areas of the Cave of Infinite Skeletons (*COMPLETE*)
-  -create a few new enemy classes (*COMPLETE*)
-  -create a few new item classes (consumables, equipment, other) (*COMPLETE*)
-  -high score based on exp not gold
-  -create assassin secret class
-  -balance level scaling! (*COMPLETE*)
-  -directionals added to area.adjacent (make adjacent a hash with {'direction' => 'area'} ) (*COMPLETE*)
-  -new npcs (*COMPLETE*)
+Enjoy.
