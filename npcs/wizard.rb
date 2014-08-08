@@ -57,15 +57,16 @@ class Wizard < NPC
 			save = [hero.names[0], hero.lvl, hero.role, hero.gold, hero.exp, hero.keys, heal, pearl, mhp, mmp, shp, smp, skull, arm, tooth, barmor, bbuckler, bnecklace, bsword, pskull, isword, ishield, iarmor, silk, helm, staff, gpend, spend]
 
 			new = true
-
-			CSV.foreach('C:\Users\Brendan\source\ruby\game\highscore.csv') do |row|
+			scores_csv = ENV['userprofile'] + '\SkeletalOnslaught\highscore.csv'
+			
+			CSV.foreach(scores_csv) do |row|
 				if hero.names[0] == row[0]
 					row = save
 					new = false
 				end
 			end
 			if new
-				CSV.open('C:\Users\Brendan\source\ruby\game\highscore.csv', 'ab') do |csv|
+				CSV.open(scores_csv, 'ab') do |csv|
 					csv << save
 				end
 			end

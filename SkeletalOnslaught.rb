@@ -99,7 +99,9 @@ end
 new_game = true
 game = "variable_for_game"
 
-CSV.foreach('C:\Users\Brendan\source\ruby\game\highscore.csv') do |row|
+scores_csv = ENV['userprofile'] + '\SkeletalOnslaught\highscore.csv'
+
+CSV.foreach(scores_csv) do |row|
 	if user_name == row[0]
 		new_game = false
 		game = Game.new(row[0], row[2].downcase, town)
@@ -292,7 +294,7 @@ system("cls")
 high_scores = []
 
 #Add csv scores to high_scores
-CSV.foreach('C:\Users\Brendan\source\ruby\game\highscore.csv') do |row|
+CSV.foreach(scores_csv) do |row|
 	high_scores << row
 end
 
