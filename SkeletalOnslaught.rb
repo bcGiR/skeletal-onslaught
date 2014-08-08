@@ -299,7 +299,7 @@ CSV.foreach(scores_csv) do |row|
 end
 
 #sorts high scores by gold earned and then selects the top 10
-high_scores = high_scores.sort_by {|s| s[4]}.reverse[0..9]
+high_scores = high_scores.sort_by {|s| s[4].to_i}.reverse[0..9]
 
 #displays high scores
 puts "\n --------------------------------- HIGH SCORES ---------------------------------\n\n"
